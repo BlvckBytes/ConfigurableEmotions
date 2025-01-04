@@ -14,6 +14,7 @@
 commands:
   emotion:
     name: 'emotion'
+    allSentinel: 'Alle'
     aliases:
       - emo
   emotionReload:
@@ -22,6 +23,30 @@ commands:
 playerMessages:
   commandEmotionReloadSuccess$: '@{MESSAGE-COMMAND-EMOTION-RELOAD-SUCCESS(prefix=lut["MESSAGE_PREFIX"])}'
   commandEmotionReloadFailure$: '@{MESSAGE-COMMAND-EMOTION-RELOAD-FAILURE(prefix=lut["MESSAGE_PREFIX"])}'
+  # - label: String
+  # - all_sentinel: String
+  # - emotions: List<HelpScreenEntry> where HelpScreenEntry: { identifier: String, description: String, supports_others: Boolean, supports_all: Boolean }
+  commandEmotionHelpScreen$: |
+    flatten(
+      "&8&m                         &8[&5Emotionen&8&m]                         ",
+      map(
+        emotions,
+        (emotion) => (
+          "&8> &7/" & label & " &d" & emotion.identifier & "&7" & (
+            if emotion.supports_others then (
+              if emotion.supports_all then (
+                if emotion.supports_self then " [&dSpieler&7/&d" & all_sentinel & "&7]" else " <&dSpieler&7/&d" & all_sentinel & "&7>"
+              ) else (
+                if emotion.supports_self then " [&dSpieler&7]" else " <&dSpieler&7>"
+              )
+            ) else ""
+          ) & " - " & emotion.description
+        ),
+        "&cNoch keine Emotionen konfiguriert"
+      ),
+      "&8&m                         &8[&5Emotionen&8&m]                         "
+    )
+
   missingPermissionEmotionCommand$: '@{MESSAGE-MISSING-PERMISSION-EMOTION-COMMAND(prefix=lut["MESSAGE_PREFIX"])}'
   missingPermissionEmotionReloadCommand$: '@{MESSAGE-MISSING-PERMISSION-EMOTION-RELOAD-COMMAND(prefix=lut["MESSAGE_PREFIX"])}'
 

@@ -1,4 +1,4 @@
-MESSAGE-PREFIX &8[&5Emotions&8] \
+MESSAGE-PREFIX &8[&5Emotionen&8] \
 
 MESSAGE-COMMAND-EMOTION-RELOAD-SUCCESS            {prefix}&7Die Konfiguration des Plugins wurde &aerfolgreich neu geladen&7!
 MESSAGE-COMMAND-EMOTION-RELOAD-FAILURE            {prefix}&cWährend des Neuladeprozesses der Konfiguration trat ein Fehler auf; bitte überprüfe die Konsole!

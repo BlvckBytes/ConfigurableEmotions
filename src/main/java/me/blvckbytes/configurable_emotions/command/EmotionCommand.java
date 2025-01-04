@@ -1,7 +1,7 @@
 package me.blvckbytes.configurable_emotions.command;
 
+import me.blvckbytes.bbconfigmapper.ScalarType;
 import me.blvckbytes.bukkitevaluable.ConfigKeeper;
-import me.blvckbytes.configurable_emotions.config.EmotionCommandSection;
 import me.blvckbytes.configurable_emotions.config.MainSection;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,6 +25,27 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (!CommandPermission.COMMAND_EMOTION.hasPermission(sender)) {
       config.rootSection.playerMessages.missingPermissionEmotionCommand.sendMessage(sender, config.rootSection.builtBaseEnvironment);
       return false;
+    }
+
+    if (args.length == 0) {
+      var helpScreenEntries = config.rootSection.configuredEmotions.stream().map(configuredEmotion -> new HelpScreenEntry(
+        configuredEmotion.identifier(),
+        configuredEmotion.emotion().description.asScalar(ScalarType.STRING, config.rootSection.builtBaseEnvironment),
+        configuredEmotion.emotion().supportsSelf,
+        configuredEmotion.emotion().supportsOthers,
+        configuredEmotion.emotion().supportsAll
+      )).toList();
+
+      config.rootSection.playerMessages.commandEmotionHelpScreen.sendMessage(
+        sender,
+        config.rootSection.getBaseEnvironment()
+          .withStaticVariable("label", label)
+          .withStaticVariable("all_sentinel", config.rootSection.commands.emotion.allSentinel)
+          .withStaticVariable("emotions", helpScreenEntries)
+          .build()
+      );
+
+      return true;
     }
 
     return true;

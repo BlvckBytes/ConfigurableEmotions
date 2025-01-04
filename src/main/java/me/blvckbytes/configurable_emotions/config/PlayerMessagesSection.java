@@ -8,6 +8,7 @@ public class PlayerMessagesSection extends AConfigSection {
 
   public BukkitEvaluable commandEmotionReloadSuccess;
   public BukkitEvaluable commandEmotionReloadFailure;
+  public BukkitEvaluable commandEmotionHelpScreen;
   public BukkitEvaluable missingPermissionEmotionCommand;
   public BukkitEvaluable missingPermissionEmotionReloadCommand;
 
