@@ -34,15 +34,29 @@ emotions:
 
     # The particle-effect played to the executor at execution; delete section to play no effect
     effectSender:
-      particle: '...'
       displayType: 'SINGLE/CLOUD/HELIX'
       offsetType: 'FEET/EYES/ABOVE_HEAD'
+      particle: '...'
+      # These options may not be applicable to all particles
+      # Material of item-/block-crack, block-/falling-dust, etc.
+      particleMaterial: '...'
+      # Also supports RGB-notation of format 'R G B'
+      particleColor: '...'
+      # Size of redstone dust particles
+      particleSize: 1
 
     # The particle-effect played to the receiver(s) at execution; delete section to play no effect
     effectReceiver:
-      particle: '...'
       displayType: 'SINGLE/CLOUD/HELIX'
       offsetType: 'FEET/EYES/ABOVE_HEAD'
+      particle: '...'
+      # These options may not be applicable to all particles
+      # Material of item-/block-crack, block-/falling-dust, etc.
+      particleMaterial: '...'
+      # Also supports RGB-notation of format 'R G B'
+      particleColor: '...'
+      # Size of redstone dust particles
+      particleSize: 1
 
     # Deleting the keys of undesired messages will cause them to not be displayed
 
@@ -93,4 +107,4 @@ emotions:
     subTitleMessageAllBroadcast: '...'
 ```
 
-Sounds are the names of an enum-constant of [XSound](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XSound.java); particle are the names of an enum-constant of [XParticle](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/particles/XParticle.java).
+Sounds are the names of a constant of [XSound](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XSound.java); particle are the names of a constant of [XParticle](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/particles/XParticle.java); materials are the names of a constant of [XMaterial](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XMaterial.java); colors can be the names of a constant of bukkit's [Color](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Color.html)-class.
