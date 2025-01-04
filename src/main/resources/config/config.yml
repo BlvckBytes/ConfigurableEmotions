@@ -1,0 +1,32 @@
+# _________            ____________                             ______ ______    __________                _____
+# __  ____/_______________  __/__(_)______ ____  ______________ ___  /____  /_______  ____/______ ___________  /_____________
+# _  /    _  __ \_  __ \_  /_ __  /__  __ `/  / / /_  ___/  __ `/_  __ \_  /_  _ \_  __/  __  __ `__ \  __ \  __/  _ \_  ___/
+# / /___  / /_/ /  / / /  __/ _  / _  /_/ // /_/ /_  /   / /_/ /_  /_/ /  / /  __/  /___  _  / / / / / /_/ / /_ /  __/(__  )
+# \____/  \____//_/ /_//_/    /_/  _\__, / \__,_/ /_/    \__,_/ /_.___//_/  \___//_____/  /_/ /_/ /_/\____/\__/ \___//____/
+# /____/
+#
+# ConfigurableEmotes - Developed by BlvckBytes <blvckbytes@gmail.com>
+# Repository - https://github.com/BlvckBytes/ConfigurableEmotes
+# ASCII-Art - https://patorjk.com/software/taag/#p=display&f=Speed
+#
+# PRE-PROCESSOR-INPUT de_de.txt
+
+commands:
+  emotion:
+    name: 'emotion'
+    aliases:
+      - emo
+  emotionReload:
+    name: 'emotionrl'
+
+playerMessages:
+  commandEmotionReloadSuccess$: '@{MESSAGE-COMMAND-EMOTION-RELOAD-SUCCESS(prefix=lut["MESSAGE_PREFIX"])}'
+  commandEmotionReloadFailure$: '@{MESSAGE-COMMAND-EMOTION-RELOAD-FAILURE(prefix=lut["MESSAGE_PREFIX"])}'
+  missingPermissionEmotionCommand$: '@{MESSAGE-MISSING-PERMISSION-EMOTION-COMMAND(prefix=lut["MESSAGE_PREFIX"])}'
+  missingPermissionEmotionReloadCommand$: '@{MESSAGE-MISSING-PERMISSION-EMOTION-RELOAD-COMMAND(prefix=lut["MESSAGE_PREFIX"])}'
+
+emotes:
+
+# File-global lookup table
+lut:
+  MESSAGE_PREFIX: '@{MESSAGE-PREFIX}'
