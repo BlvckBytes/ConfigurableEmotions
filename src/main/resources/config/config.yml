@@ -5,8 +5,8 @@
 # \____/  \____//_/ /_//_/    /_/  _\__, / \__,_/ /_/    \__,_/ /_.___//_/  \___//_____/  /_/ /_/ /_/\____/\__/ \___//____/
 # /____/
 #
-# ConfigurableEmotes - Developed by BlvckBytes <blvckbytes@gmail.com>
-# Repository - https://github.com/BlvckBytes/ConfigurableEmotes
+# ConfigurableEmotions - Developed by BlvckBytes <blvckbytes@gmail.com>
+# Repository - https://github.com/BlvckBytes/ConfigurableEmotions
 # ASCII-Art - https://patorjk.com/software/taag/#p=display&f=Speed
 #
 # PRE-PROCESSOR-INPUT de_de.txt
@@ -25,7 +25,7 @@ playerMessages:
   missingPermissionEmotionCommand$: '@{MESSAGE-MISSING-PERMISSION-EMOTION-COMMAND(prefix=lut["MESSAGE_PREFIX"])}'
   missingPermissionEmotionReloadCommand$: '@{MESSAGE-MISSING-PERMISSION-EMOTION-RELOAD-COMMAND(prefix=lut["MESSAGE_PREFIX"])}'
 
-emotes:
+emotions:
 
 # File-global lookup table
 lut:

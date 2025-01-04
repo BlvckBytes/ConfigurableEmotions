@@ -45,6 +45,11 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       updateCommands.run();
       config.registerReloadListener(updateCommands);
 
+      Runnable emotionCountLogger = () -> logger.info("Loaded " + config.rootSection.configuredEmotions.size() + " configured emotions!");
+
+      emotionCountLogger.run();
+      config.registerReloadListener(emotionCountLogger);
+
       Bukkit.getServer().getPluginManager().registerEvents(new CommandSendListener(this, config), this);
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Could not initialize plugin", e);
