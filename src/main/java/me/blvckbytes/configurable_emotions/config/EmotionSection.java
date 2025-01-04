@@ -83,6 +83,9 @@ public class EmotionSection extends AConfigSection {
   public void afterParsing(List<Field> fields) throws Exception {
     super.afterParsing(fields);
 
+    if (!(supportsSelf || supportsOthers || supportsAll))
+      throw new MappingError("At least one of the properties \"supportsSelf\", \"supportsOthers\" or \"supportsAll\" must be enabled!");
+
     if (description == null)
       throw new MappingError("Property \"description\" was absent, but is required");
 

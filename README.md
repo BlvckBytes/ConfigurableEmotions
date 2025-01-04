@@ -9,7 +9,8 @@ Under the top-level section called `emotions`, one may register as many custom e
 ```yaml
 # Emotions will be displayed in this exact order on the help-screen
 emotions:
-  # Unique identifier; used as the command-argument and for auto-completion
+  # Unique identifier; used as the command-argument and for auto-completion; cannot contain spaces
+  # Permission will be of pattern configurableemotions.emotion.<lowercase_identifier>; in this case: configurableemotions.emotion.myemotion
   MyEmotion:
     # Description shown on the help-screen
     description: '...'
@@ -108,3 +109,7 @@ emotions:
 ```
 
 Sounds are the names of a constant of [XSound](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XSound.java); particle are the names of a constant of [XParticle](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/particles/XParticle.java); materials are the names of a constant of [XMaterial](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XMaterial.java); colors can be the names of a constant of bukkit's [Color](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Color.html)-class.
+
+## Ideas
+
+- Have settable moods, which have a duration, can be changed or cleared at any time, and are put into a PAPI-variable, to be displayed in - for example - the tablist, as a suffix.

@@ -5,4 +5,16 @@ main: me.blvckbytes.configurable_emotions.ConfigurableEmotionsPlugin
 api-version: 1.14
 commands:
   emotion:
+    description: 'Play emotions'
   emotionrl:
+    description: 'Reload the configuration'
+permissions:
+  configurableemotions.command.emotion:
+    description: 'Execute the emotion-command'
+    default: op
+  configurableemotions.command.emotionrl:
+    description: 'Execute the reload-command'
+    default: op
+  configurableemotions.bypass-cooldown:
+    description: 'Bypass having to await cooldowns to elapse'
+    default: op

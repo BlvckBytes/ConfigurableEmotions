@@ -45,7 +45,7 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       updateCommands.run();
       config.registerReloadListener(updateCommands);
 
-      Runnable emotionCountLogger = () -> logger.info("Loaded " + config.rootSection.configuredEmotions.size() + " configured emotions!");
+      Runnable emotionCountLogger = () -> logger.info("Loaded " + config.rootSection.emotions.size() + " configured emotions!");
 
       emotionCountLogger.run();
       config.registerReloadListener(emotionCountLogger);
