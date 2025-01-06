@@ -15,6 +15,9 @@ import java.util.List;
 
 public class DisplayedEffect extends AConfigSection {
 
+  public long frequencyTicks;
+  public long numberOfExecutions;
+
   public @Nullable BukkitEvaluable particle;
   public @Nullable BukkitEvaluable particleMaterial;
   public @Nullable BukkitEvaluable particleColor;

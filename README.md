@@ -37,6 +37,11 @@ emotions:
     effectSender:
       displayType: 'SINGLE/CLOUD/HELIX'
       offsetType: 'FEET/EYES/ABOVE_HEAD'
+      # Time in ticks in between executions
+      frequencyTicks: 15
+      # Total number of executions until considered completed
+      numberOfExecutions: 15
+      duration: 15
       particle: '...'
       # These options may not be applicable to all particles
       # Material of item-/block-crack, block-/falling-dust, etc.
