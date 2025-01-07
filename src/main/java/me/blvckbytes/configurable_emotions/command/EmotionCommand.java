@@ -63,11 +63,14 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
       if (emotion.cooldownSeconds != 0 && !player.hasPermission("configurableemotions.bypass-cooldown")) {
         var elapsedSeconds = getElapsedCooldownSeconds(identifierLower, player);
-        var remainingSeconds = emotion.cooldownSeconds - elapsedSeconds;
 
-        if (remainingSeconds > 0) {
-          player.sendMessage("§cPlease wait another §4" + formatSecondsToTimeString(remainingSeconds) + " §cuntil playing this emotion again!");
-          return true;
+        if (elapsedSeconds >= 0) {
+          var remainingSeconds = emotion.cooldownSeconds - elapsedSeconds;
+
+          if (remainingSeconds > 0) {
+            player.sendMessage("§cPlease wait another §4" + formatSecondsToTimeString(remainingSeconds) + " §cuntil playing the emotion §4" + args[0] + " §cagain!");
+            return true;
+          }
         }
       }
 
@@ -360,15 +363,23 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       var displayName = sanitize(player.getDisplayName());
 
       if (!name.equals(displayName)) {
+        if (!StringUtils.containsIgnoreCase(displayName, args[1]))
+          continue;
+
         nameSuggestions.add(displayName);
         continue;
       }
 
+      if (!StringUtils.containsIgnoreCase(name, args[1]))
+        continue;
+
       nameSuggestions.add(name);
     }
 
-    if (emotion.supportsAll)
-      nameSuggestions.add(config.rootSection.commands.emotion.allSentinel);
+    var allSentinel = config.rootSection.commands.emotion.allSentinel;
+
+    if (emotion.supportsAll && StringUtils.containsIgnoreCase(allSentinel, args[1]))
+      nameSuggestions.add(allSentinel);
 
     return nameSuggestions;
   }
