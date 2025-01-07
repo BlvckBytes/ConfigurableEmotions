@@ -9,6 +9,7 @@ import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmotionSection extends AConfigSection {
@@ -23,8 +24,8 @@ public class EmotionSection extends AConfigSection {
   public @Nullable BukkitEvaluable soundSender;
   public @Nullable BukkitEvaluable soundReceiver;
 
-  public @Nullable DisplayedEffect effectSender;
-  public @Nullable DisplayedEffect effectReceiver;
+  public List<DisplayedEffect> effectsSender;
+  public List<DisplayedEffect> effectsReceiver;
 
   // Played the emotion on themselves
 
@@ -48,6 +49,9 @@ public class EmotionSection extends AConfigSection {
 
   public EmotionSection(EvaluationEnvironmentBuilder baseEnvironment) {
     super(baseEnvironment);
+
+    this.effectsSender = new ArrayList<>();
+    this.effectsReceiver = new ArrayList<>();
   }
 
   @Override

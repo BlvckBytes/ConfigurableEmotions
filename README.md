@@ -33,34 +33,36 @@ emotions:
     # The sound played to the receiver(s) at execution; delete key to play no sound
     soundReceiver: '...'
 
-    # The particle-effect played to the executor at execution; delete section to play no effect
+    # The particle-effects played to the executor at execution; delete section to play no effect
     effectSender:
-      displayType: 'SINGLE/CLOUD/HELIX'
+      # There may be as many parallel effects as desired
+      -
+          displayType: 'SINGLE/CLOUD/HELIX'
 
-      # Properties of the cloud-type
-      cloudRadius: 1
-      cloudParticleCount: 1
+          # Properties of the cloud-type
+          cloudRadius: 1
+          cloudParticleCount: 1
 
-      # Properties of the helix-type
-      numberOfHelixCurves: 2
-      helixHeight: 2
-      helixRadius: 1
-      helixAngleStepSize: .1
-      helixWindings: 1
+          # Properties of the helix-type
+          numberOfHelixCurves: 2
+          helixHeight: 2
+          helixRadius: 1
+          helixAngleStepSize: .1
+          helixWindings: 1
 
-      offsetType: 'FEET/EYES/ABOVE_HEAD'
-      # Time in ticks in between executions
-      frequencyTicks: 15
-      # Total number of executions until considered completed
-      numberOfExecutions: 3
-      particle: '...'
-      # These options may not be applicable to all particles
-      # Material of item-/block-crack, block-/falling-dust, etc.
-      particleMaterial: '...'
-      # Also supports RGB-notation of format 'R G B'
-      particleColor: '...'
-      # Size of redstone dust particles
-      particleSize: 1
+          offsetType: 'FEET/EYES/ABOVE_HEAD'
+          # Time in ticks in between executions
+          frequencyTicks: 15
+          # Total number of executions until considered completed
+          numberOfExecutions: 3
+          particle: '...'
+          # These options may not be applicable to all particles
+          # Material of item-/block-crack, block-/falling-dust, etc.
+          particleMaterial: '...'
+          # Also supports RGB-notation of format 'R G B'
+          particleColor: '...'
+          # Size of redstone dust particles
+          particleSize: 1
 
     # The particle-effect played to the receiver(s) at execution; delete section to play no effect
     effectReceiver: # Layout equals to that of effectSender

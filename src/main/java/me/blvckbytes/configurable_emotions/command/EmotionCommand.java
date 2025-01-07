@@ -231,11 +231,11 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (receivers.isEmpty())
       return false;
 
-    if (emotion.effectSender != null)
-      effectPlayer.playEffect(emotion.effectSender, List.of(sender));
+    for (var senderEffect : emotion.effectsSender)
+      effectPlayer.playEffect(senderEffect, List.of(sender));
 
-    if (emotion.effectReceiver != null)
-      effectPlayer.playEffect(emotion.effectReceiver, receivers);
+    for (var receiverEffect : emotion.effectsReceiver)
+      effectPlayer.playEffect(receiverEffect, receivers);
 
     if (emotion._soundSender != null)
       emotion._soundSender.play(sender);
@@ -295,11 +295,11 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion.messagesOneReceiver != null)
       displayMessages(receiver, receiverEnvironment, emotion.messagesOneReceiver);
 
-    if (emotion.effectSender != null)
-      effectPlayer.playEffect(emotion.effectSender, List.of(sender));
+    for (var senderEffect : emotion.effectsSender)
+      effectPlayer.playEffect(senderEffect, List.of(sender));
 
-    if (emotion.effectReceiver != null)
-      effectPlayer.playEffect(emotion.effectReceiver, List.of(receiver));
+    for (var receiverEffect : emotion.effectsReceiver)
+      effectPlayer.playEffect(receiverEffect, List.of(receiver));
 
     if (emotion._soundSender != null)
       emotion._soundSender.play(sender);
@@ -316,8 +316,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         displayMessages(messageReceiver, messageEnvironment.build(), emotion.messagesSelfBroadcast);
     }
 
-    if (emotion.effectSender != null)
-      effectPlayer.playEffect(emotion.effectSender, List.of(sender));
+    for (var senderEffect : emotion.effectsSender)
+      effectPlayer.playEffect(senderEffect, List.of(sender));
 
     if (emotion._soundSender != null)
       emotion._soundSender.play(sender);
