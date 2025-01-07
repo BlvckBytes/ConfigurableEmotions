@@ -38,7 +38,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
     if (!(sender instanceof Player player)) {
-      sender.sendMessage("§cThis command is only available to players!");
+      config.rootSection.playerMessages.playerOnlyCommand.sendMessage(sender, config.rootSection.builtBaseEnvironment);
       return true;
     }
 
@@ -52,12 +52,22 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       var emotion = config.rootSection.emotionByIdentifierLower.get(identifierLower);
 
       if (emotion == null) {
-        player.sendMessage("§cUnknown emotion §4" + args[0] + " §cprovided!");
+        config.rootSection.playerMessages.unknownEmotionProvided.sendMessage(
+          player,
+          config.rootSection.getBaseEnvironment()
+            .withStaticVariable("input", args[0])
+            .build()
+        );
         return true;
       }
 
       if (!player.hasPermission("configurableemotions.emotion." + identifierLower)) {
-        player.sendMessage("§cYou do not have permission to use the emotion §4" + args[0] + "§c!");
+        config.rootSection.playerMessages.missingEmotionPermission.sendMessage(
+          player,
+          config.rootSection.getBaseEnvironment()
+            .withStaticVariable("emotion_identifier", args[0])
+            .build()
+        );
         return true;
       }
 
@@ -68,7 +78,13 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
           var remainingSeconds = emotion.cooldownSeconds - elapsedSeconds;
 
           if (remainingSeconds > 0) {
-            player.sendMessage("§cPlease wait another §4" + formatSecondsToTimeString(remainingSeconds) + " §cuntil playing the emotion §4" + args[0] + " §cagain!");
+            config.rootSection.playerMessages.awaitRemainingCooldown.sendMessage(
+              player,
+              config.rootSection.getBaseEnvironment()
+                .withStaticVariable("remaining_time", formatSecondsToTimeString(remainingSeconds))
+                .withStaticVariable("emotion_identifier", args[0])
+                .build()
+            );
             return true;
           }
         }
@@ -79,12 +95,22 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
         if (emotionTarget.equalsIgnoreCase(config.rootSection.commands.emotion.allSentinel)) {
           if (!emotion.supportsAll) {
-            player.sendMessage("§cThe emotion §4" + args[0] + " §cdoes not support being sent to all players!");
+            config.rootSection.playerMessages.unsupportedAllTarget.sendMessage(
+              player,
+              config.rootSection.getBaseEnvironment()
+                .withStaticVariable("emotion_identifier", args[0])
+                .build()
+            );
             return true;
           }
 
           if (!playEmotionAll(player, emotion)) {
-            player.sendMessage("§cThere are no players online to receive your emotion!");
+            config.rootSection.playerMessages.noReceivingPlayersOnline.sendMessage(
+              player,
+              config.rootSection.getBaseEnvironment()
+                .withStaticVariable("emotion_identifier", args[0])
+                .build()
+            );
             return true;
           }
 
@@ -95,19 +121,29 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         }
 
         if (!emotion.supportsOthers) {
-          player.sendMessage("§cThe emotion §4" + args[0] + " §cdoes not support being sent to another player!");
+          config.rootSection.playerMessages.unsupportedOtherTarget.sendMessage(
+            player,
+            config.rootSection.getBaseEnvironment()
+              .withStaticVariable("emotion_identifier", args[0])
+              .build()
+          );
           return true;
         }
 
         var targetPlayer = getPlayerByNameOrDisplayName(emotionTarget);
 
         if (targetPlayer == null || !targetPlayer.isOnline()) {
-          player.sendMessage("§cThe player §4" + args[1] + " §cis not currently online!");
+          config.rootSection.playerMessages.receivingPlayerNotOnline.sendMessage(
+            player,
+            config.rootSection.getBaseEnvironment()
+              .withStaticVariable("target_player", args[1])
+              .build()
+          );
           return true;
         }
 
         if (targetPlayer.equals(player)) {
-          player.sendMessage("§cYou cannot send an emotion to yourself!");
+          config.rootSection.playerMessages.receiverCannotBeSelf.sendMessage(player, config.rootSection.builtBaseEnvironment);
           return true;
         }
 
@@ -120,7 +156,12 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       }
 
       if (!emotion.supportsSelf) {
-        player.sendMessage("§cThe emotion §4" + args[0] + " §cdoes not support being played on yourself!");
+        config.rootSection.playerMessages.unsupportedPlayingOnSelf.sendMessage(
+          player,
+          config.rootSection.getBaseEnvironment()
+            .withStaticVariable("emotion_identifier", args[0])
+            .build()
+        );
         return true;
       }
 
@@ -154,7 +195,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     }
 
     if (mismatchedPermission && helpScreenEntries.isEmpty()) {
-      sender.sendMessage("§cYou do not have access to any available emotion!");
+      config.rootSection.playerMessages.noAccessToAnyEmotion.sendMessage(player, config.rootSection.builtBaseEnvironment);
       return true;
     }
 

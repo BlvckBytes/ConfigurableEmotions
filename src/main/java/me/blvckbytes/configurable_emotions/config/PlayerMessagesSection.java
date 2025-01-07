@@ -9,6 +9,18 @@ public class PlayerMessagesSection extends AConfigSection {
   public BukkitEvaluable commandEmotionReloadSuccess;
   public BukkitEvaluable commandEmotionReloadFailure;
   public BukkitEvaluable commandEmotionHelpScreen;
+
+  public BukkitEvaluable receiverCannotBeSelf;
+  public BukkitEvaluable receivingPlayerNotOnline;
+  public BukkitEvaluable noReceivingPlayersOnline;
+  public BukkitEvaluable unsupportedPlayingOnSelf;
+  public BukkitEvaluable unsupportedOtherTarget;
+  public BukkitEvaluable unsupportedAllTarget;
+  public BukkitEvaluable awaitRemainingCooldown;
+  public BukkitEvaluable noAccessToAnyEmotion;
+  public BukkitEvaluable missingEmotionPermission;
+  public BukkitEvaluable unknownEmotionProvided;
+  public BukkitEvaluable playerOnlyCommand;
   public BukkitEvaluable missingPermissionEmotionCommand;
   public BukkitEvaluable missingPermissionEmotionReloadCommand;
 

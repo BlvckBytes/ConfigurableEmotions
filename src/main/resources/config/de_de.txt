@@ -1,6 +1,0 @@
-MESSAGE-PREFIX &8[&5Emotionen&8] \
-
-MESSAGE-COMMAND-EMOTION-RELOAD-SUCCESS            {prefix}&7Die Konfiguration des Plugins wurde &aerfolgreich neu geladen&7!
-MESSAGE-COMMAND-EMOTION-RELOAD-FAILURE            {prefix}&cWährend des Neuladeprozesses der Konfiguration trat ein Fehler auf; bitte überprüfe die Konsole!
-MESSAGE-MISSING-PERMISSION-EMOTION-COMMAND        {prefix}&cDir fehlen die nötigen Rechte um diesen Befehl zu benutzen!
-MESSAGE-MISSING-PERMISSION-EMOTION-RELOAD-COMMAND {prefix}&cDir fehlen die nötigen Rechte um diesen Befehl zu benutzen!
