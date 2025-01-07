@@ -41,7 +41,6 @@ emotions:
       frequencyTicks: 15
       # Total number of executions until considered completed
       numberOfExecutions: 15
-      duration: 15
       particle: '...'
       # These options may not be applicable to all particles
       # Material of item-/block-crack, block-/falling-dust, etc.
@@ -68,49 +67,89 @@ emotions:
 
     # Played the emotion on themselves
 
-    chatMessageSelfSender: '...'
-    actionBarMessageSelfSender: '...'
-    titleMessageSelfSender: '...'
-    subTitleMessageSelfSender: '...'
+    messagesSelfSender:
+      chatMessage: '...'
+      actionBarMessage: '...'
+      titleMessage: '...'
+      subTitleMessage: '...'
+      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
+      titleFadeIn: 1
+      titleStay: 1
+      titleFadeOut: 1
 
-    chatMessageSelfBroadcast: '...'
-    actionBarMessageSelfBroadcast: '...'
-    titleMessageSelfBroadcast: '...'
-    subTitleMessageSelfBroadcast: '...'
+    messagesSelfBroadcast:
+      chatMessage: '...'
+      actionBarMessage: '...'
+      titleMessage: '...'
+      subTitleMessage: '...'
+      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
+      titleFadeIn: 1
+      titleStay: 1
+      titleFadeOut: 1
 
     # Played the emotion at one other player
 
-    chatMessageOneSender: '...'
-    actionBarMessageOneSender: '...'
-    titleMessageOneSender: '...'
-    subTitleMessageOneSender: '...'
+    messagesOneSender:
+      chatMessage: '...'
+      actionBarMessage: '...'
+      titleMessage: '...'
+      subTitleMessage: '...'
+      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
+      titleFadeIn: 1
+      titleStay: 1
+      titleFadeOut: 1
 
-    chatMessageOneReceiver: '...'
-    actionBarMessageOneReceiver: '...'
-    titleMessageOneReceiver: '...'
-    subTitleMessageOneReceiver: '...'
+    messagesOneReceiver:
+      chatMessage: '...'
+      actionBarMessage: '...'
+      titleMessage: '...'
+      subTitleMessage: '...'
+      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
+      titleFadeIn: 1
+      titleStay: 1
+      titleFadeOut: 1
 
-    chatMessageOneBroadcast: '...'
-    actionBarMessageOneBroadcast: '...'
-    titleMessageOneBroadcast: '...'
-    subTitleMessageOneBroadcast: '...'
+    messagesOneBroadcast:
+      chatMessage: '...'
+      actionBarMessage: '...'
+      titleMessage: '...'
+      subTitleMessage: '...'
+      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
+      titleFadeIn: 1
+      titleStay: 1
+      titleFadeOut: 1
 
     # Played the emotion at all other online players
 
-    chatMessageAllSender: '...'
-    actionBarMessageAllSender: '...'
-    titleMessageAllSender: '...'
-    subTitleMessageAllSender: '...'
+    messagesAllSender:
+      chatMessage: '...'
+      actionBarMessage: '...'
+      titleMessage: '...'
+      subTitleMessage: '...'
+      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
+      titleFadeIn: 1
+      titleStay: 1
+      titleFadeOut: 1
 
-    chatMessageAllReceiver: '...'
-    actionBarMessageAllReceiver: '...'
-    titleMessageAllReceiver: '...'
-    subTitleMessageAllReceiver: '...'
+    messagesAllReceiver:
+      chatMessage: '...'
+      actionBarMessage: '...'
+      titleMessage: '...'
+      subTitleMessage: '...'
+      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
+      titleFadeIn: 1
+      titleStay: 1
+      titleFadeOut: 1
 
-    chatMessageAllBroadcast: '...'
-    actionBarMessageAllBroadcast: '...'
-    titleMessageAllBroadcast: '...'
-    subTitleMessageAllBroadcast: '...'
+    messagesAllBroadcast:
+      chatMessage: '...'
+      actionBarMessage: '...'
+      titleMessage: '...'
+      subTitleMessage: '...'
+      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
+      titleFadeIn: 1
+      titleStay: 1
+      titleFadeOut: 1
 ```
 
 Sounds are the names of a constant of [XSound](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XSound.java); particle are the names of a constant of [XParticle](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/particles/XParticle.java); materials are the names of a constant of [XMaterial](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XMaterial.java); colors can be the names of a constant of bukkit's [Color](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Color.html)-class.

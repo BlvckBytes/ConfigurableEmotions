@@ -28,49 +28,20 @@ public class EmotionSection extends AConfigSection {
 
   // Played the emotion on themselves
 
-  public @Nullable BukkitEvaluable chatMessageSelfSender;
-  public @Nullable BukkitEvaluable actionBarMessageSelfSender;
-  public @Nullable BukkitEvaluable titleMessageSelfSender;
-  public @Nullable BukkitEvaluable subTitleMessageSelfSender;
-
-  public @Nullable BukkitEvaluable chatMessageSelfBroadcast;
-  public @Nullable BukkitEvaluable actionBarMessageSelfBroadcast;
-  public @Nullable BukkitEvaluable titleMessageSelfBroadcast;
-  public @Nullable BukkitEvaluable subTitleMessageSelfBroadcast;
+  public @Nullable DisplayedMessages messagesSelfSender;
+  public @Nullable DisplayedMessages messagesSelfBroadcast;
 
   // Played the emotion at one other player
 
-  public @Nullable BukkitEvaluable chatMessageOneSender;
-  public @Nullable BukkitEvaluable actionBarMessageOneSender;
-  public @Nullable BukkitEvaluable titleMessageOneSender;
-  public @Nullable BukkitEvaluable subTitleMessageOneSender;
-
-  public @Nullable BukkitEvaluable chatMessageOneReceiver;
-  public @Nullable BukkitEvaluable actionBarMessageOneReceiver;
-  public @Nullable BukkitEvaluable titleMessageOneReceiver;
-  public @Nullable BukkitEvaluable subTitleMessageOneReceiver;
-
-  public @Nullable BukkitEvaluable chatMessageOneBroadcast;
-  public @Nullable BukkitEvaluable actionBarMessageOneBroadcast;
-  public @Nullable BukkitEvaluable titleMessageOneBroadcast;
-  public @Nullable BukkitEvaluable subTitleMessageOneBroadcast;
+  public @Nullable DisplayedMessages messagesOneSender;
+  public @Nullable DisplayedMessages messagesOneReceiver;
+  public @Nullable DisplayedMessages messagesOneBroadcast;
 
   // Played the emotion at all other online players
 
-  public @Nullable BukkitEvaluable chatMessageAllSender;
-  public @Nullable BukkitEvaluable actionBarMessageAllSender;
-  public @Nullable BukkitEvaluable titleMessageAllSender;
-  public @Nullable BukkitEvaluable subTitleMessageAllSender;
-
-  public @Nullable BukkitEvaluable chatMessageAllReceiver;
-  public @Nullable BukkitEvaluable actionBarMessageAllReceiver;
-  public @Nullable BukkitEvaluable titleMessageAllReceiver;
-  public @Nullable BukkitEvaluable subTitleMessageAllReceiver;
-
-  public @Nullable BukkitEvaluable chatMessageAllBroadcast;
-  public @Nullable BukkitEvaluable actionBarMessageAllBroadcast;
-  public @Nullable BukkitEvaluable titleMessageAllBroadcast;
-  public @Nullable BukkitEvaluable subTitleMessageAllBroadcast;
+  public @Nullable DisplayedMessages messagesAllSender;
+  public @Nullable DisplayedMessages messagesAllReceiver;
+  public @Nullable DisplayedMessages messagesAllBroadcast;
 
   @CSIgnore
   public @Nullable XSound _soundSender, _soundReceiver;

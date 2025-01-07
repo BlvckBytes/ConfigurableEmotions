@@ -2,8 +2,12 @@ package me.blvckbytes.configurable_emotions.command;
 
 import me.blvckbytes.bbconfigmapper.ScalarType;
 import me.blvckbytes.bukkitevaluable.ConfigKeeper;
+import me.blvckbytes.configurable_emotions.EffectPlayer;
+import me.blvckbytes.configurable_emotions.config.DisplayedMessages;
 import me.blvckbytes.configurable_emotions.config.EmotionSection;
 import me.blvckbytes.configurable_emotions.config.MainSection;
+import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
+import me.blvckbytes.gpeee.interpreter.IEvaluationEnvironment;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -18,10 +22,15 @@ import java.util.*;
 
 public class EmotionCommand implements CommandExecutor, TabCompleter {
 
+  private final EffectPlayer effectPlayer;
   private final ConfigKeeper<MainSection> config;
   private final Map<String, Map<UUID, Long>> lastExecutionByPlayerIdByIdentifierLower;
 
-  public EmotionCommand(ConfigKeeper<MainSection> config) {
+  public EmotionCommand(
+    EffectPlayer effectPlayer,
+    ConfigKeeper<MainSection> config
+  ) {
+    this.effectPlayer = effectPlayer;
     this.config = config;
     this.lastExecutionByPlayerIdByIdentifierLower = new HashMap<>();
   }
@@ -121,17 +130,29 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     }
 
     var helpScreenEntries = new ArrayList<HelpScreenEntry>();
+    var mismatchedPermission = false;
 
     for (var emotionEntry : config.rootSection.emotions.entrySet()) {
       var emotion = emotionEntry.getValue();
+      var emotionIdentifier = emotionEntry.getKey();
+
+      if (!(sender.hasPermission("configurableemotions.emotion." + emotionIdentifier.toLowerCase()))) {
+        mismatchedPermission = true;
+        continue;
+      }
 
       helpScreenEntries.add(new HelpScreenEntry(
-        emotionEntry.getKey(),
+        emotionIdentifier,
         emotion.description.asScalar(ScalarType.STRING, config.rootSection.builtBaseEnvironment),
         emotion.supportsSelf,
         emotion.supportsOthers,
         emotion.supportsAll
       ));
+    }
+
+    if (mismatchedPermission && helpScreenEntries.isEmpty()) {
+      sender.sendMessage("§cYou do not have access to any available emotion!");
+      return true;
     }
 
     config.rootSection.playerMessages.commandEmotionHelpScreen.sendMessage(
@@ -148,7 +169,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
   private @Nullable Player getPlayerByNameOrDisplayName(String input) {
     for (var player : Bukkit.getOnlinePlayers()) {
-      if (player.getName().equals(input) || player.getDisplayName().equals(input))
+
+      if (player.getName().equals(input) || sanitize(player.getDisplayName()).equals(input))
         return player;
     }
 
@@ -183,31 +205,125 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
   }
 
   private boolean playEmotionAll(Player sender, EmotionSection emotion) {
-    var receiverCount = 0;
+    var receivers = new ArrayList<Player>();
+    var messageEnvironment = makeMessageEnvironment(sender);
 
     for (var receiver : Bukkit.getOnlinePlayers()) {
+      // Avoid looping twice - send ahead of all other actions
+
+      var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
+
+      if (emotion.messagesAllBroadcast != null)
+        displayMessages(receiver, receiverEnvironment, emotion.messagesAllBroadcast);
+
       if (receiver.equals(sender))
         continue;
 
-      // TODO: Implement
-      ++receiverCount;
+      receivers.add(receiver);
+
+      if (emotion._soundReceiver != null)
+        emotion._soundReceiver.play(receiver);
+
+      if (emotion.messagesAllReceiver != null)
+        displayMessages(receiver, receiverEnvironment, emotion.messagesAllReceiver);
     }
 
-    var hadReceivers = receiverCount != 0;
+    if (receivers.isEmpty())
+      return false;
 
-    if (hadReceivers) {
-      // TODO: Implement
+    if (emotion.effectSender != null)
+      effectPlayer.playEffect(emotion.effectSender, List.of(sender));
+
+    if (emotion.effectReceiver != null)
+      effectPlayer.playEffect(emotion.effectReceiver, receivers);
+
+    if (emotion._soundSender != null)
+      emotion._soundSender.play(sender);
+
+    if (emotion.messagesAllSender != null)
+      displayMessages(sender, messageEnvironment.build(), emotion.messagesAllSender);
+
+    return true;
+  }
+
+  private IEvaluationEnvironment addReceiverVariablesAndBuild(Player receiver, EvaluationEnvironmentBuilder environment) {
+    return environment
+      .withStaticVariable("receiver_name", receiver.getName())
+      .withStaticVariable("receiver_display_name", receiver.getDisplayName())
+      .build();
+  }
+
+  private EvaluationEnvironmentBuilder makeMessageEnvironment(Player sender) {
+    return config.rootSection.getBaseEnvironment()
+      .withStaticVariable("sender_name", sender.getName())
+      .withStaticVariable("sender_display_name", sender.getDisplayName());
+  }
+
+  private void displayMessages(Player receiver, IEvaluationEnvironment messageEnvironment, DisplayedMessages messages) {
+    if (messages.actionBarMessage != null)
+      messages.actionBarMessage.sendActionBarMessage(receiver, messageEnvironment);
+
+    if (messages.chatMessage != null)
+      messages.chatMessage.sendMessage(receiver, messageEnvironment);
+
+    if (messages.titleMessage != null || messages.subTitleMessage != null) {
+      var applicator = (messages.titleMessage == null ? messages.subTitleMessage : messages.titleMessage).applicator;
+
+      applicator.sendTitles(
+        receiver,
+        messages.titleMessage, messageEnvironment,
+        messages.subTitleMessage, messageEnvironment,
+        messages.titleFadeIn,
+        messages.titleStay,
+        messages.titleFadeOut
+      );
     }
-
-    return hadReceivers;
   }
 
   private void playEmotionOther(Player sender, Player receiver, EmotionSection emotion) {
-    // TODO: Implement
+    var messageEnvironment = makeMessageEnvironment(sender);
+    var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
+
+    if (emotion.messagesOneBroadcast != null) {
+      for (var messageReceiver : Bukkit.getOnlinePlayers())
+        displayMessages(messageReceiver, receiverEnvironment, emotion.messagesOneBroadcast);
+    }
+
+    if (emotion._soundReceiver != null)
+      emotion._soundReceiver.play(receiver);
+
+    if (emotion.messagesOneReceiver != null)
+      displayMessages(receiver, receiverEnvironment, emotion.messagesOneReceiver);
+
+    if (emotion.effectSender != null)
+      effectPlayer.playEffect(emotion.effectSender, List.of(sender));
+
+    if (emotion.effectReceiver != null)
+      effectPlayer.playEffect(emotion.effectReceiver, List.of(receiver));
+
+    if (emotion._soundSender != null)
+      emotion._soundSender.play(sender);
+
+    if (emotion.messagesOneSender != null)
+      displayMessages(sender, messageEnvironment.build(), emotion.messagesOneSender);
   }
 
   private void playEmotionSelf(Player sender, EmotionSection emotion) {
-    // TODO: Implement
+    var messageEnvironment = makeMessageEnvironment(sender);
+
+    if (emotion.messagesSelfBroadcast != null) {
+      for (var messageReceiver : Bukkit.getOnlinePlayers())
+        displayMessages(messageReceiver, messageEnvironment.build(), emotion.messagesSelfBroadcast);
+    }
+
+    if (emotion.effectSender != null)
+      effectPlayer.playEffect(emotion.effectSender, List.of(sender));
+
+    if (emotion._soundSender != null)
+      emotion._soundSender.play(sender);
+
+    if (emotion.messagesSelfSender != null)
+      displayMessages(sender, messageEnvironment.build(), emotion.messagesSelfSender);
   }
 
   @Override
@@ -241,7 +357,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         continue;
 
       var name = player.getName();
-      var displayName = player.getDisplayName();
+      var displayName = sanitize(player.getDisplayName());
 
       if (!name.equals(displayName)) {
         nameSuggestions.add(displayName);
@@ -274,5 +390,106 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     }
 
     return -1;
+  }
+
+  public static String sanitize(String input) {
+    var inputLength = input.length();
+    var result = new StringBuilder(inputLength);
+
+    /*
+      - Simple Colors: (§|&)[0-9a-fk-or]
+      - Hex Colors: (§|&)#([0-9a-fA-F]{3} | [0-9a-fA-F]{6})
+      - XML-Tags (Mini-Message)
+        - May contain other tags in string-parameters, marked by " or '
+        - Example: <hover:show_text:"<red>test:TEST">
+        - Escape-Sequences: \", \', \< \>
+     */
+
+    int possibleTagBeginning = -1;
+    var quoteStack = new Stack<Character>();
+
+    char previousChar = 0;
+
+    for (var i = 0; i < inputLength; ++i) {
+      var currentChar = input.charAt(i);
+      var isEscaped = previousChar == '\\';
+
+      previousChar = currentChar;
+
+      if (possibleTagBeginning >= 0) {
+        if (!isEscaped && (currentChar == '"' || currentChar == '\'')) {
+          if (!quoteStack.empty() && quoteStack.peek() == currentChar)
+            quoteStack.pop();
+          else
+            quoteStack.push(currentChar);
+        }
+
+        // No need to step through tags in strings; just anticipate non-stringed close char
+        if (!quoteStack.empty())
+          continue;
+
+        if (!isEscaped && currentChar == '>') {
+          possibleTagBeginning = -1;
+          continue;
+        }
+
+        continue;
+      }
+
+      var isLastChar = i == inputLength - 1;
+
+      if (!isLastChar && (currentChar == '§' || currentChar == '&')) {
+        var nextChar = input.charAt(i + 1);
+
+        if (
+          isAlphaNumeric(nextChar) ||
+            (nextChar >= 'k' && nextChar <= 'o') ||
+            nextChar == 'r'
+        ) {
+          ++i;
+          continue;
+        }
+
+        if (nextChar == '#') {
+          var remainingChars = inputLength - 1 - i;
+          var maxMatchingChars = Math.min(6, remainingChars);
+
+          var matchedChars = 0;
+
+          for (; matchedChars < maxMatchingChars; ++matchedChars) {
+            if (!isAlphaNumeric(input.charAt(1 + (matchedChars + 1))))
+              break;
+          }
+
+          // Skips & (current), # (next; +1) and the number of matched alphanumerics, up to 6
+          // I think I've seen shorthands - so that's why 3 or 6; leave &# or malformed as is
+          if (matchedChars == 3 || matchedChars == 6) {
+            i += matchedChars + 1;
+            continue;
+          }
+        }
+      }
+
+      if (!isEscaped && currentChar == '<') {
+        possibleTagBeginning = i;
+        continue;
+      }
+
+      result.append(currentChar);
+    }
+
+    // Tag was never closed, so let's leave it in
+    if (possibleTagBeginning >= 0)
+      result.append(input.substring(possibleTagBeginning));
+
+    return result.toString().trim();
+  }
+
+  private static boolean isAlphaNumeric(char c) {
+    return (
+      (c >= '0' && c <= '9') ||
+        (c >= 'a' && c <= 'f') ||
+        (c >= 'A' && c <= 'F')
+    );
   }
 }

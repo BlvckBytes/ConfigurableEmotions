@@ -41,6 +41,8 @@ public class DisplayedEffect extends AConfigSection {
     this.displayType = EffectDisplayType.SINGLE;
     this.offsetType = EffectOffsetType.EYES;
     this.particleSize = 1;
+    this.frequencyTicks = 5;
+    this.numberOfExecutions = 1;
   }
 
   @Override
@@ -61,5 +63,11 @@ public class DisplayedEffect extends AConfigSection {
       if ((_particleColor = particleColor.asBukkitColor(builtBaseEnvironment)) == null)
         throw new MappingError("Property \"particleColor\" does not represent a valid bukkit- or RGB-color (\"R G B\")");
     }
+
+    if (frequencyTicks < 0)
+      throw new MappingError("Property \"frequencyTicks\" cannot be negative");
+
+    if (numberOfExecutions < 0)
+      throw new MappingError("Property \"numberOfExecutions\" cannot be negative");
   }
 }
