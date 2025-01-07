@@ -54,7 +54,27 @@ public class EffectPlayer {
   }
 
   private void playEffectHelix(DisplayedEffect effect, Player target, Location location) {
-    // TODO: Implement
+    var phaseShiftUnit = (2 * Math.PI) / effect.numberOfHelixCurves;
+
+    int numberOfAngleSteps = (int) ((2 * Math.PI) / effect.helixAngleStepSize);
+    double heightStepUnit = effect.helixHeight / numberOfAngleSteps / effect.helixWindings;
+
+    double alpha = 0;
+    double deltaY = 0;
+
+    for (var alphaStepIndex = 0; alphaStepIndex < numberOfAngleSteps * effect.helixWindings; ++alphaStepIndex) {
+      for (var curveIndex = 0; curveIndex < effect.numberOfHelixCurves; ++curveIndex) {
+        var phaseShift = phaseShiftUnit * curveIndex;
+
+        var deltaZ = effect.helixRadius * Math.sin(alpha + phaseShift);
+        var deltaX = effect.helixRadius * Math.cos(alpha + phaseShift);
+
+        playParticle(effect, target, location.clone().add(deltaX, deltaY, deltaZ));
+      }
+
+      deltaY += heightStepUnit;
+      alpha += effect.helixAngleStepSize;
+    }
   }
 
   private double generateRandomRadiusOffset(double radius) {

@@ -29,6 +29,12 @@ public class DisplayedEffect extends AConfigSection {
   public double cloudRadius;
   public int cloudParticleCount;
 
+  public int numberOfHelixCurves;
+  public double helixHeight;
+  public double helixRadius;
+  public int helixWindings;
+  public double helixAngleStepSize;
+
   @CSIgnore
   public @Nullable XParticle _particle;
 
@@ -44,10 +50,18 @@ public class DisplayedEffect extends AConfigSection {
     this.displayType = EffectDisplayType.SINGLE;
     this.offsetType = EffectOffsetType.EYES;
     this.particleSize = 1;
+
     this.frequencyTicks = 5;
     this.numberOfExecutions = 1;
+
     this.cloudRadius = 4;
     this.cloudParticleCount = 20;
+
+    this.numberOfHelixCurves = 2;
+    this.helixHeight = 2;
+    this.helixRadius = 1;
+    this.helixAngleStepSize = .1;
+    this.helixWindings = 1;
   }
 
   @Override
@@ -74,5 +88,26 @@ public class DisplayedEffect extends AConfigSection {
 
     if (numberOfExecutions < 0)
       throw new MappingError("Property \"numberOfExecutions\" cannot be negative");
+
+    if (cloudRadius < 0)
+      throw new MappingError("Property \"cloudRadius\" cannot be negative");
+
+    if (cloudParticleCount < 0)
+      throw new MappingError("Property \"cloudParticleCount\" cannot be negative");
+
+    if (numberOfHelixCurves < 0)
+      throw new MappingError("Property \"numberOfHelixCurves\" cannot be negative");
+
+    if (helixHeight < 0)
+      throw new MappingError("Property \"helixHeight\" cannot be negative");
+
+    if (helixRadius < 0)
+      throw new MappingError("Property \"helixRadius\" cannot be negative");
+
+    if (helixWindings < 0)
+      throw new MappingError("Property \"helixWindings\" cannot be negative");
+
+    if (helixAngleStepSize < 0)
+      throw new MappingError("Property \"helixAngleStepSize\" cannot be negative");
   }
 }

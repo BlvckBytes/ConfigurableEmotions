@@ -36,10 +36,18 @@ emotions:
     # The particle-effect played to the executor at execution; delete section to play no effect
     effectSender:
       displayType: 'SINGLE/CLOUD/HELIX'
-      # Radius of cloud, if type is cloud
+
+      # Properties of the cloud-type
       cloudRadius: 1
-      # Particle count of cloud, if type is cloud
       cloudParticleCount: 1
+
+      # Properties of the helix-type
+      numberOfHelixCurves: 2
+      helixHeight: 2
+      helixRadius: 1
+      helixAngleStepSize: .1
+      helixWindings: 1
+
       offsetType: 'FEET/EYES/ABOVE_HEAD'
       # Time in ticks in between executions
       frequencyTicks: 15
@@ -55,17 +63,7 @@ emotions:
       particleSize: 1
 
     # The particle-effect played to the receiver(s) at execution; delete section to play no effect
-    effectReceiver:
-      displayType: 'SINGLE/CLOUD/HELIX'
-      offsetType: 'FEET/EYES/ABOVE_HEAD'
-      particle: '...'
-      # These options may not be applicable to all particles
-      # Material of item-/block-crack, block-/falling-dust, etc.
-      particleMaterial: '...'
-      # Also supports RGB-notation of format 'R G B'
-      particleColor: '...'
-      # Size of redstone dust particles
-      particleSize: 1
+    effectReceiver: # Layout equals to that of effectSender
 
     # Deleting the keys of undesired messages will cause them to not be displayed
 
@@ -81,79 +79,19 @@ emotions:
       titleStay: 1
       titleFadeOut: 1
 
-    messagesSelfBroadcast:
-      chatMessage: '...'
-      actionBarMessage: '...'
-      titleMessage: '...'
-      subTitleMessage: '...'
-      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
-      titleFadeIn: 1
-      titleStay: 1
-      titleFadeOut: 1
+    messagesSelfBroadcast: # Layout equals to that of messageSelfSender
 
     # Played the emotion at one other player
 
-    messagesOneSender:
-      chatMessage: '...'
-      actionBarMessage: '...'
-      titleMessage: '...'
-      subTitleMessage: '...'
-      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
-      titleFadeIn: 1
-      titleStay: 1
-      titleFadeOut: 1
-
-    messagesOneReceiver:
-      chatMessage: '...'
-      actionBarMessage: '...'
-      titleMessage: '...'
-      subTitleMessage: '...'
-      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
-      titleFadeIn: 1
-      titleStay: 1
-      titleFadeOut: 1
-
-    messagesOneBroadcast:
-      chatMessage: '...'
-      actionBarMessage: '...'
-      titleMessage: '...'
-      subTitleMessage: '...'
-      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
-      titleFadeIn: 1
-      titleStay: 1
-      titleFadeOut: 1
+    messagesOneSender: # Layout equals to that of messageSelfSender
+    messagesOneReceiver: # Layout equals to that of messageSelfSender
+    messagesOneBroadcast: # Layout equals to that of messageSelfSender
 
     # Played the emotion at all other online players
 
-    messagesAllSender:
-      chatMessage: '...'
-      actionBarMessage: '...'
-      titleMessage: '...'
-      subTitleMessage: '...'
-      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
-      titleFadeIn: 1
-      titleStay: 1
-      titleFadeOut: 1
-
-    messagesAllReceiver:
-      chatMessage: '...'
-      actionBarMessage: '...'
-      titleMessage: '...'
-      subTitleMessage: '...'
-      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
-      titleFadeIn: 1
-      titleStay: 1
-      titleFadeOut: 1
-
-    messagesAllBroadcast:
-      chatMessage: '...'
-      actionBarMessage: '...'
-      titleMessage: '...'
-      subTitleMessage: '...'
-      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
-      titleFadeIn: 1
-      titleStay: 1
-      titleFadeOut: 1
+    messagesAllSender: # Layout equals to that of messageSelfSender
+    messagesAllReceiver: # Layout equals to that of messageSelfSender
+    messagesAllBroadcast: # Layout equals to that of messageSelfSender
 ```
 
 Sounds are the names of a constant of [XSound](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XSound.java); particle are the names of a constant of [XParticle](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/particles/XParticle.java); materials are the names of a constant of [XMaterial](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XMaterial.java); colors can be the names of a constant of bukkit's [Color](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Color.html)-class.
