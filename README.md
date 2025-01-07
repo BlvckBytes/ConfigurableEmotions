@@ -36,11 +36,15 @@ emotions:
     # The particle-effect played to the executor at execution; delete section to play no effect
     effectSender:
       displayType: 'SINGLE/CLOUD/HELIX'
+      # Radius of cloud, if type is cloud
+      cloudRadius: 1
+      # Particle count of cloud, if type is cloud
+      cloudParticleCount: 1
       offsetType: 'FEET/EYES/ABOVE_HEAD'
       # Time in ticks in between executions
       frequencyTicks: 15
       # Total number of executions until considered completed
-      numberOfExecutions: 15
+      numberOfExecutions: 3
       particle: '...'
       # These options may not be applicable to all particles
       # Material of item-/block-crack, block-/falling-dust, etc.

@@ -29,7 +29,7 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       var config = new ConfigKeeper<>(configManager, "config.yml", MainSection.class);
       var commandUpdater = new CommandUpdater(this);
 
-      var effectPlayer = new EffectPlayer(this);
+      var effectPlayer = new EffectPlayer(this, logger);
       var emotionCommand = Objects.requireNonNull(getCommand(EmotionCommandSection.INITIAL_NAME));
       emotionCommand.setExecutor(new EmotionCommand(effectPlayer, config));
 

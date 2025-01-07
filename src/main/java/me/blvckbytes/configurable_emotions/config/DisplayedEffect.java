@@ -26,6 +26,9 @@ public class DisplayedEffect extends AConfigSection {
   public EffectDisplayType displayType;
   public EffectOffsetType offsetType;
 
+  public double cloudRadius;
+  public int cloudParticleCount;
+
   @CSIgnore
   public @Nullable XParticle _particle;
 
@@ -43,6 +46,8 @@ public class DisplayedEffect extends AConfigSection {
     this.particleSize = 1;
     this.frequencyTicks = 5;
     this.numberOfExecutions = 1;
+    this.cloudRadius = 4;
+    this.cloudParticleCount = 20;
   }
 
   @Override
