@@ -50,7 +50,8 @@ emotions:
           helixAngleStepSize: .1
           helixWindings: 1
 
-          offsetType: 'FEET/EYES/ABOVE_HEAD'
+          # Y-axis-offset relative to the player's feet, marking the effect's origin
+          yOffset: 0
           # Time in ticks in between executions
           frequencyTicks: 15
           # Total number of executions until considered completed

@@ -35,7 +35,7 @@ public class EffectPlayer {
 
   private void playEffectInstance(DisplayedEffect effect, List<Player> targets, int executionCounter) {
     for (var target : targets) {
-      var effectLocation = effect.offsetType.getForPlayer(target);
+      var effectLocation = target.getLocation().add(0, effect.yOffset, 0);
 
       switch (effect.displayType) {
         case SINGLE -> playParticle(effect, target, effectLocation);

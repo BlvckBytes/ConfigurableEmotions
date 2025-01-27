@@ -24,7 +24,7 @@ public class DisplayedEffect extends AConfigSection {
   public float particleSize;
 
   public EffectDisplayType displayType;
-  public EffectOffsetType offsetType;
+  public double yOffset;
 
   public double cloudRadius;
   public int cloudParticleCount;
@@ -48,7 +48,7 @@ public class DisplayedEffect extends AConfigSection {
     super(baseEnvironment);
 
     this.displayType = EffectDisplayType.SINGLE;
-    this.offsetType = EffectOffsetType.EYES;
+    this.yOffset = 0;
     this.particleSize = 1;
 
     this.frequencyTicks = 5;
@@ -82,6 +82,9 @@ public class DisplayedEffect extends AConfigSection {
       if ((_particleColor = particleColor.asBukkitColor(builtBaseEnvironment)) == null)
         throw new MappingError("Property \"particleColor\" does not represent a valid bukkit- or RGB-color (\"R G B\")");
     }
+
+    if (yOffset < 0)
+      throw new MappingError("Property \"yOffset\" cannot be negative");
 
     if (frequencyTicks < 0)
       throw new MappingError("Property \"frequencyTicks\" cannot be negative");
