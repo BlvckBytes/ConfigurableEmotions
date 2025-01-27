@@ -35,6 +35,10 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     this.lastExecutionByPlayerIdByIdentifierLower = new HashMap<>();
   }
 
+  // ================================================================================
+  // Main Command-Invocation
+  // ================================================================================
+
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
     if (!(sender instanceof Player player)) {
@@ -44,7 +48,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     if (!CommandPermission.COMMAND_EMOTION.hasPermission(player)) {
       config.rootSection.playerMessages.missingPermissionEmotionCommand.sendMessage(player, config.rootSection.builtBaseEnvironment);
-      return false;
+      return true;
     }
 
     if (args.length == 1 || args.length == 2) {
@@ -211,6 +215,85 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     return true;
   }
 
+  @Override
+  public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    if (!CommandPermission.COMMAND_EMOTION.hasPermission(sender))
+      return List.of();
+
+    if (args.length == 1) {
+      return config.rootSection.emotions.keySet()
+        .stream()
+        .filter(it -> StringUtils.containsIgnoreCase(it, args[0]))
+        .toList();
+    }
+
+    var identifierLower = args[0].toLowerCase();
+    var emotion = config.rootSection.emotionByIdentifierLower.get(identifierLower);
+
+    if (emotion == null)
+      return List.of();
+
+    if (!sender.hasPermission("configurableemotions.emotion." + identifierLower))
+      return List.of();
+
+    if (!(emotion.supportsOthers || emotion.supportsAll))
+      return List.of();
+
+    var nameSuggestions = new ArrayList<String>();
+
+    for (var player : Bukkit.getOnlinePlayers()) {
+      if (player.equals(sender))
+        continue;
+
+      var name = player.getName();
+      var displayName = sanitize(player.getDisplayName());
+
+      if (!name.equals(displayName)) {
+        if (!StringUtils.containsIgnoreCase(displayName, args[1]))
+          continue;
+
+        nameSuggestions.add(displayName);
+        continue;
+      }
+
+      if (!StringUtils.containsIgnoreCase(name, args[1]))
+        continue;
+
+      nameSuggestions.add(name);
+    }
+
+    var allSentinel = config.rootSection.commands.emotion.allSentinel;
+
+    if (emotion.supportsAll && StringUtils.containsIgnoreCase(allSentinel, args[1]))
+      nameSuggestions.add(allSentinel);
+
+    return nameSuggestions;
+  }
+
+  // ================================================================================
+  // Direct Command-Invocation (shorthands)
+  // ================================================================================
+
+  public boolean onDirectCommand(
+    String identifierLower,
+    @NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args
+  ) {
+    sender.sendMessage("§cTODO: Implement direct-command (" + identifierLower + ")");
+    return true;
+  }
+
+  public List<String> onDirectTabComplete(
+    String identifierLower,
+    @NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args
+  ) {
+    sender.sendMessage("§cTODO: Implement direct-tab-complete (" + identifierLower + ")");
+    return List.of();
+  }
+
+  // ================================================================================
+  // Utilities
+  // ================================================================================
+
   private @Nullable Player getPlayerByNameOrDisplayName(String input) {
     for (var player : Bukkit.getOnlinePlayers()) {
 
@@ -370,61 +453,6 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       displayMessages(sender, messageEnvironment.build(), emotion.messagesSelfSender);
   }
 
-  @Override
-  public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-    if (!CommandPermission.COMMAND_EMOTION.hasPermission(sender))
-      return List.of();
-
-    if (args.length == 1) {
-      return config.rootSection.emotions.keySet()
-        .stream()
-        .filter(it -> StringUtils.containsIgnoreCase(it, args[0]))
-        .toList();
-    }
-
-    var identifierLower = args[0].toLowerCase();
-    var emotion = config.rootSection.emotionByIdentifierLower.get(identifierLower);
-
-    if (emotion == null)
-      return List.of();
-
-    if (!sender.hasPermission("configurableemotions.emotion." + identifierLower))
-      return List.of();
-
-    if (!(emotion.supportsOthers || emotion.supportsAll))
-      return List.of();
-
-    var nameSuggestions = new ArrayList<String>();
-
-    for (var player : Bukkit.getOnlinePlayers()) {
-      if (player.equals(sender))
-        continue;
-
-      var name = player.getName();
-      var displayName = sanitize(player.getDisplayName());
-
-      if (!name.equals(displayName)) {
-        if (!StringUtils.containsIgnoreCase(displayName, args[1]))
-          continue;
-
-        nameSuggestions.add(displayName);
-        continue;
-      }
-
-      if (!StringUtils.containsIgnoreCase(name, args[1]))
-        continue;
-
-      nameSuggestions.add(name);
-    }
-
-    var allSentinel = config.rootSection.commands.emotion.allSentinel;
-
-    if (emotion.supportsAll && StringUtils.containsIgnoreCase(allSentinel, args[1]))
-      nameSuggestions.add(allSentinel);
-
-    return nameSuggestions;
-  }
-
   private void touchLastExecutionStamp(String identifierLower, Player player) {
     lastExecutionByPlayerIdByIdentifierLower
       .computeIfAbsent(identifierLower, key -> new HashMap<>())
@@ -444,7 +472,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     return -1;
   }
 
-  public static String sanitize(String input) {
+  private String sanitize(String input) {
     var inputLength = input.length();
     var result = new StringBuilder(inputLength);
 
@@ -537,7 +565,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     return result.toString().trim();
   }
 
-  private static boolean isAlphaNumeric(char c) {
+  private boolean isAlphaNumeric(char c) {
     return (
       (c >= '0' && c <= '9') ||
         (c >= 'a' && c <= 'f') ||

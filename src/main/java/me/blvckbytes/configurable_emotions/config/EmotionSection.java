@@ -14,6 +14,7 @@ import java.util.List;
 
 public class EmotionSection extends AConfigSection {
 
+  public boolean tryRegisterDirectly;
   public BukkitEvaluable description;
 
   public long cooldownSeconds;

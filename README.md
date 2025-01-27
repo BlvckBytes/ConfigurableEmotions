@@ -12,6 +12,10 @@ emotions:
   # Unique identifier; used as the command-argument and for auto-completion; cannot contain spaces
   # Permission will be of pattern configurableemotions.emotion.<lowercase_identifier>; in this case: configurableemotions.emotion.myemotion
   MyEmotion:
+    # When true, this emotion's identifier is tried to be registered as a direct command, e.g. /hug
+    # While possibly rather convenient, this setting could pollute global namespace, so it defaults to false
+    tryRegisterDirectly: true
+
     # Description shown on the help-screen
     description: '...'
 

@@ -10,8 +10,13 @@ import me.blvckbytes.configurable_emotions.config.*;
 import me.blvckbytes.configurable_emotions.listener.CommandSendListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -31,14 +36,45 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
 
       var effectPlayer = new EffectPlayer(this, logger);
       var emotionCommand = Objects.requireNonNull(getCommand(EmotionCommandSection.INITIAL_NAME));
-      emotionCommand.setExecutor(new EmotionCommand(effectPlayer, config));
+      var emotionCommandHandler = new EmotionCommand(effectPlayer, config);
+      emotionCommand.setExecutor(emotionCommandHandler);
 
       var emotionReloadCommand = Objects.requireNonNull(getCommand(EmotionReloadCommandSection.INITIAL_NAME));
       emotionReloadCommand.setExecutor(new EmotionReloadCommand(config, logger));
 
+      var previouslyRegisteredDirectCommands = new ArrayList<Command>();
+
       Runnable updateCommands = () -> {
         config.rootSection.commands.emotion.apply(emotionCommand, commandUpdater);
         config.rootSection.commands.emotionReload.apply(emotionReloadCommand, commandUpdater);
+
+        for (var commandIterator = previouslyRegisteredDirectCommands.iterator(); commandIterator.hasNext();) {
+          commandUpdater.tryUnregisterCommand(commandIterator.next());
+          commandIterator.remove();
+        }
+
+        for (var identifierLower : config.rootSection.emotionByIdentifierLower.keySet()) {
+          var emotion = config.rootSection.emotionByIdentifierLower.get(identifierLower);
+
+          if (!emotion.tryRegisterDirectly)
+            continue;
+
+          var directCommand = new Command(identifierLower) {
+
+            @Override
+            public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+              return emotionCommandHandler.onDirectCommand(identifierLower, sender, this, label, args);
+            }
+
+            @Override
+            public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) throws IllegalArgumentException {
+              return emotionCommandHandler.onDirectTabComplete(identifierLower, sender, this, label, args);
+            }
+          };
+
+          if (commandUpdater.tryRegisterCommand(directCommand))
+            previouslyRegisteredDirectCommands.add(directCommand);
+        }
 
         commandUpdater.trySyncCommands();
       };
