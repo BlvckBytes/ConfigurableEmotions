@@ -8,6 +8,7 @@ import me.blvckbytes.configurable_emotions.config.EmotionSection;
 import me.blvckbytes.configurable_emotions.config.MainSection;
 import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
 import me.blvckbytes.gpeee.interpreter.IEvaluationEnvironment;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -278,16 +279,14 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     String identifierLower,
     @NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args
   ) {
-    sender.sendMessage("§cTODO: Implement direct-command (" + identifierLower + ")");
-    return true;
+    return onCommand(sender, command, label, (String[]) ArrayUtils.add(args, 0, identifierLower));
   }
 
   public List<String> onDirectTabComplete(
     String identifierLower,
     @NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args
   ) {
-    sender.sendMessage("§cTODO: Implement direct-tab-complete (" + identifierLower + ")");
-    return List.of();
+    return onTabComplete(sender, command, label, (String[]) ArrayUtils.add(args, 0, identifierLower));
   }
 
   // ================================================================================
