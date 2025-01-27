@@ -19,8 +19,8 @@ commands:
     name: 'emotionrl'
 
 playerMessages:
-  commandEmotionReloadSuccess$: 'lut["MESSAGE_PREFIX"] & "&7Die Konfiguration des Plugins wurde &aerfolgreich neu geladen&7!"'
-  commandEmotionReloadFailure$: 'lut["MESSAGE_PREFIX"] & "&cWährend des Neuladeprozesses der Konfiguration trat ein Fehler auf; bitte überprüfe die Konsole!"'
+  commandEmotionReloadSuccess$: 'lut["prefix"] & "&7Die Konfiguration des Plugins wurde &aerfolgreich neu geladen&7!"'
+  commandEmotionReloadFailure$: 'lut["prefix"] & "&cWährend des Neuladeprozesses der Konfiguration trat ein Fehler auf; bitte überprüfe die Konsole!"'
   # - label: String
   # - all_sentinel: String
   # - emotions: List<HelpScreenEntry> where HelpScreenEntry: { identifier: String, description: String, supports_others: Boolean, supports_all: Boolean }
@@ -44,28 +44,28 @@ playerMessages:
       ),
       "&8&m                         &r &5Emotionen &8&m                          "
     )
-  receiverCannotBeSelf$: 'lut["MESSAGE_PREFIX"] & "&cDu kannst dir selbst keine Emotion senden!"'
+  receiverCannotBeSelf$: 'lut["prefix"] & "&cDu kannst dir selbst keine Emotion senden!"'
   # - target_player: String
-  receivingPlayerNotOnline$: 'lut["MESSAGE_PREFIX"] & "&cDer Spieler &4" & target_player & " &cbefindet sich nicht auf dem Server!"'
+  receivingPlayerNotOnline$: 'lut["prefix"] & "&cDer Spieler &4" & target_player & " &cbefindet sich nicht auf dem Server!"'
   # - emotion_identifier: String
-  noReceivingPlayersOnline$: 'lut["MESSAGE_PREFIX"] & "&cEs befindet sich kein Spieler auf dem Server, der deine Emotion &4" & emotion_identifier & " &cempfangen könnte!"'
+  noReceivingPlayersOnline$: 'lut["prefix"] & "&cEs befindet sich kein Spieler auf dem Server, der deine Emotion &4" & emotion_identifier & " &cempfangen könnte!"'
   # - emotion_identifier: String
-  unsupportedPlayingOnSelf$: 'lut["MESSAGE_PREFIX"] & "&cDie Emotion &4" & emotion_identifier & " &ckann nicht auf dir selbst ausgeführt werden!"'
+  unsupportedPlayingOnSelf$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &ckann nicht auf dir selbst ausgeführt werden!"'
   # - emotion_identifier: String
-  unsupportedOtherTarget$: 'lut["MESSAGE_PREFIX"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an einen anderen Spieler nicht!"'
+  unsupportedOtherTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an einen anderen Spieler nicht!"'
   # - emotion_identifier: String
-  unsupportedAllTarget$: 'lut["MESSAGE_PREFIX"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an alle Spieler &4nicht&c!"'
+  unsupportedAllTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an alle Spieler &4nicht&c!"'
   # - emotion_identifier: String
   # - remaining_time: String
-  awaitRemainingCooldown$: 'lut["MESSAGE_PREFIX"] & "&cBitte warte &4" & remaining_time & "&c, bevor du die Emotion &4" & emotion_identifier & " &cerneut ausführst!"'
+  awaitRemainingCooldown$: 'lut["prefix"] & "&cBitte warte &4" & remaining_time & "&c, bevor du die Emotion &4" & emotion_identifier & " &cerneut ausführst!"'
   # - emotion_identifier: String
-  missingEmotionPermission$: 'lut["MESSAGE_PREFIX"] & "&cDir fehlt das Recht, die Emotion &4" & emotion_identifier & " &causzuführen!"'
-  noAccessToAnyEmotion$: 'lut["MESSAGE_PREFIX"] & "&cEs besteht kein Zugriff auf mindestens eine der existierenden Emotionen!"'
+  missingEmotionPermission$: 'lut["prefix"] & "&cDir fehlt das Recht, die Emotion &4" & emotion_identifier & " &causzuführen!"'
+  noAccessToAnyEmotion$: 'lut["prefix"] & "&cEs besteht kein Zugriff auf mindestens eine der existierenden Emotionen!"'
   # - input: String
-  unknownEmotionProvided$: 'lut["MESSAGE_PREFIX"] & "&cDie Emotion &4" & input & " &cexistiert nicht!"'
-  playerOnlyCommand$: 'lut["MESSAGE_PREFIX"] & "&cDieser Befehl ist nur Spielern zugänglich!"'
-  missingPermissionEmotionCommand$: 'lut["MESSAGE_PREFIX"] & "&cDir fehlen die nötigen Rechte um diesen Befehl zu benutzen!"'
-  missingPermissionEmotionReloadCommand$: 'lut["MESSAGE_PREFIX"] & "&cDir fehlen die nötigen Rechte um diesen Befehl zu benutzen!"'
+  unknownEmotionProvided$: 'lut["prefix"] & "&cDie Emotion &4" & input & " &cexistiert nicht!"'
+  playerOnlyCommand$: 'lut["prefix"] & "&cDieser Befehl ist nur Spielern zugänglich!"'
+  missingPermissionEmotionCommand$: 'lut["prefix"] & "&cDir fehlen die nötigen Rechte um diesen Befehl zu benutzen!"'
+  missingPermissionEmotionReloadCommand$: 'lut["prefix"] & "&cDir fehlen die nötigen Rechte um diesen Befehl zu benutzen!"'
 
 # Environment for all emotion-messages:
 # - receiver_name: String
@@ -76,4 +76,4 @@ emotions:
 
 # File-global lookup table
 lut:
-  MESSAGE_PREFIX: '&5[Emotionen] '
+  prefix: '&5[Emotionen] '
