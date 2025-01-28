@@ -15,6 +15,7 @@ commands:
     allSentinel: 'Alle'
     aliases:
       - emo
+      - emotions
   emotionReload:
     name: 'emotionrl'
 
@@ -26,7 +27,7 @@ playerMessages:
   # - emotions: List<HelpScreenEntry> where HelpScreenEntry: { identifier: String, description: String, supports_others: Boolean, supports_all: Boolean }
   commandEmotionHelpScreen$: |
     flatten(
-      "&8&m                         &r &5Emotionen &8&m                          ",
+      "&8&m                       &8[&5Emotionen&8]&8&m                       ",
       map(
         emotions,
         (emotion) => (
@@ -42,7 +43,7 @@ playerMessages:
         ),
         "&cNoch keine Emotionen konfiguriert"
       ),
-      "&8&m                         &r &5Emotionen &8&m                          "
+      "&8&m                       &8[&5Emotionen&8]&8&m                       "
     )
   receiverCannotBeSelf$: 'lut["prefix"] & "&cDu kannst dir selbst keine Emotion senden!"'
   # - target_player: String
@@ -76,4 +77,4 @@ emotions:
 
 # File-global lookup table
 lut:
-  prefix: '&5[Emotionen] '
+  prefix: '&8[&5Emotionen&8] '

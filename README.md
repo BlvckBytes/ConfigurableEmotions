@@ -8,6 +8,11 @@ Under the top-level section called `emotions`, one may register as many custom e
 
 ```yaml
 # Emotions will be displayed in this exact order on the help-screen
+# Environment for all emotion-messages:
+# - receiver_name: String
+# - receiver_display_name: String
+# - sender_name: String
+# - sender_display_name: String
 emotions:
   # Unique identifier; used as the command-argument and for auto-completion; cannot contain spaces
   # Permission will be of pattern configurableemotions.emotion.<lowercase_identifier>; in this case: configurableemotions.emotion.myemotion
@@ -38,7 +43,7 @@ emotions:
     soundReceiver: '...'
 
     # The particle-effects played to the executor at execution; delete section to play no effect
-    effectSender:
+    effectsSender:
       # There may be as many parallel effects as desired
       -
           displayType: 'SINGLE/CLOUD/HELIX'
@@ -70,7 +75,7 @@ emotions:
           particleSize: 1
 
     # The particle-effect played to the receiver(s) at execution; delete section to play no effect
-    effectReceiver: # Layout equals to that of effectSender
+    effectsReceiver: # Layout equals to that of effectSender
 
     # Deleting the keys of undesired messages will cause them to not be displayed
 
