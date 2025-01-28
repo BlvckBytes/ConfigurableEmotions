@@ -3,6 +3,7 @@ package me.blvckbytes.configurable_emotions.command;
 import me.blvckbytes.bbconfigmapper.ScalarType;
 import me.blvckbytes.bukkitevaluable.ConfigKeeper;
 import me.blvckbytes.configurable_emotions.EffectPlayer;
+import me.blvckbytes.configurable_emotions.UidScopedNamedStampStore;
 import me.blvckbytes.configurable_emotions.config.DisplayedMessages;
 import me.blvckbytes.configurable_emotions.config.EmotionSection;
 import me.blvckbytes.configurable_emotions.config.MainSection;
@@ -24,16 +25,17 @@ import java.util.*;
 public class EmotionCommand implements CommandExecutor, TabCompleter {
 
   private final EffectPlayer effectPlayer;
+  private final UidScopedNamedStampStore stampStore;
   private final ConfigKeeper<MainSection> config;
-  private final Map<String, Map<UUID, Long>> lastExecutionByPlayerIdByIdentifierLower;
 
   public EmotionCommand(
     EffectPlayer effectPlayer,
+    UidScopedNamedStampStore stampStore,
     ConfigKeeper<MainSection> config
   ) {
     this.effectPlayer = effectPlayer;
+    this.stampStore = stampStore;
     this.config = config;
-    this.lastExecutionByPlayerIdByIdentifierLower = new HashMap<>();
   }
 
   // ================================================================================
@@ -453,22 +455,16 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
   }
 
   private void touchLastExecutionStamp(String identifierLower, Player player) {
-    lastExecutionByPlayerIdByIdentifierLower
-      .computeIfAbsent(identifierLower, key -> new HashMap<>())
-      .put(player.getUniqueId(), System.currentTimeMillis());
+    stampStore.write(player.getUniqueId(), identifierLower, System.currentTimeMillis());
   }
 
   private int getElapsedCooldownSeconds(String identifierLower, Player player) {
-    var lastExecutionByPlayer = lastExecutionByPlayerIdByIdentifierLower.get(identifierLower);
+    var lastExecutionStamp = stampStore.read(player.getUniqueId(), identifierLower);
 
-    if (lastExecutionByPlayer != null) {
-      var lastExecutionStamp = lastExecutionByPlayer.get(player.getUniqueId());
+    if (lastExecutionStamp < 0)
+      return -1;
 
-      if (lastExecutionStamp != null)
-        return (int) Math.round((System.currentTimeMillis() - lastExecutionStamp) / 1000.0);
-    }
-
-    return -1;
+    return (int) Math.round((System.currentTimeMillis() - lastExecutionStamp) / 1000.0);
   }
 
   private String sanitize(String input) {

@@ -23,6 +23,8 @@ import java.util.logging.Level;
 
 public class ConfigurableEmotionsPlugin extends JavaPlugin {
 
+  private UidScopedNamedStampStore stampStore;
+
   @Override
   public void onEnable() {
     var logger = getLogger();
@@ -35,9 +37,11 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       var config = new ConfigKeeper<>(configManager, "config.yml", MainSection.class);
       var commandUpdater = new CommandUpdater(this);
 
+      stampStore = new UidScopedNamedStampStore(this, logger);
+
       var effectPlayer = new EffectPlayer(this, logger);
       var emotionCommand = Objects.requireNonNull(getCommand(EmotionCommandSection.INITIAL_NAME));
-      var emotionCommandHandler = new EmotionCommand(effectPlayer, config);
+      var emotionCommandHandler = new EmotionCommand(effectPlayer, stampStore, config);
       emotionCommand.setExecutor(emotionCommandHandler);
 
       var emotionReloadCommand = Objects.requireNonNull(getCommand(EmotionReloadCommandSection.INITIAL_NAME));
@@ -100,5 +104,11 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       logger.log(Level.SEVERE, "Could not initialize plugin", e);
       Bukkit.getPluginManager().disablePlugin(this);
     }
+  }
+
+  @Override
+  public void onDisable() {
+    if (stampStore != null)
+      stampStore.onDisable();
   }
 }
