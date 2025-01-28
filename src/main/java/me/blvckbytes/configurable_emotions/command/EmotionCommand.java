@@ -78,7 +78,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         return true;
       }
 
-      if (emotion.cooldownSeconds != 0 && !player.hasPermission("configurableemotions.bypass-cooldown")) {
+      if (emotion.cooldownSeconds != 0 && !CommandPermission.hasCooldownBypassPermission(player, identifierLower)) {
         var elapsedSeconds = getElapsedCooldownSeconds(identifierLower, player);
 
         if (elapsedSeconds >= 0) {

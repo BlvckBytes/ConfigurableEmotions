@@ -19,6 +19,10 @@ public enum CommandPermission {
     return COMMAND_EMOTION.hasPermission(permissible) && permissible.hasPermission("configurableemotions.emotion." + identifierLower);
   }
 
+  public static boolean hasCooldownBypassPermission(Permissible permissible, String identifierLower) {
+    return permissible.hasPermission("configurableemotions.bypass-cooldown." + identifierLower);
+  }
+
   public boolean hasPermission(Permissible permissible) {
     return permissible.hasPermission(node);
   }
