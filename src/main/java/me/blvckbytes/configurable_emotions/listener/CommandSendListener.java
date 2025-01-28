@@ -34,6 +34,14 @@ public class CommandSendListener implements Listener {
     );
   }
 
+  public void unregisterPluginCommand(Command command) {
+    this.pluginCommands.remove(command);
+  }
+
+  public void registerPluginCommand(Command command, Function<CommandSender, Boolean> predicate) {
+    this.pluginCommands.put(command, predicate);
+  }
+
   @EventHandler
   public void onCommandSend(PlayerCommandSendEvent event) {
     var player = event.getPlayer();

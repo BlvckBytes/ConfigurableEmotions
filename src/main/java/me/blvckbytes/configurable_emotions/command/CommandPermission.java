@@ -15,6 +15,10 @@ public enum CommandPermission {
     this.node = nodePrefix + nodeSuffix;
   }
 
+  public static boolean hasEmotionPermission(Permissible permissible, String identifierLower) {
+    return COMMAND_EMOTION.hasPermission(permissible) && permissible.hasPermission("configurableemotions.emotion." + identifierLower);
+  }
+
   public boolean hasPermission(Permissible permissible) {
     return permissible.hasPermission(node);
   }

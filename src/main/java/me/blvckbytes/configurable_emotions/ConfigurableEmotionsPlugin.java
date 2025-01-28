@@ -4,6 +4,7 @@ import com.cryptomorin.xseries.XMaterial;
 import me.blvckbytes.bukkitevaluable.CommandUpdater;
 import me.blvckbytes.bukkitevaluable.ConfigKeeper;
 import me.blvckbytes.bukkitevaluable.ConfigManager;
+import me.blvckbytes.configurable_emotions.command.CommandPermission;
 import me.blvckbytes.configurable_emotions.command.EmotionCommand;
 import me.blvckbytes.configurable_emotions.command.EmotionReloadCommand;
 import me.blvckbytes.configurable_emotions.config.*;
@@ -42,6 +43,9 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       var emotionReloadCommand = Objects.requireNonNull(getCommand(EmotionReloadCommandSection.INITIAL_NAME));
       emotionReloadCommand.setExecutor(new EmotionReloadCommand(config, logger));
 
+      var commandSendListener = new CommandSendListener(this, config);
+      Bukkit.getServer().getPluginManager().registerEvents(commandSendListener, this);
+
       var previouslyRegisteredDirectCommands = new ArrayList<Command>();
 
       Runnable updateCommands = () -> {
@@ -49,7 +53,11 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
         config.rootSection.commands.emotionReload.apply(emotionReloadCommand, commandUpdater);
 
         for (var commandIterator = previouslyRegisteredDirectCommands.iterator(); commandIterator.hasNext();) {
-          commandUpdater.tryUnregisterCommand(commandIterator.next());
+          var previousCommand = commandIterator.next();
+
+          commandUpdater.tryUnregisterCommand(previousCommand);
+          commandSendListener.unregisterPluginCommand(previousCommand);
+
           commandIterator.remove();
         }
 
@@ -72,8 +80,10 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
             }
           };
 
-          if (commandUpdater.tryRegisterCommand(directCommand))
+          if (commandUpdater.tryRegisterCommand(directCommand)) {
             previouslyRegisteredDirectCommands.add(directCommand);
+            commandSendListener.registerPluginCommand(directCommand, sender -> CommandPermission.hasEmotionPermission(sender, identifierLower));
+          }
         }
 
         commandUpdater.trySyncCommands();
@@ -86,8 +96,6 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
 
       emotionCountLogger.run();
       config.registerReloadListener(emotionCountLogger);
-
-      Bukkit.getServer().getPluginManager().registerEvents(new CommandSendListener(this, config), this);
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Could not initialize plugin", e);
       Bukkit.getPluginManager().disablePlugin(this);

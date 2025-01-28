@@ -66,7 +66,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         return true;
       }
 
-      if (!player.hasPermission("configurableemotions.emotion." + identifierLower)) {
+      if (!CommandPermission.hasEmotionPermission(player, identifierLower)) {
         config.rootSection.playerMessages.missingEmotionPermission.sendMessage(
           player,
           config.rootSection.getBaseEnvironment()
