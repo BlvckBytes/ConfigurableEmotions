@@ -15,6 +15,7 @@ import java.util.List;
 public class EmotionSection extends AConfigSection {
 
   public boolean tryRegisterDirectly;
+  public List<String> directAliases;
   public BukkitEvaluable description;
 
   public long cooldownSeconds;
@@ -53,6 +54,7 @@ public class EmotionSection extends AConfigSection {
 
     this.effectsSender = new ArrayList<>();
     this.effectsReceiver = new ArrayList<>();
+    this.directAliases = new ArrayList<>();
   }
 
   @Override

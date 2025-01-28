@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -71,22 +72,28 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
           if (!emotion.tryRegisterDirectly)
             continue;
 
-          var directCommand = new Command(identifierLower) {
+          var commandIdentifiers = new HashSet<String>();
+          commandIdentifiers.add(identifierLower);
+          commandIdentifiers.addAll(emotion.directAliases);
 
-            @Override
-            public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-              return emotionCommandHandler.onDirectCommand(identifierLower, sender, this, label, args);
+          for (var commandIdentifier : commandIdentifiers) {
+            var directCommand = new Command(commandIdentifier) {
+
+              @Override
+              public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+                return emotionCommandHandler.onDirectCommand(identifierLower, sender, this, label, args);
+              }
+
+              @Override
+              public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) throws IllegalArgumentException {
+                return emotionCommandHandler.onDirectTabComplete(identifierLower, sender, this, label, args);
+              }
+            };
+
+            if (commandUpdater.tryRegisterCommand(directCommand)) {
+              previouslyRegisteredDirectCommands.add(directCommand);
+              commandSendListener.registerPluginCommand(directCommand, sender -> CommandPermission.hasEmotionPermission(sender, identifierLower));
             }
-
-            @Override
-            public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) throws IllegalArgumentException {
-              return emotionCommandHandler.onDirectTabComplete(identifierLower, sender, this, label, args);
-            }
-          };
-
-          if (commandUpdater.tryRegisterCommand(directCommand)) {
-            previouslyRegisteredDirectCommands.add(directCommand);
-            commandSendListener.registerPluginCommand(directCommand, sender -> CommandPermission.hasEmotionPermission(sender, identifierLower));
           }
         }
 

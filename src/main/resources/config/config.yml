@@ -55,7 +55,7 @@ playerMessages:
   # - emotion_identifier: String
   unsupportedOtherTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an einen anderen Spieler nicht!"'
   # - emotion_identifier: String
-  unsupportedAllTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an alle Spieler &4nicht&c!"'
+  unsupportedAllTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an alle Spieler nicht!"'
   # - emotion_identifier: String
   # - remaining_time: String
   awaitRemainingCooldown$: 'lut["prefix"] & "&cBitte warte &4" & remaining_time & "&c, bevor du die Emotion &4" & emotion_identifier & " &cerneut ausführst!"'

@@ -21,6 +21,10 @@ emotions:
     # While possibly rather convenient, this setting could pollute global namespace, so it defaults to false
     tryRegisterDirectly: true
 
+    # When registering direct commands, aliases may be declared here
+    # They will call to the same underlying emotion and require the same permission
+    directAliases: []
+
     # Description shown on the help-screen
     description: '...'
 
