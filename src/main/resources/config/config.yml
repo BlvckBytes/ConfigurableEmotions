@@ -24,13 +24,13 @@ playerMessages:
   commandEmotionReloadFailure$: 'lut["prefix"] & "&cWährend des Neuladeprozesses der Konfiguration trat ein Fehler auf; bitte überprüfe die Konsole!"'
   # - label: String
   # - all_sentinel: String
-  # - emotions: List<HelpScreenEntry> where HelpScreenEntry: { identifier: String, description: String, supports_others: Boolean, supports_all: Boolean }
+  # - emotions: List<HelpScreenEntry> where HelpScreenEntry: { identifier: String, description: String, aliases: List<String>, supports_others: Boolean, supports_all: Boolean }
   commandEmotionHelpScreen$: |
     flatten(
       "&8&m                       &8[&5Emotionen&8]&8&m                       ",
-      map(
+      flatten(map(
         emotions,
-        (emotion) => (
+        (emotion) => list(
           "&8> &7/" & label & " &d" & emotion.identifier & "&7" & (
             if emotion.supports_others then (
               if emotion.supports_all then (
@@ -39,10 +39,11 @@ playerMessages:
                 if emotion.supports_self then " [&dSpieler&7]" else " <&dSpieler&7>"
               )
             ) else ""
-          ) & " - " & emotion.description
+          ) & " - " & emotion.description,
+          "&8> &7Aliase: " & iter_cat(emotion.aliases, (alias) => "&d" & alias, "&7, ", "&cKeine Aliase verfügbar")
         ),
         "&cNoch keine Emotionen konfiguriert"
-      ),
+      )),
       "&8&m                       &8[&5Emotionen&8]&8&m                       "
     )
   receiverCannotBeSelf$: 'lut["prefix"] & "&cDu kannst dir selbst keine Emotion senden!"'

@@ -348,9 +348,15 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         continue;
       }
 
+      var aliases = new ArrayList<>(emotion.directAliases);
+
+      if (emotion.tryRegisterDirectly)
+        aliases.add(emotionIdentifier.toLowerCase());
+
       helpScreenEntries.add(new HelpScreenEntry(
         emotionIdentifier,
         emotion.description.asScalar(ScalarType.STRING, config.rootSection.builtBaseEnvironment),
+        aliases,
         emotion.supportsSelf,
         emotion.supportsOthers,
         emotion.supportsAll
