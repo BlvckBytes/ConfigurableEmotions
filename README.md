@@ -8,11 +8,6 @@ Under the top-level section called `emotions`, one may register as many custom e
 
 ```yaml
 # Emotions will be displayed in this exact order on the help-screen
-# Environment for all emotion-messages:
-# - receiver_name: String
-# - receiver_display_name: String
-# - sender_name: String
-# - sender_display_name: String
 emotions:
   # Unique identifier; used as the command-argument and for auto-completion; cannot contain spaces
   # Permission will be of pattern configurableemotions.emotion.<lowercase_identifier>; in this case: configurableemotions.emotion.myemotion
@@ -40,6 +35,9 @@ emotions:
 
     # Whether this emotion can be executed with another player as a target
     supportsOthers: false
+
+    # How many players can this emotion be addressed at all at once? Will employ the *Many*-messages
+    maximumNumberOfTargets: 3
 
     # Whether this emotion can be executed with all online players as a target
     supportsAll: false
@@ -99,16 +97,38 @@ emotions:
       titleStay: 1
       titleFadeOut: 1
 
+    # - sender_name: String
+    # - sender_display_name: String
     messagesSelfBroadcast: # Layout equals to that of messageSelfSender
 
     # Played the emotion at one other player
 
+    # - receiver_name: String
+    # - receiver_display_name: String
+    # - sender_name: String
+    # - sender_display_name: String
     messagesOneSender: # Layout equals to that of messageSelfSender
     messagesOneReceiver: # Layout equals to that of messageSelfSender
     messagesOneBroadcast: # Layout equals to that of messageSelfSender
 
+    # Played the emotion at multiple other players (not all; as determined by maximumNumberOfTargets)
+
+    # - sender_name: String
+    # - sender_display_name: String
+    # - receivers_names: List<String>
+    # - receivers_display_names: List<String>
+    messagesManySender: # Layout equals to that of messageSelfSender
+    # - receiver_name: String
+    # - receiver_display_name: String
+    messagesManyReceiver: # Layout equals to that of messageSelfSender
+    messagesManyBroadcast: # Layout equals to that of messageSelfSender
+
     # Played the emotion at all other online players
 
+    # - receiver_name: String
+    # - receiver_display_name: String
+    # - sender_name: String
+    # - sender_display_name: String
     messagesAllSender: # Layout equals to that of messageSelfSender
     messagesAllReceiver: # Layout equals to that of messageSelfSender
     messagesAllBroadcast: # Layout equals to that of messageSelfSender

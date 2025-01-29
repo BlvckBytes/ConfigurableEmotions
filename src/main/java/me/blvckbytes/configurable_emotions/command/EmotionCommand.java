@@ -54,98 +54,128 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       return true;
     }
 
-    if (args.length == 1 || args.length == 2) {
-      var identifierLower = args[0].toLowerCase();
-      var emotion = config.rootSection.emotionByIdentifierLower.get(identifierLower);
+    if (args.length == 0) {
+      displayOverviewScreen(player, label);
+      return true;
+    }
 
-      if (emotion == null) {
-        config.rootSection.playerMessages.unknownEmotionProvided.sendMessage(
-          player,
-          config.rootSection.getBaseEnvironment()
-            .withStaticVariable("input", args[0])
-            .build()
-        );
-        return true;
-      }
+    var identifier = args[0];
+    var identifierLower = identifier.toLowerCase();
+    var emotion = config.rootSection.emotionByIdentifierLower.get(identifierLower);
 
-      if (!CommandPermission.hasEmotionPermission(player, identifierLower)) {
-        config.rootSection.playerMessages.missingEmotionPermission.sendMessage(
-          player,
-          config.rootSection.getBaseEnvironment()
-            .withStaticVariable("emotion_identifier", args[0])
-            .build()
-        );
-        return true;
-      }
+    if (emotion == null) {
+      config.rootSection.playerMessages.unknownEmotionProvided.sendMessage(
+        player,
+        config.rootSection.getBaseEnvironment()
+          .withStaticVariable("input", identifier)
+          .build()
+      );
+      return true;
+    }
 
-      if (emotion.cooldownSeconds != 0 && !CommandPermission.hasCooldownBypassPermission(player, identifierLower)) {
-        var elapsedSeconds = getElapsedCooldownSeconds(identifierLower, player);
+    if (!CommandPermission.hasEmotionPermission(player, identifierLower)) {
+      config.rootSection.playerMessages.missingEmotionPermission.sendMessage(
+        player,
+        config.rootSection.getBaseEnvironment()
+          .withStaticVariable("emotion_identifier", identifier)
+          .build()
+      );
+      return true;
+    }
 
-        if (elapsedSeconds >= 0) {
-          var remainingSeconds = emotion.cooldownSeconds - elapsedSeconds;
+    if (emotion.cooldownSeconds != 0 && !CommandPermission.hasCooldownBypassPermission(player, identifierLower)) {
+      var elapsedSeconds = getElapsedCooldownSeconds(identifierLower, player);
 
-          if (remainingSeconds > 0) {
-            config.rootSection.playerMessages.awaitRemainingCooldown.sendMessage(
-              player,
-              config.rootSection.getBaseEnvironment()
-                .withStaticVariable("remaining_time", formatSecondsToTimeString(remainingSeconds))
-                .withStaticVariable("emotion_identifier", args[0])
-                .build()
-            );
-            return true;
-          }
-        }
-      }
+      if (elapsedSeconds >= 0) {
+        var remainingSeconds = emotion.cooldownSeconds - elapsedSeconds;
 
-      var isImplicitAllTarget = emotion.doesNoTargetEqualsAll && args.length == 1;
-
-      if (args.length == 2 || isImplicitAllTarget) {
-        var emotionTarget = isImplicitAllTarget ? config.rootSection.commands.emotion.allSentinel : args[1];
-
-        if (emotionTarget.equalsIgnoreCase(config.rootSection.commands.emotion.allSentinel)) {
-          if (!emotion.supportsAll) {
-            config.rootSection.playerMessages.unsupportedAllTarget.sendMessage(
-              player,
-              config.rootSection.getBaseEnvironment()
-                .withStaticVariable("emotion_identifier", args[0])
-                .build()
-            );
-            return true;
-          }
-
-          if (!playEmotionAll(player, emotion)) {
-            config.rootSection.playerMessages.noReceivingPlayersOnline.sendMessage(
-              player,
-              config.rootSection.getBaseEnvironment()
-                .withStaticVariable("emotion_identifier", args[0])
-                .build()
-            );
-            return true;
-          }
-
-          if (emotion.cooldownSeconds != 0)
-            touchLastExecutionStamp(identifierLower, player);
-
-          return true;
-        }
-
-        if (!emotion.supportsOthers) {
-          config.rootSection.playerMessages.unsupportedOtherTarget.sendMessage(
+        if (remainingSeconds > 0) {
+          config.rootSection.playerMessages.awaitRemainingCooldown.sendMessage(
             player,
             config.rootSection.getBaseEnvironment()
-              .withStaticVariable("emotion_identifier", args[0])
+              .withStaticVariable("remaining_time", formatSecondsToTimeString(remainingSeconds))
+              .withStaticVariable("emotion_identifier", identifier)
+              .build()
+          );
+          return true;
+        }
+      }
+    }
+
+    var isImplicitAllTarget = emotion.doesNoTargetEqualsAll && args.length == 1;
+
+    if (args.length >= 2 || isImplicitAllTarget) {
+      var firstEmotionTarget = isImplicitAllTarget ? config.rootSection.commands.emotion.allSentinel : args[1];
+
+      if (firstEmotionTarget.equalsIgnoreCase(config.rootSection.commands.emotion.allSentinel)) {
+        if (!emotion.supportsAll) {
+          config.rootSection.playerMessages.unsupportedAllTarget.sendMessage(
+            player,
+            config.rootSection.getBaseEnvironment()
+              .withStaticVariable("emotion_identifier", identifier)
               .build()
           );
           return true;
         }
 
-        var targetPlayer = getPlayerByNameOrDisplayName(emotionTarget);
+        if (args.length > 2) {
+          config.rootSection.playerMessages.cannotCombineAllSentinelWithNames.sendMessage(
+            player,
+            config.rootSection.getBaseEnvironment()
+              .withStaticVariable("all_sentinel", config.rootSection.commands.emotion.allSentinel)
+              .build()
+          );
+          return true;
+        }
+
+        if (!playEmotionAll(player, emotion)) {
+          config.rootSection.playerMessages.noReceivingPlayersOnline.sendMessage(
+            player,
+            config.rootSection.getBaseEnvironment()
+              .withStaticVariable("emotion_identifier", identifier)
+              .build()
+          );
+          return true;
+        }
+
+        if (emotion.cooldownSeconds != 0)
+          touchLastExecutionStamp(identifierLower, player);
+
+        return true;
+      }
+
+      if (!emotion.supportsOthers) {
+        config.rootSection.playerMessages.unsupportedOtherTarget.sendMessage(
+          player,
+          config.rootSection.getBaseEnvironment()
+            .withStaticVariable("emotion_identifier", identifier)
+            .build()
+        );
+        return true;
+      }
+
+      var targetPlayers = new HashSet<Player>();
+
+      for (var i = 1; i < args.length; ++i) {
+        var targetName = args[i];
+
+        if (config.rootSection.commands.emotion.allSentinel.equalsIgnoreCase(targetName)) {
+          config.rootSection.playerMessages.cannotCombineAllSentinelWithNames.sendMessage(
+            player,
+            config.rootSection.getBaseEnvironment()
+              .withStaticVariable("all_sentinel", config.rootSection.commands.emotion.allSentinel)
+              .build()
+          );
+          return true;
+        }
+
+        var targetPlayer = getPlayerByNameOrDisplayName(targetName);
 
         if (targetPlayer == null || !targetPlayer.isOnline()) {
           config.rootSection.playerMessages.receivingPlayerNotOnline.sendMessage(
             player,
             config.rootSection.getBaseEnvironment()
-              .withStaticVariable("target_player", args[1])
+              .withStaticVariable("target_player", targetName)
               .build()
           );
           return true;
@@ -156,7 +186,19 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
           return true;
         }
 
-        playEmotionOther(player, targetPlayer, emotion);
+        if (!targetPlayers.add(targetPlayer)) {
+          config.rootSection.playerMessages.receivingPlayerDuplicate.sendMessage(
+            player,
+            config.rootSection.getBaseEnvironment()
+              .withStaticVariable("target_player", targetName)
+              .build()
+          );
+          return true;
+        }
+      }
+
+      if (targetPlayers.size() == 1) {
+        playEmotionOther(player, targetPlayers.iterator().next(), emotion);
 
         if (emotion.cooldownSeconds != 0)
           touchLastExecutionStamp(identifierLower, player);
@@ -164,17 +206,18 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         return true;
       }
 
-      if (!emotion.supportsSelf) {
-        config.rootSection.playerMessages.unsupportedPlayingOnSelf.sendMessage(
+      if (targetPlayers.size() > emotion.maximumNumberOfTargets) {
+        config.rootSection.playerMessages.maximumNumberOfTargetsExceeded.sendMessage(
           player,
           config.rootSection.getBaseEnvironment()
-            .withStaticVariable("emotion_identifier", args[0])
+            .withStaticVariable("emotion_identifier", identifier)
+            .withStaticVariable("maximum_count", emotion.maximumNumberOfTargets)
             .build()
         );
         return true;
       }
 
-      playEmotionSelf(player, emotion);
+      playEmotionMany(player, targetPlayers, emotion);
 
       if (emotion.cooldownSeconds != 0)
         touchLastExecutionStamp(identifierLower, player);
@@ -182,40 +225,20 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       return true;
     }
 
-    var helpScreenEntries = new ArrayList<HelpScreenEntry>();
-    var mismatchedPermission = false;
-
-    for (var emotionEntry : config.rootSection.emotions.entrySet()) {
-      var emotion = emotionEntry.getValue();
-      var emotionIdentifier = emotionEntry.getKey();
-
-      if (!(sender.hasPermission("configurableemotions.emotion." + emotionIdentifier.toLowerCase()))) {
-        mismatchedPermission = true;
-        continue;
-      }
-
-      helpScreenEntries.add(new HelpScreenEntry(
-        emotionIdentifier,
-        emotion.description.asScalar(ScalarType.STRING, config.rootSection.builtBaseEnvironment),
-        emotion.supportsSelf,
-        emotion.supportsOthers,
-        emotion.supportsAll
-      ));
-    }
-
-    if (mismatchedPermission && helpScreenEntries.isEmpty()) {
-      config.rootSection.playerMessages.noAccessToAnyEmotion.sendMessage(player, config.rootSection.builtBaseEnvironment);
+    if (!emotion.supportsSelf) {
+      config.rootSection.playerMessages.unsupportedPlayingOnSelf.sendMessage(
+        player,
+        config.rootSection.getBaseEnvironment()
+          .withStaticVariable("emotion_identifier", args[0])
+          .build()
+      );
       return true;
     }
 
-    config.rootSection.playerMessages.commandEmotionHelpScreen.sendMessage(
-      player,
-      config.rootSection.getBaseEnvironment()
-        .withStaticVariable("label", label)
-        .withStaticVariable("all_sentinel", config.rootSection.commands.emotion.allSentinel)
-        .withStaticVariable("emotions", helpScreenEntries)
-        .build()
-    );
+    playEmotionSelf(player, emotion);
+
+    if (emotion.cooldownSeconds != 0)
+      touchLastExecutionStamp(identifierLower, player);
 
     return true;
   }
@@ -244,7 +267,17 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (!(emotion.supportsOthers || emotion.supportsAll))
       return List.of();
 
+    if (args.length - 1 > emotion.maximumNumberOfTargets)
+      return List.of();
+
+    var allSentinel = config.rootSection.commands.emotion.allSentinel;
+
+    // The all-sentinel may not be followed up by any additional names, as that would be illogical
+    if (args[1].equalsIgnoreCase(allSentinel))
+      return List.of();
+
     var nameSuggestions = new ArrayList<String>();
+    var lastArg = args[args.length - 1];
 
     for (var player : Bukkit.getOnlinePlayers()) {
       if (player.equals(sender))
@@ -254,22 +287,27 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       var displayName = sanitize(player.getDisplayName());
 
       if (!name.equals(displayName)) {
-        if (!StringUtils.containsIgnoreCase(displayName, args[1]))
+        if (!StringUtils.containsIgnoreCase(displayName, lastArg))
+          continue;
+
+        if (doesArgsTargetListContainIgnoreCase(args, displayName))
           continue;
 
         nameSuggestions.add(displayName);
         continue;
       }
 
-      if (!StringUtils.containsIgnoreCase(name, args[1]))
+      if (!StringUtils.containsIgnoreCase(name, lastArg))
+        continue;
+
+      if (doesArgsTargetListContainIgnoreCase(args, name))
         continue;
 
       nameSuggestions.add(name);
     }
 
-    var allSentinel = config.rootSection.commands.emotion.allSentinel;
-
-    if (emotion.supportsAll && StringUtils.containsIgnoreCase(allSentinel, args[1]))
+    // Only suggest the all-sentinel on the first target-name
+    if (emotion.supportsAll && args.length == 2 && StringUtils.containsIgnoreCase(allSentinel, args[1]))
       nameSuggestions.add(allSentinel);
 
     return nameSuggestions;
@@ -296,6 +334,55 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
   // ================================================================================
   // Utilities
   // ================================================================================
+
+  private void displayOverviewScreen(Player player, String commandLabel) {
+    var helpScreenEntries = new ArrayList<HelpScreenEntry>();
+    var mismatchedPermission = false;
+
+    for (var emotionEntry : config.rootSection.emotions.entrySet()) {
+      var emotion = emotionEntry.getValue();
+      var emotionIdentifier = emotionEntry.getKey();
+
+      if (!(player.hasPermission("configurableemotions.emotion." + emotionIdentifier.toLowerCase()))) {
+        mismatchedPermission = true;
+        continue;
+      }
+
+      helpScreenEntries.add(new HelpScreenEntry(
+        emotionIdentifier,
+        emotion.description.asScalar(ScalarType.STRING, config.rootSection.builtBaseEnvironment),
+        emotion.supportsSelf,
+        emotion.supportsOthers,
+        emotion.supportsAll
+      ));
+    }
+
+    if (mismatchedPermission && helpScreenEntries.isEmpty()) {
+      config.rootSection.playerMessages.noAccessToAnyEmotion.sendMessage(player, config.rootSection.builtBaseEnvironment);
+      return;
+    }
+
+    config.rootSection.playerMessages.commandEmotionHelpScreen.sendMessage(
+      player,
+      config.rootSection.getBaseEnvironment()
+        .withStaticVariable("label", commandLabel)
+        .withStaticVariable("all_sentinel", config.rootSection.commands.emotion.allSentinel)
+        .withStaticVariable("emotions", helpScreenEntries)
+        .build()
+    );
+  }
+
+  private boolean doesArgsTargetListContainIgnoreCase(String[] args, String name) {
+    if (args.length < 2)
+      return false;
+
+    for (var i = 1; i < args.length; ++i) {
+      if (args[i].equalsIgnoreCase(name))
+        return true;
+    }
+
+    return false;
+  }
 
   private @Nullable Player getPlayerByNameOrDisplayName(String input) {
     for (var player : Bukkit.getOnlinePlayers()) {
@@ -374,6 +461,52 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       displayMessages(sender, messageEnvironment.build(), emotion.messagesAllSender);
 
     return true;
+  }
+
+  private void playEmotionMany(Player sender, Collection<Player> receivers, EmotionSection emotion) {
+    var receiverNames = new ArrayList<String>(receivers.size());
+    var receiverDisplayNames = new ArrayList<String>(receivers.size());
+
+    for (var receiver : receivers) {
+      receiverNames.add(receiver.getName());
+      receiverDisplayNames.add(receiver.getDisplayName());
+    }
+
+    var messageEnvironment = makeMessageEnvironment(sender)
+      .withStaticVariable("receivers_names", receiverNames)
+      .withStaticVariable("receivers_display_names", receiverDisplayNames);
+
+    for (var receiver : Bukkit.getOnlinePlayers()) {
+      // Avoid looping twice - send ahead of all other actions
+
+      var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
+
+      if (emotion.messagesManyBroadcast != null)
+        displayMessages(receiver, receiverEnvironment, emotion.messagesManyBroadcast);
+
+      if (receiver.equals(sender))
+        continue;
+
+      receivers.add(receiver);
+
+      if (emotion._soundReceiver != null)
+        emotion._soundReceiver.play(receiver);
+
+      if (emotion.messagesManyReceiver != null)
+        displayMessages(receiver, receiverEnvironment, emotion.messagesManyReceiver);
+    }
+
+    for (var senderEffect : emotion.effectsSender)
+      effectPlayer.playEffect(senderEffect, List.of(sender));
+
+    for (var receiverEffect : emotion.effectsReceiver)
+      effectPlayer.playEffect(receiverEffect, receivers);
+
+    if (emotion._soundSender != null)
+      emotion._soundSender.play(sender);
+
+    if (emotion.messagesManySender != null)
+      displayMessages(sender, messageEnvironment.build(), emotion.messagesManySender);
   }
 
   private IEvaluationEnvironment addReceiverVariablesAndBuild(Player receiver, EvaluationEnvironmentBuilder environment) {

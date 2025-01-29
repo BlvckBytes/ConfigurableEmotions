@@ -23,6 +23,7 @@ public class EmotionSection extends AConfigSection {
   public boolean supportsSelf;
   public boolean supportsOthers;
   public boolean supportsAll;
+  public int maximumNumberOfTargets;
 
   public @Nullable BukkitEvaluable soundSender;
   public @Nullable BukkitEvaluable soundReceiver;
@@ -41,6 +42,12 @@ public class EmotionSection extends AConfigSection {
   public @Nullable DisplayedMessages messagesOneReceiver;
   public @Nullable DisplayedMessages messagesOneBroadcast;
 
+  // Played the emotion at multiple other players
+
+  public @Nullable DisplayedMessages messagesManySender;
+  public @Nullable DisplayedMessages messagesManyReceiver;
+  public @Nullable DisplayedMessages messagesManyBroadcast;
+
   // Played the emotion at all other online players
 
   public @Nullable DisplayedMessages messagesAllSender;
@@ -56,6 +63,7 @@ public class EmotionSection extends AConfigSection {
     this.effectsSender = new ArrayList<>();
     this.effectsReceiver = new ArrayList<>();
     this.directAliases = new ArrayList<>();
+    this.maximumNumberOfTargets = 1;
   }
 
   @Override
@@ -64,6 +72,11 @@ public class EmotionSection extends AConfigSection {
 
     if (!(supportsSelf || supportsOthers || supportsAll))
       throw new MappingError("At least one of the properties \"supportsSelf\", \"supportsOthers\" or \"supportsAll\" must be enabled!");
+
+    if (supportsOthers) {
+      if (maximumNumberOfTargets <= 0)
+        throw new MappingError("Property \"maximumNumberOfTargets\" cannot be less than or equal to zero");
+    }
 
     if (description == null)
       throw new MappingError("Property \"description\" was absent, but is required");

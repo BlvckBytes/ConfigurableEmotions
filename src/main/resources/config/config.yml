@@ -48,12 +48,19 @@ playerMessages:
   receiverCannotBeSelf$: 'lut["prefix"] & "&cDu kannst dir selbst keine Emotion senden!"'
   # - target_player: String
   receivingPlayerNotOnline$: 'lut["prefix"] & "&cDer Spieler &4" & target_player & " &cbefindet sich nicht auf dem Server!"'
+  # - target_player: String
+  receivingPlayerDuplicate$: 'lut["prefix"] & "&cDer Spieler &4" & target_player & " &ckommt in der Empfängerliste mehrfach vor!"'
+  # - emotion_identifier: String
+  # - maximum_count: Integer
+  maximumNumberOfTargetsExceeded$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt maximal &4" & maximum_count & " Empfänger&c!"'
+  # - all_sentinel: String
+  cannotCombineAllSentinelWithNames$: 'lut["prefix"] & "&cDer &4" & all_sentinel & "-Platzhalter &ckann nicht mit Spielernamen kombiniert werden!"'
   # - emotion_identifier: String
   noReceivingPlayersOnline$: 'lut["prefix"] & "&cEs befindet sich kein Spieler auf dem Server, der deine Emotion &4" & emotion_identifier & " &cempfangen könnte!"'
   # - emotion_identifier: String
   unsupportedPlayingOnSelf$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &ckann nicht auf dir selbst ausgeführt werden!"'
   # - emotion_identifier: String
-  unsupportedOtherTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an einen anderen Spieler nicht!"'
+  unsupportedOtherTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an andere Spieler nicht!"'
   # - emotion_identifier: String
   unsupportedAllTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an alle Spieler nicht!"'
   # - emotion_identifier: String

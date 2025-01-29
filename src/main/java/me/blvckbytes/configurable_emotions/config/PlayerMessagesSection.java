@@ -12,6 +12,9 @@ public class PlayerMessagesSection extends AConfigSection {
 
   public BukkitEvaluable receiverCannotBeSelf;
   public BukkitEvaluable receivingPlayerNotOnline;
+  public BukkitEvaluable receivingPlayerDuplicate;
+  public BukkitEvaluable maximumNumberOfTargetsExceeded;
+  public BukkitEvaluable cannotCombineAllSentinelWithNames;
   public BukkitEvaluable noReceivingPlayersOnline;
   public BukkitEvaluable unsupportedPlayingOnSelf;
   public BukkitEvaluable unsupportedOtherTarget;
