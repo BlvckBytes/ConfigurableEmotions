@@ -38,6 +38,11 @@
             <artifactId>BukkitEvaluable</artifactId>
             <version>0.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.cryptomorin</groupId>
+            <artifactId>XSeries</artifactId>
+            <version>13.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -88,7 +93,12 @@
                         <!-- See [1] -->
                         <relocation>
                             <pattern>org/yaml/snakeyaml/(.*)</pattern>
-                            <shadedPattern>me/blvckbytes/org/yaml/snakeyaml/$1</shadedPattern>
+                            <shadedPattern>me/blvckbytes/configurable_emotions/org/yaml/snakeyaml/$1</shadedPattern>
+                            <rawString>true</rawString>
+                        </relocation>
+                        <relocation>
+                            <pattern>com/cryptomorin/xseries/(.*)</pattern>
+                            <shadedPattern>me/blvckbytes/configurable_emotions/com/cryptomorin/xseries/$1</shadedPattern>
                             <rawString>true</rawString>
                         </relocation>
                     </relocations>
