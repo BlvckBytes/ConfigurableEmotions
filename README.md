@@ -118,9 +118,15 @@ emotions:
     # - receivers_names: List<String>
     # - receivers_display_names: List<String>
     messagesManySender: # Layout equals to that of messageSelfSender
+    # - sender_name: String
+    # - sender_display_name: String
     # - receiver_name: String
     # - receiver_display_name: String
     messagesManyReceiver: # Layout equals to that of messageSelfSender
+    # - sender_name: String
+    # - sender_display_name: String
+    # - receivers_names: List<String>
+    # - receivers_display_names: List<String>
     messagesManyBroadcast: # Layout equals to that of messageSelfSender
 
     # Played the emotion at all other online players
