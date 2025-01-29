@@ -97,8 +97,10 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         }
       }
 
-      if (args.length == 2) {
-        var emotionTarget = args[1];
+      var isImplicitAllTarget = emotion.doesNoTargetEqualsAll && args.length == 1;
+
+      if (args.length == 2 || isImplicitAllTarget) {
+        var emotionTarget = isImplicitAllTarget ? config.rootSection.commands.emotion.allSentinel : args[1];
 
         if (emotionTarget.equalsIgnoreCase(config.rootSection.commands.emotion.allSentinel)) {
           if (!emotion.supportsAll) {

@@ -26,6 +26,9 @@ emotions:
     # They will call to the same underlying emotion and require the same permission
     directAliases: []
 
+    # If no target is specified, the emotion is to be executed on all online players
+    doesNoTargetEqualsAll: false
+
     # Description shown on the help-screen
     description: '...'
 

@@ -17,6 +17,7 @@ public class EmotionSection extends AConfigSection {
   public boolean tryRegisterDirectly;
   public List<String> directAliases;
   public BukkitEvaluable description;
+  public boolean doesNoTargetEqualsAll;
 
   public long cooldownSeconds;
   public boolean supportsSelf;
