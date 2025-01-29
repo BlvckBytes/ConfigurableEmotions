@@ -8,7 +8,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -26,14 +26,14 @@ public class EffectPlayer {
     this.logger = logger;
   }
 
-  public void playEffect(DisplayedEffect effect, List<Player> targets) {
+  public void playEffect(DisplayedEffect effect, Collection<Player> targets) {
     if (effect.numberOfExecutions == 0 || effect._particle == null)
       return;
 
     playEffectInstance(effect, targets, 1);
   }
 
-  private void playEffectInstance(DisplayedEffect effect, List<Player> targets, int executionCounter) {
+  private void playEffectInstance(DisplayedEffect effect, Collection<Player> targets, int executionCounter) {
     for (var target : targets) {
       var effectLocation = target.getLocation().add(0, effect.yOffset, 0);
 
