@@ -13,6 +13,7 @@ commands:
   emotion:
     name: 'emotion'
     allSentinel: 'Alle'
+    paginationSize: 5
     aliases:
       - emo
       - emotions
@@ -25,9 +26,14 @@ playerMessages:
   # - label: String
   # - all_sentinel: String
   # - emotions: List<HelpScreenEntry> where HelpScreenEntry: { identifier: String, description: String, aliases: List<String>, supports_others: Boolean, supports_all: Boolean }
+  # - current_page: Integer
+  # - page_size: Integer
+  # - number_of_pages: Integer
   commandEmotionHelpScreen$: |
     flatten(
       "&8&m                       &8[&5Emotionen&8]&8&m                       ",
+      "&7Seite &d" & current_page & "&7/&d" & number_of_pages & " &7- Nutze /" & label & " <Seite>",
+      " ",
       flatten(map(
         emotions,
         (emotion) => list(
@@ -40,7 +46,8 @@ playerMessages:
               )
             ) else ""
           ) & " - " & emotion.description,
-          "&8> &7Aliase: " & iter_cat(emotion.aliases, (alias) => "&d" & alias, "&7, ", "&cKeine Aliase verfügbar")
+          "&8> &7Aliase: " & iter_cat(emotion.aliases, (alias) => "&d" & alias, "&7, ", "&cKeine Aliase verfügbar"),
+          " "
         ),
         "&cNoch keine Emotionen konfiguriert"
       )),

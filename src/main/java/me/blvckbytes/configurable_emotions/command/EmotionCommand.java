@@ -55,11 +55,20 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     }
 
     if (args.length == 0) {
-      displayOverviewScreen(player, label);
+      displayOverviewScreen(player, label, 1);
       return true;
     }
 
     var identifier = args[0];
+    Integer overviewPage;
+
+    // While this is not necessarily the cleanest solution, I prefer making fully numeric
+    // emotion-identifiers without arguments inaccessible above further increasing the command's complexity.
+    if (args.length == 1 && (overviewPage = tryParseInteger(identifier)) != null) {
+      displayOverviewScreen(player, label, overviewPage);
+      return true;
+    }
+
     var identifierLower = identifier.toLowerCase();
     var emotion = config.rootSection.emotionByIdentifierLower.get(identifierLower);
 
@@ -335,8 +344,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
   // Utilities
   // ================================================================================
 
-  private void displayOverviewScreen(Player player, String commandLabel) {
-    var helpScreenEntries = new ArrayList<HelpScreenEntry>();
+  private void displayOverviewScreen(Player player, String commandLabel, int page) {
+    List<HelpScreenEntry> helpScreenEntries = new ArrayList<>();
     var mismatchedPermission = false;
 
     for (var emotionEntry : config.rootSection.emotions.entrySet()) {
@@ -368,9 +377,27 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       return;
     }
 
+    int pageSize = config.rootSection.commands.emotion.paginationSize;
+    int numberOfPages = (helpScreenEntries.size() + (pageSize - 1)) / pageSize;
+
+    if (page > numberOfPages)
+      page = numberOfPages;
+
+    if (page <= 0)
+      page = 1;
+
+    if (helpScreenEntries.size() > pageSize) {
+      var firstIndex = (page - 1) * pageSize;
+      var lastIndex = Math.min(helpScreenEntries.size() - 1, firstIndex + pageSize);
+      helpScreenEntries = helpScreenEntries.subList(firstIndex, lastIndex);
+    }
+
     config.rootSection.playerMessages.commandEmotionHelpScreen.sendMessage(
       player,
       config.rootSection.getBaseEnvironment()
+        .withStaticVariable("number_of_pages", numberOfPages)
+        .withStaticVariable("current_page", page)
+        .withStaticVariable("page_size", pageSize)
         .withStaticVariable("label", commandLabel)
         .withStaticVariable("all_sentinel", config.rootSection.commands.emotion.allSentinel)
         .withStaticVariable("emotions", helpScreenEntries)
@@ -707,5 +734,13 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         (c >= 'a' && c <= 'f') ||
         (c >= 'A' && c <= 'F')
     );
+  }
+
+  private @Nullable Integer tryParseInteger(String value) {
+    try {
+      return Integer.parseInt(value);
+    } catch (NumberFormatException e) {
+      return null;
+    }
   }
 }
