@@ -458,6 +458,9 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     var receivers = new ArrayList<Player>();
     var messageEnvironment = makeMessageEnvironment(sender);
 
+    if (Bukkit.getOnlinePlayers().size() == 1)
+      return false;
+
     for (var receiver : Bukkit.getOnlinePlayers()) {
       // Avoid looping twice - send ahead of all other actions
 
@@ -477,9 +480,6 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       if (emotion.messagesAllReceiver != null)
         displayMessages(receiver, receiverEnvironment, emotion.messagesAllReceiver);
     }
-
-    if (receivers.isEmpty())
-      return false;
 
     for (var senderEffect : emotion.effectsSender)
       effectPlayer.playEffect(senderEffect, List.of(sender));
