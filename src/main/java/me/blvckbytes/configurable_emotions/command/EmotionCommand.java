@@ -388,7 +388,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     if (helpScreenEntries.size() > pageSize) {
       var firstIndex = (page - 1) * pageSize;
-      var lastIndex = Math.min(helpScreenEntries.size() - 1, firstIndex + pageSize);
+      var lastIndex = Math.min(helpScreenEntries.size(), firstIndex + pageSize);
       helpScreenEntries = helpScreenEntries.subList(firstIndex, lastIndex);
     }
 
