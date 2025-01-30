@@ -20,7 +20,7 @@ public class DisplayedMessages extends AConfigSection {
     super(baseEnvironment);
 
     this.titleFadeIn = 5;
-    this.titleStay = 30;
+    this.titleStay = 35;
     this.titleFadeOut = 5;
   }
 }
