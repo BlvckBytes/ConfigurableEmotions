@@ -24,7 +24,11 @@ import java.util.logging.Level;
 
 public class ConfigurableEmotionsPlugin extends JavaPlugin {
 
+  private final List<Command> currentlyRegisteredDirectCommands = new ArrayList<>();
+
   private UidScopedNamedStampStore stampStore;
+  private CommandUpdater commandUpdater;
+  private CommandSendListener commandSendListener;
 
   @Override
   public void onEnable() {
@@ -36,7 +40,7 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
 
       var configManager = new ConfigManager(this, "config");
       var config = new ConfigKeeper<>(configManager, "config.yml", MainSection.class);
-      var commandUpdater = new CommandUpdater(this);
+      commandUpdater = new CommandUpdater(this);
 
       stampStore = new UidScopedNamedStampStore(this, logger);
 
@@ -48,23 +52,14 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       var emotionReloadCommand = Objects.requireNonNull(getCommand(EmotionReloadCommandSection.INITIAL_NAME));
       emotionReloadCommand.setExecutor(new EmotionReloadCommand(config, logger));
 
-      var commandSendListener = new CommandSendListener(this, config);
+      commandSendListener = new CommandSendListener(this, config);
       Bukkit.getServer().getPluginManager().registerEvents(commandSendListener, this);
-
-      var previouslyRegisteredDirectCommands = new ArrayList<Command>();
 
       Runnable updateCommands = () -> {
         config.rootSection.commands.emotion.apply(emotionCommand, commandUpdater);
         config.rootSection.commands.emotionReload.apply(emotionReloadCommand, commandUpdater);
 
-        for (var commandIterator = previouslyRegisteredDirectCommands.iterator(); commandIterator.hasNext();) {
-          var previousCommand = commandIterator.next();
-
-          commandUpdater.tryUnregisterCommand(previousCommand);
-          commandSendListener.unregisterPluginCommand(previousCommand);
-
-          commandIterator.remove();
-        }
+        unregisterCurrentlyRegisteredDirectCommands();
 
         for (var identifierLower : config.rootSection.emotionByIdentifierLower.keySet()) {
           var emotion = config.rootSection.emotionByIdentifierLower.get(identifierLower);
@@ -91,7 +86,7 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
             };
 
             if (commandUpdater.tryRegisterCommand(directCommand)) {
-              previouslyRegisteredDirectCommands.add(directCommand);
+              currentlyRegisteredDirectCommands.add(directCommand);
               commandSendListener.registerPluginCommand(directCommand, sender -> CommandPermission.hasEmotionPermission(sender, identifierLower));
             }
           }
@@ -117,5 +112,21 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
   public void onDisable() {
     if (stampStore != null)
       stampStore.onDisable();
+
+    unregisterCurrentlyRegisteredDirectCommands();
+  }
+
+  private void unregisterCurrentlyRegisteredDirectCommands() {
+    for (var commandIterator = currentlyRegisteredDirectCommands.iterator(); commandIterator.hasNext();) {
+      var previousCommand = commandIterator.next();
+
+      if (commandUpdater != null)
+        commandUpdater.tryUnregisterCommand(previousCommand);
+
+      if (commandSendListener != null)
+        commandSendListener.unregisterPluginCommand(previousCommand);
+
+      commandIterator.remove();
+    }
   }
 }
