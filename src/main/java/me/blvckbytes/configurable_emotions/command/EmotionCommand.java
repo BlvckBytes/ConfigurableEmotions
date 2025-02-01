@@ -459,11 +459,12 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
   }
 
   private boolean playEmotionAll(Player sender, EmotionSection emotion) {
-    var receivers = new ArrayList<Player>();
-    var messageEnvironment = makeMessageEnvironment(sender);
-
     if (Bukkit.getOnlinePlayers().size() == 1)
       return false;
+
+    var receivers = new ArrayList<Player>();
+    var messageEnvironment = makeMessageEnvironment(sender);
+    var builtMessageEnvironment = messageEnvironment.build();
 
     for (var receiver : Bukkit.getOnlinePlayers()) {
       // Avoid looping twice - send ahead of all other actions
@@ -471,7 +472,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
 
       if (emotion.messagesAllBroadcast != null)
-        displayMessages(receiver, receiverEnvironment, emotion.messagesAllBroadcast);
+        displayMessages(receiver, builtMessageEnvironment, emotion.messagesAllBroadcast);
 
       if (receiver.equals(sender))
         continue;
@@ -485,6 +486,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         displayMessages(receiver, receiverEnvironment, emotion.messagesAllReceiver);
     }
 
+    possiblyBroadcastToConsole(emotion, emotion.messagesAllBroadcast, builtMessageEnvironment);
+
     for (var senderEffect : emotion.effectsSender)
       effectPlayer.playEffect(senderEffect, List.of(sender));
 
@@ -493,8 +496,6 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     if (emotion._soundSender != null)
       emotion._soundSender.play(sender);
-
-    var builtMessageEnvironment = messageEnvironment.build();
 
     if (emotion.messagesAllSender != null)
       displayMessages(sender, builtMessageEnvironment, emotion.messagesAllSender);
@@ -518,13 +519,15 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       .withStaticVariable("receivers_names", receiverNames)
       .withStaticVariable("receivers_display_names", receiverDisplayNames);
 
+    var builtMessageEnvironment = messageEnvironment.build();
+
     for (var receiver : Bukkit.getOnlinePlayers()) {
       // Avoid looping twice - send ahead of all other actions
 
       var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
 
       if (emotion.messagesManyBroadcast != null)
-        displayMessages(receiver, receiverEnvironment, emotion.messagesManyBroadcast);
+        displayMessages(receiver, builtMessageEnvironment, emotion.messagesManyBroadcast);
 
       if (receiver.equals(sender))
         continue;
@@ -538,6 +541,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         displayMessages(receiver, receiverEnvironment, emotion.messagesManyReceiver);
     }
 
+    possiblyBroadcastToConsole(emotion, emotion.messagesManyBroadcast, builtMessageEnvironment);
+
     for (var senderEffect : emotion.effectsSender)
       effectPlayer.playEffect(senderEffect, List.of(sender));
 
@@ -547,7 +552,6 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion._soundSender != null)
       emotion._soundSender.play(sender);
 
-    var builtMessageEnvironment = messageEnvironment.build();
 
     if (emotion.messagesManySender != null)
       displayMessages(sender, builtMessageEnvironment, emotion.messagesManySender);
@@ -597,6 +601,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion.messagesOneBroadcast != null) {
       for (var messageReceiver : Bukkit.getOnlinePlayers())
         displayMessages(messageReceiver, receiverEnvironment, emotion.messagesOneBroadcast);
+
+      possiblyBroadcastToConsole(emotion, emotion.messagesOneBroadcast, receiverEnvironment);
     }
 
     if (emotion._soundReceiver != null)
@@ -629,6 +635,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion.messagesSelfBroadcast != null) {
       for (var messageReceiver : Bukkit.getOnlinePlayers())
         displayMessages(messageReceiver, messageEnvironment, emotion.messagesSelfBroadcast);
+
+      possiblyBroadcastToConsole(emotion, emotion.messagesSelfBroadcast, messageEnvironment);
     }
 
     for (var senderEffect : emotion.effectsSender)
@@ -642,6 +650,20 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     if (emotion.messageSelfDiscord != null && discordApi != null)
       discordApi.sendMessage(emotion.messageSelfDiscord.asScalar(ScalarType.STRING, messageEnvironment));
+  }
+
+  private void possiblyBroadcastToConsole(
+    EmotionSection emotion,
+    @Nullable DisplayedMessages broadcastMessages,
+    IEvaluationEnvironment messageEnvironment
+  ) {
+    if (broadcastMessages == null || !emotion.broadcastToConsole)
+      return;
+
+    if (broadcastMessages.chatMessage == null)
+      return;
+
+    broadcastMessages.chatMessage.sendMessage(Bukkit.getConsoleSender(), messageEnvironment);
   }
 
   private void touchLastExecutionStamp(String identifierLower, Player player) {

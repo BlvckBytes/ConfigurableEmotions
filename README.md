@@ -42,6 +42,9 @@ emotions:
     # Whether this emotion can be executed with all online players as a target
     supportsAll: false
 
+    # Whether broadcast-messages as defined on this emotion will be sent to the console as well
+    broadcastToConsole: false
+
     # The sound played to the executor at execution; delete key to play no sound
     soundSender: '...'
 

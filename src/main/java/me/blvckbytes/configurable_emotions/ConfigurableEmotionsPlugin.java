@@ -29,8 +29,6 @@ import java.util.logging.Logger;
 
 public class ConfigurableEmotionsPlugin extends JavaPlugin {
 
-  // TODO: Add a config-option to also send broadcast-messages to the ConsoleSender
-
   private final List<Command> currentlyRegisteredDirectCommands = new ArrayList<>();
 
   private UidScopedNamedStampStore stampStore;

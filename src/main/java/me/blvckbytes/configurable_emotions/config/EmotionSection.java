@@ -24,6 +24,7 @@ public class EmotionSection extends AConfigSection {
   public boolean supportsOthers;
   public boolean supportsAll;
   public int maximumNumberOfTargets;
+  public boolean broadcastToConsole;
 
   public @Nullable BukkitEvaluable soundSender;
   public @Nullable BukkitEvaluable soundReceiver;
