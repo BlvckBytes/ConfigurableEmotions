@@ -16,6 +16,7 @@ public class MainSection extends AConfigSection {
 
   public CommandsSection commands;
   public PlayerMessagesSection playerMessages;
+  public DiscordSection discord;
 
   public Map<String, EmotionSection> emotions;
 

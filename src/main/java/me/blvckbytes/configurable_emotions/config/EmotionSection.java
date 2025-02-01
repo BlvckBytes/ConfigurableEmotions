@@ -35,24 +35,28 @@ public class EmotionSection extends AConfigSection {
 
   public @Nullable DisplayedMessages messagesSelfSender;
   public @Nullable DisplayedMessages messagesSelfBroadcast;
+  public @Nullable BukkitEvaluable messageSelfDiscord;
 
   // Played the emotion at one other player
 
   public @Nullable DisplayedMessages messagesOneSender;
   public @Nullable DisplayedMessages messagesOneReceiver;
   public @Nullable DisplayedMessages messagesOneBroadcast;
+  public @Nullable BukkitEvaluable messageOneDiscord;
 
   // Played the emotion at multiple other players
 
   public @Nullable DisplayedMessages messagesManySender;
   public @Nullable DisplayedMessages messagesManyReceiver;
   public @Nullable DisplayedMessages messagesManyBroadcast;
+  public @Nullable BukkitEvaluable messageManyDiscord;
 
   // Played the emotion at all other online players
 
   public @Nullable DisplayedMessages messagesAllSender;
   public @Nullable DisplayedMessages messagesAllReceiver;
   public @Nullable DisplayedMessages messagesAllBroadcast;
+  public @Nullable BukkitEvaluable messageAllDiscord;
 
   @CSIgnore
   public @Nullable XSound _soundSender, _soundReceiver;

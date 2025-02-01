@@ -8,21 +8,28 @@ import me.blvckbytes.configurable_emotions.command.CommandPermission;
 import me.blvckbytes.configurable_emotions.command.EmotionCommand;
 import me.blvckbytes.configurable_emotions.command.EmotionReloadCommand;
 import me.blvckbytes.configurable_emotions.config.*;
+import me.blvckbytes.configurable_emotions.discord.DiscordApi;
+import me.blvckbytes.configurable_emotions.discord.EssentialsDiscordApi;
 import me.blvckbytes.configurable_emotions.listener.CommandSendListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ConfigurableEmotionsPlugin extends JavaPlugin {
+
+  // TODO: Add a config-option to also send broadcast-messages to the ConsoleSender
 
   private final List<Command> currentlyRegisteredDirectCommands = new ArrayList<>();
 
@@ -46,7 +53,8 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
 
       var effectPlayer = new EffectPlayer(this, logger);
       var emotionCommand = Objects.requireNonNull(getCommand(EmotionCommandSection.INITIAL_NAME));
-      var emotionCommandHandler = new EmotionCommand(effectPlayer, stampStore, config);
+      var discordApi = determineDiscordApi(logger, config);
+      var emotionCommandHandler = new EmotionCommand(effectPlayer, stampStore, discordApi, config);
       emotionCommand.setExecutor(emotionCommandHandler);
 
       var emotionReloadCommand = Objects.requireNonNull(getCommand(EmotionReloadCommandSection.INITIAL_NAME));
@@ -128,5 +136,19 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
 
       commandIterator.remove();
     }
+  }
+
+  private @Nullable DiscordApi determineDiscordApi(Logger logger, ConfigKeeper<MainSection> config) {
+    var pluginManager = Bukkit.getServer().getPluginManager();
+
+    Plugin dependency;
+
+    if ((dependency = pluginManager.getPlugin("EssentialsDiscord")) != null && dependency.isEnabled()) {
+      if (config.rootSection.discord.essentialsDiscord.enabled)
+        return new EssentialsDiscordApi(this, logger, config);
+    }
+
+    logger.info("Did not hook into any Discord-API (either none present or none enabled)!");
+    return null;
   }
 }

@@ -20,6 +20,12 @@ commands:
   emotionReload:
     name: 'emotionrl'
 
+discord:
+  essentialsDiscord:
+    enabled: true
+    messageType: 'chat'
+    allowGroupMentions: false
+
 playerMessages:
   commandEmotionReloadSuccess$: 'lut["prefix"] & "&7Die Konfiguration des Plugins wurde &aerfolgreich neu geladen&7!"'
   commandEmotionReloadFailure$: 'lut["prefix"] & "&cWährend des Neuladeprozesses der Konfiguration trat ein Fehler auf; bitte überprüfe die Konsole!"'

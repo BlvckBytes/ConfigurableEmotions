@@ -2,6 +2,7 @@ package me.blvckbytes.configurable_emotions.command;
 
 import me.blvckbytes.bbconfigmapper.ScalarType;
 import me.blvckbytes.bukkitevaluable.ConfigKeeper;
+import me.blvckbytes.configurable_emotions.discord.DiscordApi;
 import me.blvckbytes.configurable_emotions.EffectPlayer;
 import me.blvckbytes.configurable_emotions.UidScopedNamedStampStore;
 import me.blvckbytes.configurable_emotions.config.DisplayedMessages;
@@ -26,15 +27,18 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
   private final EffectPlayer effectPlayer;
   private final UidScopedNamedStampStore stampStore;
+  private final @Nullable DiscordApi discordApi;
   private final ConfigKeeper<MainSection> config;
 
   public EmotionCommand(
     EffectPlayer effectPlayer,
     UidScopedNamedStampStore stampStore,
+    @Nullable DiscordApi discordApi,
     ConfigKeeper<MainSection> config
   ) {
     this.effectPlayer = effectPlayer;
     this.stampStore = stampStore;
+    this.discordApi = discordApi;
     this.config = config;
   }
 
@@ -490,8 +494,13 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion._soundSender != null)
       emotion._soundSender.play(sender);
 
+    var builtMessageEnvironment = messageEnvironment.build();
+
     if (emotion.messagesAllSender != null)
-      displayMessages(sender, messageEnvironment.build(), emotion.messagesAllSender);
+      displayMessages(sender, builtMessageEnvironment, emotion.messagesAllSender);
+
+    if (emotion.messageAllDiscord != null && discordApi != null)
+      discordApi.sendMessage(emotion.messageAllDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
 
     return true;
   }
@@ -538,8 +547,13 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion._soundSender != null)
       emotion._soundSender.play(sender);
 
+    var builtMessageEnvironment = messageEnvironment.build();
+
     if (emotion.messagesManySender != null)
-      displayMessages(sender, messageEnvironment.build(), emotion.messagesManySender);
+      displayMessages(sender, builtMessageEnvironment, emotion.messagesManySender);
+
+    if (emotion.messageManyDiscord != null && discordApi != null)
+      discordApi.sendMessage(emotion.messageManyDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
   }
 
   private IEvaluationEnvironment addReceiverVariablesAndBuild(Player receiver, EvaluationEnvironmentBuilder environment) {
@@ -600,16 +614,21 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion._soundSender != null)
       emotion._soundSender.play(sender);
 
+    var builtMessageEnvironment = messageEnvironment.build();
+
     if (emotion.messagesOneSender != null)
-      displayMessages(sender, messageEnvironment.build(), emotion.messagesOneSender);
+      displayMessages(sender, builtMessageEnvironment, emotion.messagesOneSender);
+
+    if (emotion.messageOneDiscord != null && discordApi != null)
+      discordApi.sendMessage(emotion.messageOneDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
   }
 
   private void playEmotionSelf(Player sender, EmotionSection emotion) {
-    var messageEnvironment = makeMessageEnvironment(sender);
+    var messageEnvironment = makeMessageEnvironment(sender).build();
 
     if (emotion.messagesSelfBroadcast != null) {
       for (var messageReceiver : Bukkit.getOnlinePlayers())
-        displayMessages(messageReceiver, messageEnvironment.build(), emotion.messagesSelfBroadcast);
+        displayMessages(messageReceiver, messageEnvironment, emotion.messagesSelfBroadcast);
     }
 
     for (var senderEffect : emotion.effectsSender)
@@ -619,7 +638,10 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       emotion._soundSender.play(sender);
 
     if (emotion.messagesSelfSender != null)
-      displayMessages(sender, messageEnvironment.build(), emotion.messagesSelfSender);
+      displayMessages(sender, messageEnvironment, emotion.messagesSelfSender);
+
+    if (emotion.messageSelfDiscord != null && discordApi != null)
+      discordApi.sendMessage(emotion.messageSelfDiscord.asScalar(ScalarType.STRING, messageEnvironment));
   }
 
   private void touchLastExecutionStamp(String identifierLower, Player player) {

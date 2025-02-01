@@ -100,6 +100,7 @@ emotions:
     # - sender_name: String
     # - sender_display_name: String
     messagesSelfBroadcast: # Layout equals to that of messageSelfSender
+    messageSelfDiscord: # Omit to not send a message to discord
 
     # Played the emotion at one other player
 
@@ -110,6 +111,7 @@ emotions:
     messagesOneSender: # Layout equals to that of messageSelfSender
     messagesOneReceiver: # Layout equals to that of messageSelfSender
     messagesOneBroadcast: # Layout equals to that of messageSelfSender
+    messageOneDiscord: # Omit to not send a message to discord
 
     # Played the emotion at multiple other players (not all; as determined by maximumNumberOfTargets)
 
@@ -128,6 +130,7 @@ emotions:
     # - receivers_names: List<String>
     # - receivers_display_names: List<String>
     messagesManyBroadcast: # Layout equals to that of messageSelfSender
+    messageManyDiscord: # Omit to not send a message to discord
 
     # Played the emotion at all other online players
 
@@ -138,6 +141,7 @@ emotions:
     messagesAllSender: # Layout equals to that of messageSelfSender
     messagesAllReceiver: # Layout equals to that of messageSelfSender
     messagesAllBroadcast: # Layout equals to that of messageSelfSender
+    messageAllDiscord: # Omit to not send a message to discord
 ```
 
 Sounds are the names of a constant of [XSound](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XSound.java); particle are the names of a constant of [XParticle](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/particles/XParticle.java); materials are the names of a constant of [XMaterial](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XMaterial.java); colors can be the names of a constant of bukkit's [Color](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Color.html)-class.
