@@ -31,9 +31,6 @@ public class EssentialsDiscordApi implements DiscordApi {
     this.config = config;
 
     this.setupMessageType();
-    this.config.registerReloadListener(this::setupMessageType);
-
-    logger.info("Successfully hooked into the EssentialsDiscord-API!");
   }
 
   @Override
@@ -48,6 +45,10 @@ public class EssentialsDiscordApi implements DiscordApi {
       message,
       config.rootSection.discord.essentialsDiscord.allowGroupMentions
     );
+  }
+
+  public void onConfigReload() {
+    this.setupMessageType();
   }
 
   private void setupMessageType() {

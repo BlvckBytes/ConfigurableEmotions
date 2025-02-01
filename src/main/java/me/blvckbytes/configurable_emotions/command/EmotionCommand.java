@@ -2,12 +2,13 @@ package me.blvckbytes.configurable_emotions.command;
 
 import me.blvckbytes.bbconfigmapper.ScalarType;
 import me.blvckbytes.bukkitevaluable.ConfigKeeper;
-import me.blvckbytes.configurable_emotions.discord.DiscordApi;
 import me.blvckbytes.configurable_emotions.EffectPlayer;
 import me.blvckbytes.configurable_emotions.UidScopedNamedStampStore;
 import me.blvckbytes.configurable_emotions.config.DisplayedMessages;
 import me.blvckbytes.configurable_emotions.config.EmotionSection;
 import me.blvckbytes.configurable_emotions.config.MainSection;
+import me.blvckbytes.configurable_emotions.discord.DiscordApi;
+import me.blvckbytes.configurable_emotions.discord.DiscordApiManager;
 import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
 import me.blvckbytes.gpeee.interpreter.IEvaluationEnvironment;
 import org.apache.commons.lang.ArrayUtils;
@@ -27,18 +28,18 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
   private final EffectPlayer effectPlayer;
   private final UidScopedNamedStampStore stampStore;
-  private final @Nullable DiscordApi discordApi;
+  private final DiscordApiManager discordApiManager;
   private final ConfigKeeper<MainSection> config;
 
   public EmotionCommand(
     EffectPlayer effectPlayer,
     UidScopedNamedStampStore stampStore,
-    @Nullable DiscordApi discordApi,
+    DiscordApiManager discordApiManager,
     ConfigKeeper<MainSection> config
   ) {
     this.effectPlayer = effectPlayer;
     this.stampStore = stampStore;
-    this.discordApi = discordApi;
+    this.discordApiManager = discordApiManager;
     this.config = config;
   }
 
@@ -500,7 +501,9 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion.messagesAllSender != null)
       displayMessages(sender, builtMessageEnvironment, emotion.messagesAllSender);
 
-    if (emotion.messageAllDiscord != null && discordApi != null)
+    DiscordApi discordApi;
+
+    if (emotion.messageAllDiscord != null && (discordApi = discordApiManager.getApi()) != null)
       discordApi.sendMessage(emotion.messageAllDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
 
     return true;
@@ -552,11 +555,12 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion._soundSender != null)
       emotion._soundSender.play(sender);
 
-
     if (emotion.messagesManySender != null)
       displayMessages(sender, builtMessageEnvironment, emotion.messagesManySender);
 
-    if (emotion.messageManyDiscord != null && discordApi != null)
+    DiscordApi discordApi;
+
+    if (emotion.messageManyDiscord != null && (discordApi = discordApiManager.getApi()) != null)
       discordApi.sendMessage(emotion.messageManyDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
   }
 
@@ -625,7 +629,9 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion.messagesOneSender != null)
       displayMessages(sender, builtMessageEnvironment, emotion.messagesOneSender);
 
-    if (emotion.messageOneDiscord != null && discordApi != null)
+    DiscordApi discordApi;
+
+    if (emotion.messageOneDiscord != null && (discordApi = discordApiManager.getApi()) != null)
       discordApi.sendMessage(emotion.messageOneDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
   }
 
@@ -648,7 +654,9 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion.messagesSelfSender != null)
       displayMessages(sender, messageEnvironment, emotion.messagesSelfSender);
 
-    if (emotion.messageSelfDiscord != null && discordApi != null)
+    DiscordApi discordApi;
+
+    if (emotion.messageSelfDiscord != null && (discordApi = discordApiManager.getApi()) != null)
       discordApi.sendMessage(emotion.messageSelfDiscord.asScalar(ScalarType.STRING, messageEnvironment));
   }
 
