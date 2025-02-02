@@ -4,6 +4,7 @@ import me.blvckbytes.bbconfigmapper.MappingError;
 import me.blvckbytes.bbconfigmapper.sections.AConfigSection;
 import me.blvckbytes.bbconfigmapper.sections.CSAlways;
 import me.blvckbytes.bbconfigmapper.sections.CSIgnore;
+import me.blvckbytes.configurable_emotions.config.profle.PlayerProfilesSection;
 import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
 
 import java.lang.reflect.Field;
@@ -17,6 +18,7 @@ public class MainSection extends AConfigSection {
   public CommandsSection commands;
   public PlayerMessagesSection playerMessages;
   public DiscordSection discord;
+  public PlayerProfilesSection playerProfiles;
 
   public Map<String, EmotionSection> emotions;
 

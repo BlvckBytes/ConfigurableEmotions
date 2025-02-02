@@ -10,6 +10,7 @@ import me.blvckbytes.configurable_emotions.command.emotion_control.EmotionContro
 import me.blvckbytes.configurable_emotions.config.*;
 import me.blvckbytes.configurable_emotions.discord.DiscordApiManager;
 import me.blvckbytes.configurable_emotions.listener.CommandSendListener;
+import me.blvckbytes.configurable_emotions.profile.PlayerProfileStore;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -30,6 +31,7 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
   private UidScopedNamedStampStore stampStore;
   private CommandUpdater commandUpdater;
   private CommandSendListener commandSendListener;
+  private PlayerProfileStore profileStore;
 
   @Override
   public void onEnable() {
@@ -44,6 +46,7 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       commandUpdater = new CommandUpdater(this);
 
       stampStore = new UidScopedNamedStampStore(this, logger);
+      profileStore = new PlayerProfileStore(this, config, logger);
 
       var effectPlayer = new EffectPlayer(this, logger);
       var emotionCommand = Objects.requireNonNull(getCommand(EmotionCommandSection.INITIAL_NAME));
@@ -52,7 +55,7 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       emotionCommand.setExecutor(emotionCommandHandler);
 
       var emotionControlCommand = Objects.requireNonNull(getCommand(EmotionControlCommandSection.INITIAL_NAME));
-      emotionControlCommand.setExecutor(new EmotionControlCommand(config, logger));
+      emotionControlCommand.setExecutor(new EmotionControlCommand(profileStore, config, logger));
 
       commandSendListener = new CommandSendListener(this, config);
       Bukkit.getServer().getPluginManager().registerEvents(commandSendListener, this);
@@ -114,6 +117,9 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
   public void onDisable() {
     if (stampStore != null)
       stampStore.onDisable();
+
+    if (profileStore != null)
+      profileStore.onDisable();
 
     unregisterCurrentlyRegisteredDirectCommands();
   }

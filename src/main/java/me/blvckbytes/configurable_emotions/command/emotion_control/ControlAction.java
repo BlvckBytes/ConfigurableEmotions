@@ -11,7 +11,8 @@ public enum ControlAction {
   TOGGLE_ACTION_BAR,
   TOGGLE_CHAT,
   TOGGLE_SOUND,
-  TOGGLE_EFFECT,
+  TOGGLE_PARTICLE_EFFECT,
+  PROFILE,
   ;
 
   public static final EnumMatcher<ControlAction> matcher = new EnumMatcher<>(values());

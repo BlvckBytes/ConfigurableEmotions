@@ -1,8 +1,11 @@
 package me.blvckbytes.configurable_emotions.command.emotion_control.sub;
 
+import me.blvckbytes.bukkitevaluable.ConfigKeeper;
 import me.blvckbytes.configurable_emotions.command.CommandFailure;
-import me.blvckbytes.configurable_emotions.command.SubCommand;
 import me.blvckbytes.configurable_emotions.command.emotion_control.ControlAction;
+import me.blvckbytes.configurable_emotions.config.MainSection;
+import me.blvckbytes.configurable_emotions.profile.PlayerProfileFlag;
+import me.blvckbytes.configurable_emotions.profile.PlayerProfileStore;
 import me.blvckbytes.syllables_matcher.NormalizedConstant;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -11,7 +14,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Queue;
 
-public class ToggleEffectCommand extends SubCommand {
+public class ToggleParticleEffectCommand extends FlagToggleSubCommand {
+
+  public ToggleParticleEffectCommand(ConfigKeeper<MainSection> config, PlayerProfileStore profileStore) {
+    super(PlayerProfileFlag.PARTICLE_EFFECT_ENABLED, profileStore, config);
+  }
 
   @Override
   public @Nullable CommandFailure onCommand(CommandSender sender, String[] args, Queue<NormalizedConstant<?>> queue) {
@@ -21,6 +28,7 @@ public class ToggleEffectCommand extends SubCommand {
     if (!(sender instanceof Player player))
       return CommandFailure.PLAYER_ONLY;
 
+    toggleAndSendMessage(player);
     return null;
   }
 
@@ -36,6 +44,6 @@ public class ToggleEffectCommand extends SubCommand {
 
   @Override
   public NormalizedConstant<?> getCorrespondingAction() {
-    return ControlAction.matcher.getNormalizedConstant(ControlAction.TOGGLE_EFFECT);
+    return ControlAction.matcher.getNormalizedConstant(ControlAction.TOGGLE_PARTICLE_EFFECT);
   }
 }

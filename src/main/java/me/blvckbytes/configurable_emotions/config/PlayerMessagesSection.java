@@ -13,6 +13,7 @@ public class PlayerMessagesSection extends AConfigSection {
   public BukkitEvaluable multiUsageScreen;
 
   public BukkitEvaluable commandEmotionHelpScreen;
+  public BukkitEvaluable playerProfileScreen;
 
   public BukkitEvaluable receiverCannotBeSelf;
   public BukkitEvaluable receivingPlayerNotOnline;

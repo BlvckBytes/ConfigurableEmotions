@@ -6,6 +6,7 @@ import me.blvckbytes.configurable_emotions.command.CommandPermission;
 import me.blvckbytes.configurable_emotions.command.SubCommand;
 import me.blvckbytes.configurable_emotions.command.emotion_control.sub.*;
 import me.blvckbytes.configurable_emotions.config.MainSection;
+import me.blvckbytes.configurable_emotions.profile.PlayerProfileStore;
 import me.blvckbytes.syllables_matcher.NormalizedConstant;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,6 +25,7 @@ public class EmotionControlCommand implements CommandExecutor, TabCompleter {
   private final Map<NormalizedConstant<?>, SubCommand> subCommands;
 
   public EmotionControlCommand(
+    PlayerProfileStore profileStore,
     ConfigKeeper<MainSection> config,
     Logger logger
   ) {
@@ -32,11 +34,12 @@ public class EmotionControlCommand implements CommandExecutor, TabCompleter {
     this.subCommands = new LinkedHashMap<>();
 
     registerSubCommand(new ReloadConfigCommand(config, logger));
-    registerSubCommand(new ToggleActionBarCommand());
-    registerSubCommand(new ToggleChatCommand());
-    registerSubCommand(new ToggleEffectCommand());
-    registerSubCommand(new ToggleSoundCommand());
-    registerSubCommand(new ToggleTitleCommand());
+    registerSubCommand(new ToggleActionBarCommand(config, profileStore));
+    registerSubCommand(new ToggleChatCommand(config, profileStore));
+    registerSubCommand(new ToggleParticleEffectCommand(config, profileStore));
+    registerSubCommand(new ToggleSoundCommand(config, profileStore));
+    registerSubCommand(new ToggleTitleCommand(config, profileStore));
+    registerSubCommand(new ProfileCommand(config, profileStore));
   }
 
   @Override
