@@ -7,6 +7,8 @@ import me.blvckbytes.configurable_emotions.command.SubCommand;
 import me.blvckbytes.configurable_emotions.command.emotion_control.sub.*;
 import me.blvckbytes.configurable_emotions.config.MainSection;
 import me.blvckbytes.configurable_emotions.profile.PlayerProfileStore;
+import me.blvckbytes.syllables_matcher.EnumMatcher;
+import me.blvckbytes.syllables_matcher.EnumPredicate;
 import me.blvckbytes.syllables_matcher.NormalizedConstant;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,9 +22,11 @@ import java.util.logging.Logger;
 
 public class EmotionControlCommand implements CommandExecutor, TabCompleter {
 
+  // TODO: This command-code is a horrible mess, copied over quickly from another project... Clean up!
+
   private final ConfigKeeper<MainSection> config;
 
-  private final Map<NormalizedConstant<?>, SubCommand> subCommands;
+  private final Map<NormalizedConstant<ControlAction>, SubCommand> subCommands;
 
   public EmotionControlCommand(
     PlayerProfileStore profileStore,
@@ -49,10 +53,20 @@ public class EmotionControlCommand implements CommandExecutor, TabCompleter {
       return true;
     }
 
-    var actions = new ArrayDeque<NormalizedConstant<?>>();
-    var result = SubCommand.tryRelayCommand(ControlAction.matcher, ControlAction.filterFor(sender), subCommands, sender, args, actions);
+    var actions = new ArrayDeque<NormalizedConstant<ControlAction>>();
+    var result = tryRelayCommand(ControlAction.matcher, ControlAction.filterFor(sender), subCommands, sender, args, actions);
 
-    if (result == CommandFailure.INVALID_USAGE || result == CommandFailure.UNREGISTERED) {
+    if (result == CommandFailure.UNREGISTERED) {
+      if (args.length == 0) {
+        printHelp(actions, sender, label);
+        return true;
+      }
+
+      config.rootSection.playerMessages.noUsageMessage.sendMessage(sender, config.rootSection.builtBaseEnvironment);
+      return true;
+    }
+
+    if (result == CommandFailure.INVALID_USAGE) {
       printHelp(actions, sender, label);
       return true;
     }
@@ -70,22 +84,28 @@ public class EmotionControlCommand implements CommandExecutor, TabCompleter {
     if (!CommandPermission.COMMAND_EMOTION_CONTROL.hasPermission(sender))
       return List.of();
 
-    return SubCommand.tryRelayTabComplete(ControlAction.matcher, ControlAction.filterFor(sender), subCommands, sender, args);
+    return tryRelayTabComplete(ControlAction.matcher, ControlAction.filterFor(sender), subCommands, sender, args);
   }
 
   private void registerSubCommand(SubCommand command) {
     this.subCommands.put(command.getCorrespondingAction(), command);
   }
 
-  private List<String> decidePartialUsages(@Nullable Queue<NormalizedConstant<?>> actions, CommandSender sender) {
+  private List<String> decidePartialUsages(@Nullable Queue<NormalizedConstant<ControlAction>> actions, CommandSender sender) {
     var partialUsages = new ArrayList<String>();
 
-    NormalizedConstant<?> action;
+    NormalizedConstant<ControlAction> action;
     SubCommand actionTarget;
 
     if (actions == null || (action = actions.poll()) == null || (actionTarget = subCommands.get(action)) == null) {
-      for (var subCommand : subCommands.values())
-        partialUsages.addAll(subCommand.getPartialUsages(null, sender));
+      var predicate = ControlAction.filterFor(sender);
+
+      for (var subCommandEntry : subCommands.entrySet()) {
+        if (!predicate.test(subCommandEntry.getKey()))
+          continue;
+
+        partialUsages.addAll(subCommandEntry.getValue().getPartialUsages(null, sender));
+      }
 
       return partialUsages;
     }
@@ -93,8 +113,8 @@ public class EmotionControlCommand implements CommandExecutor, TabCompleter {
     return actionTarget.getPartialUsages(actions, sender);
   }
 
-  private void printHelp(@Nullable Queue<NormalizedConstant<?>> actions, CommandSender sender, String label) {
-    var usages = decidePartialUsages(actions, sender)
+  private void printHelp(@Nullable Queue<NormalizedConstant<ControlAction>> actions, CommandSender sender, String label) {
+    var usages = decidePartialUsages(actions , sender)
       .stream()
       .map(it -> "/" + label + " " + it)
       .toList();
@@ -120,5 +140,61 @@ public class EmotionControlCommand implements CommandExecutor, TabCompleter {
         .withStaticVariable("usages", usages)
         .build()
     );
+  }
+
+  private static @Nullable CommandFailure tryRelayCommand(
+    EnumMatcher<ControlAction> matcher,
+    @Nullable EnumPredicate<ControlAction> predicate,
+    Map<NormalizedConstant<ControlAction>, SubCommand> subCommandMap,
+    CommandSender sender, String[] args, Queue<NormalizedConstant<ControlAction>> actions
+  ) {
+    var subCommand = tryFindSubCommand(matcher, predicate, subCommandMap, args);
+
+    if (subCommand == null)
+      return CommandFailure.UNREGISTERED;
+
+    var subArgs = new String[args.length - 1];
+    System.arraycopy(args, 1, subArgs, 0, subArgs.length);
+
+    actions.add(subCommand.getCorrespondingAction());
+
+    return subCommand.onCommand(sender, subArgs, actions);
+  }
+
+  private static List<String> tryRelayTabComplete(
+    EnumMatcher<ControlAction> matcher,
+    @Nullable EnumPredicate<ControlAction> predicate,
+    Map<NormalizedConstant<ControlAction>, SubCommand> subCommandMap,
+    CommandSender sender, String[] args
+  ) {
+    if (args.length == 1)
+      return matcher.createCompletions(args[0], predicate);
+
+    var subCommand = tryFindSubCommand(matcher, predicate, subCommandMap, args);
+
+    if (subCommand == null)
+      return List.of();
+
+    var subArgs = new String[args.length - 1];
+    System.arraycopy(args, 1, subArgs, 0, subArgs.length);
+
+    return subCommand.onTabComplete(sender, subArgs);
+  }
+
+  private static @Nullable SubCommand tryFindSubCommand(
+    EnumMatcher<ControlAction> matcher,
+    @Nullable EnumPredicate<ControlAction> predicate,
+    Map<NormalizedConstant<ControlAction>, SubCommand> subCommandMap,
+    String[] args
+  ) {
+    if (args.length == 0)
+      return null;
+
+    var matchedAction = matcher.matchFirst(args[0], predicate);
+
+    if (matchedAction == null)
+      return null;
+
+    return subCommandMap.get(matchedAction);
   }
 }

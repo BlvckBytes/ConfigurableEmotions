@@ -26,7 +26,7 @@ public class ProfileCommand extends SubCommand {
   }
 
   @Override
-  public @Nullable CommandFailure onCommand(CommandSender sender, String[] args, Queue<NormalizedConstant<?>> queue) {
+  public @Nullable CommandFailure onCommand(CommandSender sender, String[] args, Queue<NormalizedConstant<ControlAction>> queue) {
     if (args.length != 0)
       return CommandFailure.INVALID_USAGE;
 
@@ -57,12 +57,12 @@ public class ProfileCommand extends SubCommand {
   }
 
   @Override
-  public List<String> getPartialUsages(@Nullable Queue<NormalizedConstant<?>> actions, CommandSender sender) {
+  public List<String> getPartialUsages(@Nullable Queue<NormalizedConstant<ControlAction>> actions, CommandSender sender) {
     return List.of(getCorrespondingAction().getNormalizedName());
   }
 
   @Override
-  public NormalizedConstant<?> getCorrespondingAction() {
+  public NormalizedConstant<ControlAction> getCorrespondingAction() {
     return ControlAction.matcher.getNormalizedConstant(ControlAction.PROFILE);
   }
 }
