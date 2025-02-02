@@ -27,8 +27,6 @@ public class EmotionControlCommandSection extends ACommandSection {
   public void afterParsing(List<Field> fields) throws Exception {
     super.afterParsing(fields);
 
-    System.out.println("!! " + actionNames);
-
     for (var action : ControlAction.values()) {
       var normalizedConstant = ControlAction.matcher.getNormalizedConstant(action);
       var name = actionNames.get(action);
