@@ -48,10 +48,10 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       stampStore = new UidScopedNamedStampStore(this, logger);
       profileStore = new PlayerProfileStore(this, config, logger);
 
-      var effectPlayer = new EffectPlayer(this, logger);
+      var effectPlayer = new EffectPlayer(profileStore, this, logger);
       var emotionCommand = Objects.requireNonNull(getCommand(EmotionCommandSection.INITIAL_NAME));
       var discordApiManager = new DiscordApiManager(this, logger, config);
-      var emotionCommandHandler = new EmotionCommand(effectPlayer, stampStore, discordApiManager, config);
+      var emotionCommandHandler = new EmotionCommand(effectPlayer, stampStore, profileStore, discordApiManager, config);
       emotionCommand.setExecutor(emotionCommandHandler);
 
       var emotionControlCommand = Objects.requireNonNull(getCommand(EmotionControlCommandSection.INITIAL_NAME));

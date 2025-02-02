@@ -1,6 +1,8 @@
 package me.blvckbytes.configurable_emotions;
 
 import me.blvckbytes.configurable_emotions.config.DisplayedEffect;
+import me.blvckbytes.configurable_emotions.profile.PlayerProfileFlag;
+import me.blvckbytes.configurable_emotions.profile.PlayerProfileStore;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -18,10 +20,16 @@ public class EffectPlayer {
 
   private static final Random LOCAL_RANDOM = ThreadLocalRandom.current();
 
+  private final PlayerProfileStore profileStore;
   private final Plugin plugin;
   private final Logger logger;
 
-  public EffectPlayer(Plugin plugin, Logger logger) {
+  public EffectPlayer(
+    PlayerProfileStore profileStore,
+    Plugin plugin,
+    Logger logger
+  ) {
+    this.profileStore = profileStore;
     this.plugin = plugin;
     this.logger = logger;
   }
@@ -35,6 +43,9 @@ public class EffectPlayer {
 
   private void playEffectInstance(DisplayedEffect effect, Collection<Player> targets, int executionCounter) {
     for (var target : targets) {
+      if (!profileStore.getProfile(target).getFlagOrDefault(PlayerProfileFlag.PARTICLE_EFFECT_ENABLED))
+        continue;
+
       var effectLocation = target.getLocation().add(0, effect.yOffset, 0);
 
       switch (effect.displayType) {
