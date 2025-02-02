@@ -29,8 +29,8 @@ public class CommandSendListener implements Listener {
     );
 
     pluginCommands.put(
-      plugin.getCommand(config.rootSection.commands.emotionReload.evaluatedName),
-      CommandPermission.COMMAND_EMOTION_RELOAD::hasPermission
+      plugin.getCommand(config.rootSection.commands.emotionControl.evaluatedName),
+      CommandPermission.COMMAND_EMOTION_CONTROL::hasPermission
     );
   }
 

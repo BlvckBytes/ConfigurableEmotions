@@ -8,7 +8,7 @@ import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
 public class CommandsSection extends AConfigSection {
 
   public EmotionCommandSection emotion;
-  public EmotionReloadCommandSection emotionReload;
+  public EmotionControlCommandSection emotionControl;
 
   public CommandsSection(EvaluationEnvironmentBuilder baseEnvironment) {
     super(baseEnvironment);

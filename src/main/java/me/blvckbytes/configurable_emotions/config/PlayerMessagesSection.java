@@ -6,8 +6,10 @@ import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
 
 public class PlayerMessagesSection extends AConfigSection {
 
-  public BukkitEvaluable commandEmotionReloadSuccess;
-  public BukkitEvaluable commandEmotionReloadFailure;
+  public BukkitEvaluable actionReloadConfigSuccess;
+  public BukkitEvaluable actionReloadConfigFailure;
+  public BukkitEvaluable missingPermissionActionReloadConfig;
+
   public BukkitEvaluable commandEmotionHelpScreen;
 
   public BukkitEvaluable receiverCannotBeSelf;
@@ -25,7 +27,6 @@ public class PlayerMessagesSection extends AConfigSection {
   public BukkitEvaluable unknownEmotionProvided;
   public BukkitEvaluable playerOnlyCommand;
   public BukkitEvaluable missingPermissionEmotionCommand;
-  public BukkitEvaluable missingPermissionEmotionReloadCommand;
 
   public PlayerMessagesSection(EvaluationEnvironmentBuilder baseEnvironment) {
     super(baseEnvironment);

@@ -7,8 +7,8 @@ softdepend: [EssentialsDiscord]
 commands:
   emotion:
     description: 'Play emotions'
-  emotionrl:
-    description: 'Reload the configuration'
+  emotionctl:
+    description: 'Execute sub-commands to control the behavior of emotions'
 permissions:
   configurableemotions.command.emotion:
     description: 'Execute the emotion-command'

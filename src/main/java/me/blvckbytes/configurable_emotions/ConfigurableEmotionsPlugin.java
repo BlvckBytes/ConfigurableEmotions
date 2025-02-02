@@ -6,7 +6,7 @@ import me.blvckbytes.bukkitevaluable.ConfigKeeper;
 import me.blvckbytes.bukkitevaluable.ConfigManager;
 import me.blvckbytes.configurable_emotions.command.CommandPermission;
 import me.blvckbytes.configurable_emotions.command.EmotionCommand;
-import me.blvckbytes.configurable_emotions.command.EmotionReloadCommand;
+import me.blvckbytes.configurable_emotions.command.EmotionControlCommand;
 import me.blvckbytes.configurable_emotions.config.*;
 import me.blvckbytes.configurable_emotions.discord.DiscordApiManager;
 import me.blvckbytes.configurable_emotions.listener.CommandSendListener;
@@ -51,15 +51,15 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       var emotionCommandHandler = new EmotionCommand(effectPlayer, stampStore, discordApiManager, config);
       emotionCommand.setExecutor(emotionCommandHandler);
 
-      var emotionReloadCommand = Objects.requireNonNull(getCommand(EmotionReloadCommandSection.INITIAL_NAME));
-      emotionReloadCommand.setExecutor(new EmotionReloadCommand(config, logger));
+      var emotionControlCommand = Objects.requireNonNull(getCommand(EmotionControlCommandSection.INITIAL_NAME));
+      emotionControlCommand.setExecutor(new EmotionControlCommand(config, logger));
 
       commandSendListener = new CommandSendListener(this, config);
       Bukkit.getServer().getPluginManager().registerEvents(commandSendListener, this);
 
       Runnable updateCommands = () -> {
         config.rootSection.commands.emotion.apply(emotionCommand, commandUpdater);
-        config.rootSection.commands.emotionReload.apply(emotionReloadCommand, commandUpdater);
+        config.rootSection.commands.emotionControl.apply(emotionControlCommand, commandUpdater);
 
         unregisterCurrentlyRegisteredDirectCommands();
 
