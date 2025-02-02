@@ -1,9 +1,10 @@
-package me.blvckbytes.configurable_emotions.command;
+package me.blvckbytes.configurable_emotions.command.emotion;
 
 import me.blvckbytes.bbconfigmapper.ScalarType;
 import me.blvckbytes.bukkitevaluable.ConfigKeeper;
 import me.blvckbytes.configurable_emotions.EffectPlayer;
 import me.blvckbytes.configurable_emotions.UidScopedNamedStampStore;
+import me.blvckbytes.configurable_emotions.command.CommandPermission;
 import me.blvckbytes.configurable_emotions.config.DisplayedMessages;
 import me.blvckbytes.configurable_emotions.config.EmotionSection;
 import me.blvckbytes.configurable_emotions.config.MainSection;

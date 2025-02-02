@@ -8,7 +8,9 @@ public class PlayerMessagesSection extends AConfigSection {
 
   public BukkitEvaluable actionReloadConfigSuccess;
   public BukkitEvaluable actionReloadConfigFailure;
-  public BukkitEvaluable missingPermissionActionReloadConfig;
+  public BukkitEvaluable noUsageMessage;
+  public BukkitEvaluable singleUsageMessage;
+  public BukkitEvaluable multiUsageScreen;
 
   public BukkitEvaluable commandEmotionHelpScreen;
 
@@ -27,6 +29,7 @@ public class PlayerMessagesSection extends AConfigSection {
   public BukkitEvaluable unknownEmotionProvided;
   public BukkitEvaluable playerOnlyCommand;
   public BukkitEvaluable missingPermissionEmotionCommand;
+  public BukkitEvaluable missingPermissionEmotionControlCommand;
 
   public PlayerMessagesSection(EvaluationEnvironmentBuilder baseEnvironment) {
     super(baseEnvironment);

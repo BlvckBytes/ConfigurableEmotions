@@ -27,9 +27,18 @@ discord:
     allowGroupMentions: false
 
 playerMessages:
+  noUsageMessage$: 'lut["prefix"] & "&cDeine Eingabe konnte mit keinem existierenden oder dir zugänglichem Befehl korrespondiert werden!"'
+  # - usage: String
+  singleUsageMessage$: 'lut["prefix"] & "&cBenutzung: " & usage'
+  # - usages: List<String>
+  multiUsageScreen$: |
+    flatten(
+      "&8&m                       &8[&5Emotionen&8]&8&m                       ",
+      map(usages, (it) => "&8> &e" & it),
+      "&8&m                       &8[&5Emotionen&8]&8&m                       "
+    )
   actionReloadConfigSuccess$: 'lut["prefix"] & "&7Die Konfiguration des Plugins wurde &aerfolgreich neu geladen&7!"'
   actionReloadConfigFailure$: 'lut["prefix"] & "&cWährend des Neuladeprozesses der Konfiguration trat ein Fehler auf; bitte überprüfe die Konsole!"'
-  missingPermissionActionReloadConfig$: 'lut["prefix"] & "&cDir fehlen die nötigen Rechte um diesen Befehl zu benutzen!"'
   # - label: String
   # - all_sentinel: String
   # - emotions: List<HelpScreenEntry> where HelpScreenEntry: { identifier: String, description: String, aliases: List<String>, supports_others: Boolean, supports_all: Boolean }
@@ -88,6 +97,7 @@ playerMessages:
   unknownEmotionProvided$: 'lut["prefix"] & "&cDie Emotion &4" & input & " &cexistiert nicht!"'
   playerOnlyCommand$: 'lut["prefix"] & "&cDieser Befehl ist nur Spielern zugänglich!"'
   missingPermissionEmotionCommand$: 'lut["prefix"] & "&cDir fehlen die nötigen Rechte um diesen Befehl zu benutzen!"'
+  missingPermissionEmotionControlCommand$: 'lut["prefix"] & "&cDir fehlen die nötigen Rechte um diesen Befehl zu benutzen!"'
 
 # Environment for all emotion-messages:
 # - receiver_name: String

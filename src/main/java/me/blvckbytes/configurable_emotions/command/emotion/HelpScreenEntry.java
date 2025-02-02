@@ -1,4 +1,4 @@
-package me.blvckbytes.configurable_emotions.command;
+package me.blvckbytes.configurable_emotions.command.emotion;
 
 import java.util.List;
 
