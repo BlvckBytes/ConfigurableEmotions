@@ -39,7 +39,7 @@ public class ToggleActionBarCommand extends FlagToggleSubCommand {
 
   @Override
   public List<String> getPartialUsages(@Nullable Queue<NormalizedConstant<?>> actions, CommandSender sender) {
-    return List.of(getCorrespondingAction().normalizedName);
+    return List.of(getCorrespondingAction().getNormalizedName());
   }
 
   @Override

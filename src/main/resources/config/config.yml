@@ -17,8 +17,16 @@ commands:
     aliases:
       - emo
       - emotions
-  emotionReload:
-    name: 'emotionrl'
+  emotionControl:
+    name: 'emotionctl'
+    actionNames:
+      RELOAD_CONFIG: 'Config-Neu-Laden'
+      TOGGLE_TITLE: 'Bildschirmtext-Umschalten'
+      TOGGLE_ACTION_BAR: 'Hotbartext-Umschalten'
+      TOGGLE_CHAT: 'Chatausgabe-Umschalten'
+      TOGGLE_SOUND: 'Geräusche-Umschalten'
+      TOGGLE_PARTICLE_EFFECT: 'Partikeleffekte-Umschalten'
+      PROFILE: 'Profil-Anzeigen'
 
 discord:
   essentialsDiscord:
@@ -30,24 +38,24 @@ playerProfiles:
   flags:
     titleEnabled:
       defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aTitelbildschirme &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Titelbildschirme &7von Emotionen mehr."'
+      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aBildschirmtexte &7von Emotionen."'
+      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Bildschirmtexte &7von Emotionen mehr."'
     actionBarEnabled:
       defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aActionBar-Nachrichten &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine ActionBar-Nachrichten &7von Emotionen mehr."'
+      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aHotbartexte &7von Emotionen."'
+      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Hotbartexte &7von Emotionen mehr."'
     chatEnabled:
       defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aChat-Nachrichten &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Chat-Nachrichten &7von Emotionen mehr."'
+      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aChatausgaben &7von Emotionen."'
+      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Chatausgaben &7von Emotionen mehr."'
     soundEnabled:
       defaultValue: true
       toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aGeräusche &7von Emotionen."'
       toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Geräusche &7von Emotionen mehr."'
     effectEnabled:
       defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aPartikel-Effekte &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Partikel-Effekte &7von Emotionen mehr."'
+      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aPartikeleffekte &7von Emotionen."'
+      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Partikeleffekte &7von Emotionen mehr."'
 
 playerMessages:
   noUsageMessage$: 'lut["prefix"] & "&cDeine Eingabe konnte mit keinem existierenden oder dir zugänglichem Befehl korrespondiert werden!"'
@@ -71,11 +79,11 @@ playerMessages:
     flatten(
       "&8&m                       &8[&5Emotionen&8]&8&m                       ",
       "&7- Einstellungsprofil von &d" & holder_display_name,
-      "&8> &7Titelbildschirme: " & if title_enabled then "&aaktiviert" else "&cdeaktiviert",
-      "&8> &7ActionBar-Nachrichten: " & if action_bar_enabled then "&aaktiviert" else "&cdeaktiviert",
-      "&8> &7Chat-Nachrichten: " & if chat_enabled then "&aaktiviert" else "&cdeaktiviert",
+      "&8> &7Bildschirmtext: " & if title_enabled then "&aaktiviert" else "&cdeaktiviert",
+      "&8> &7Hotbartext: " & if action_bar_enabled then "&aaktiviert" else "&cdeaktiviert",
+      "&8> &7Chatausgabe: " & if chat_enabled then "&aaktiviert" else "&cdeaktiviert",
       "&8> &7Geräusche: " & if sound_enabled then "&aaktiviert" else "&cdeaktiviert",
-      "&8> &7Partikel-Effekte: " & if effect_enabled then "&aaktiviert" else "&cdeaktiviert",
+      "&8> &7Partikeleffekte: " & if effect_enabled then "&aaktiviert" else "&cdeaktiviert",
       "&8&m                       &8[&5Emotionen&8]&8&m                       "
     )
   actionReloadConfigSuccess$: 'lut["prefix"] & "&7Die Konfiguration des Plugins wurde &aerfolgreich neu geladen&7!"'

@@ -33,13 +33,13 @@ public class EmotionControlCommand implements CommandExecutor, TabCompleter {
 
     this.subCommands = new LinkedHashMap<>();
 
-    registerSubCommand(new ReloadConfigCommand(config, logger));
+    registerSubCommand(new ToggleTitleCommand(config, profileStore));
     registerSubCommand(new ToggleActionBarCommand(config, profileStore));
     registerSubCommand(new ToggleChatCommand(config, profileStore));
-    registerSubCommand(new ToggleParticleEffectCommand(config, profileStore));
     registerSubCommand(new ToggleSoundCommand(config, profileStore));
-    registerSubCommand(new ToggleTitleCommand(config, profileStore));
+    registerSubCommand(new ToggleParticleEffectCommand(config, profileStore));
     registerSubCommand(new ProfileCommand(config, profileStore));
+    registerSubCommand(new ReloadConfigCommand(config, logger));
   }
 
   @Override
