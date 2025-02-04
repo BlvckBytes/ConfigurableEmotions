@@ -528,18 +528,13 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     var builtMessageEnvironment = messageEnvironment.build();
 
-    for (var receiver : Bukkit.getOnlinePlayers()) {
-      // Avoid looping twice - send ahead of all other actions
+    if (emotion.messagesManyBroadcast != null) {
+      for (var broadcastReceiver : Bukkit.getOnlinePlayers())
+        displayMessages(broadcastReceiver, builtMessageEnvironment, emotion.messagesManyBroadcast);
+    }
 
+    for (var receiver : receivers) {
       var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
-
-      if (emotion.messagesManyBroadcast != null)
-        displayMessages(receiver, builtMessageEnvironment, emotion.messagesManyBroadcast);
-
-      if (receiver.equals(sender))
-        continue;
-
-      receivers.add(receiver);
 
       playEmotionSound(emotion, receiver, true);
 
