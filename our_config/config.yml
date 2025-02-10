@@ -1197,7 +1197,7 @@ emotions:
       titleMessage$: 'lut["mainColor"] & "🪖 Gerüstet 🪖"'
       subTitleMessage$: 'lut["highlightColor"] & sender_display_name & " &7ist für den Kampf gerüstet!"'
       chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7ist für den Kampf gerüstet!"'
-    messageSelfDiscord$: '"☹ " & sender_display_name & " ist für den Kampf gerüstet!"'
+    messageSelfDiscord$: '"🪖 " & sender_display_name & " ist für den Kampf gerüstet!"'
 
   Nase-Anstupsen:
     tryRegisterDirectly: true
