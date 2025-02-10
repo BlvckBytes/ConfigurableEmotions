@@ -9,11 +9,11 @@ import java.util.*;
 
 public interface SubCommand {
 
-  @Nullable CommandFailure onCommand(CommandSender sender, String[] args, Queue<NormalizedConstant<ControlAction>> queue);
+  @Nullable CommandFailure onCommand(CommandSender sender, String[] args);
 
   List<String> onTabComplete(CommandSender sender, String[] args);
 
-  List<String> getPartialUsages(@Nullable Queue<NormalizedConstant<ControlAction>> actions, CommandSender sender);
+  String getPartialUsage(CommandSender sender);
 
   NormalizedConstant<ControlAction> getCorrespondingAction();
 

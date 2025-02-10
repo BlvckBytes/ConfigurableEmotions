@@ -10,7 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,7 +27,7 @@ public class ReloadConfigCommand implements SubCommand {
   }
 
   @Override
-  public @Nullable CommandFailure onCommand(CommandSender sender, String[] args, Queue<NormalizedConstant<ControlAction>> queue) {
+  public @Nullable CommandFailure onCommand(CommandSender sender, String[] args) {
     if (args.length != 0)
       return CommandFailure.INVALID_USAGE;
 
@@ -51,8 +50,8 @@ public class ReloadConfigCommand implements SubCommand {
   }
 
   @Override
-  public List<String> getPartialUsages(@Nullable Queue<NormalizedConstant<ControlAction>> actions, CommandSender sender) {
-    return List.of(getCorrespondingAction().getNormalizedName());
+  public String getPartialUsage(CommandSender sender) {
+    return getCorrespondingAction().getNormalizedName();
   }
 
   @Override
