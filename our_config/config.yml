@@ -881,6 +881,767 @@ emotions:
       chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7lacht!"'
     messageSelfDiscord$: '"😂 " & sender_display_name & " lacht!"'
 
+  Jubeln:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'yay'
+    description: 'Jemandem zujubeln'
+    cooldownSeconds: 60
+
+    supportsSelf: false
+    supportsOthers: true
+    maximumNumberOfTargets: 3
+    supportsAll: true
+    broadcastToConsole: true
+
+    soundSender: 'ENTITY_VINDICATOR_CELEBRATE'
+    soundReceiver: 'ENTITY_VINDICATOR_CELEBRATE'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'FIREWORK'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'FIREWORK'
+
+    messagesOneSender:
+      titleMessage$: 'lut["mainColor"] & "👊 Jubeln 👊"'
+      subTitleMessage$: '"&7Mit " & lut["highlightColor"] & receiver_display_name'
+    messagesOneReceiver:
+      titleMessage$: 'lut["mainColor"] & "👊 Jubeln 👊"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesOneBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7jubelt mit " & lut["highlightColor"] & receiver_display_name & "&7!"'
+    messageOneDiscord$: '"👊 " & sender_display_name & " jubelt mit " & receiver_display_name & "!"'
+
+    messagesManySender:
+      titleMessage$: 'lut["mainColor"] & "👊 Jubeln 👊"'
+      subTitleMessage$: '"&7Mit " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ")'
+    messagesManyReceiver:
+      titleMessage$: 'lut["mainColor"] & "👊 Jubeln 👊"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesManyBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7jubelt mit " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ") & "&7!"'
+    messageManyDiscord$: '"👊 " & sender_display_name & " jubelt mit " & iter_cat(receivers_display_names, (name) => name, ", ") & "!"'
+
+    messagesAllSender:
+      titleMessage$: 'lut["mainColor"] & "👊 Jubeln 👊"'
+      subTitleMessage$: '"&7Mit " & lut["highlightColor"] & "Allen"'
+    messagesAllReceiver:
+      titleMessage$: 'lut["mainColor"] & "👊 Jubeln 👊"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesAllBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7jubelt mit " & lut["highlightColor"] & "Allen Spielern&7!"'
+    messageAllDiscord$: '"👊 " & sender_display_name & " jubelt mit Allen Spielern!"'
+
+  Glückwunsch:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'gw'
+    - 'congratz'
+    description: 'Jemanden beglückwünschen'
+    cooldownSeconds: 60
+
+    supportsSelf: false
+    supportsOthers: true
+    maximumNumberOfTargets: 3
+    supportsAll: true
+    broadcastToConsole: true
+
+    soundSender: 'ENTITY_FIREWORK_ROCKET_LAUNCH'
+    soundReceiver: 'ENTITY_FIREWORK_ROCKET_LAUNCH'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'CHERRY_LEAVES'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'CHERRY_LEAVES'
+
+    messagesOneSender:
+      titleMessage$: 'lut["mainColor"] & "🌺 Glückwunsch 🌺"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+    messagesOneReceiver:
+      titleMessage$: 'lut["mainColor"] & "🌺 Glückwunsch 🌺"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesOneBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7beglückwünscht " & lut["highlightColor"] & receiver_display_name & "&7!"'
+    messageOneDiscord$: '"🌺 " & sender_display_name & " beglückwünscht " & receiver_display_name & "!"'
+
+    messagesManySender:
+      titleMessage$: 'lut["mainColor"] & "🌺 Glückwunsch 🌺"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ")'
+    messagesManyReceiver:
+      titleMessage$: 'lut["mainColor"] & "🌺 Glückwunsch 🌺"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesManyBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7beglückwünscht " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ") & "&7!"'
+    messageManyDiscord$: '"🌺 " & sender_display_name & " beglückwünscht " & iter_cat(receivers_display_names, (name) => name, ", ") & "!"'
+
+    messagesAllSender:
+      titleMessage$: 'lut["mainColor"] & "🌺 Glückwunsch 🌺"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & "Alle"'
+    messagesAllReceiver:
+      titleMessage$: 'lut["mainColor"] & "🌺 Glückwunsch 🌺"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesAllBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7beglückwünscht " & lut["highlightColor"] & "Alle Spieler&7!"'
+    messageAllDiscord$: '"🌺 " & sender_display_name & " beglückwünscht Alle Spieler!"'
+
+  Hilfe:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'helpme'
+    - 'hilfmir'
+    description: 'Um Hilfe bitten'
+    cooldownSeconds: 120
+
+    supportsSelf: true
+    supportsOthers: true
+    maximumNumberOfTargets: 3
+    supportsAll: true
+    broadcastToConsole: true
+
+    soundSender: 'BLOCK_BELL_USE'
+    soundReceiver: 'BLOCK_BELL_USE'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'DAMAGE_INDICATOR'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'DAMAGE_INDICATOR'
+
+    messagesSelfSender:
+      titleMessage$: 'lut["mainColor"] & "❔ Hilfe ❔"'
+      subTitleMessage$: '"&7Du rufst nach Hilfe!"'
+    messagesSelfBroadcast:
+      titleMessage$: 'lut["mainColor"] & "❔ Hilfe ❔"'
+      subTitleMessage$: 'lut["highlightColor"] & sender_display_name & " &7benötigt Hilfe!"'
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7benötigt Hilfe!"'
+    messageSelfDiscord$: '"❔ " & sender_display_name & " benötigt Hilfe!"'
+
+    messagesOneSender:
+      titleMessage$: 'lut["mainColor"] & "❔ Hilfe ❔"'
+      subTitleMessage$: '"&7Hilferuf an " & lut["highlightColor"] & receiver_display_name'
+    messagesOneReceiver:
+      titleMessage$: 'lut["mainColor"] & "❔ Hilfe ❔"'
+      subTitleMessage$: '"&7Hilferuf von " & lut["highlightColor"] & sender_display_name'
+    messagesOneBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7bittet " & lut["highlightColor"] & receiver_display_name & " &7um Hilfe!"'
+    messageOneDiscord$: '"❔ " & sender_display_name & " bittet " & receiver_display_name & " um Hilfe!"'
+
+    messagesManySender:
+      titleMessage$: 'lut["mainColor"] & "❔ Hilfe ❔"'
+      subTitleMessage$: '"&7Hilferuf an " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ")'
+    messagesManyReceiver:
+      titleMessage$: 'lut["mainColor"] & "❔ Hilfe ❔"'
+      subTitleMessage$: '"&7Hilferuf von " & lut["highlightColor"] & sender_display_name'
+    messagesManyBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7bittet " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ") & " &7um Hilfe!"'
+    messageManyDiscord$: '"❔ " & sender_display_name & " bittet " & iter_cat(receivers_display_names, (name) => name, ", ") & " um Hilfe!"'
+
+    messagesAllSender:
+      titleMessage$: 'lut["mainColor"] & "❔ Hilfe ❔"'
+      subTitleMessage$: '"&7Hilferuf an " & lut["highlightColor"] & "Alle"'
+    messagesAllReceiver:
+      titleMessage$: 'lut["mainColor"] & "❔ Hilfe ❔"'
+      subTitleMessage$: '"&7Hilferuf von " & lut["highlightColor"] & sender_display_name'
+    messagesAllBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7bittet " & lut["highlightColor"] & "Alle Spieler &7um Hilfe!"'
+    messageAllDiscord$: '"❔ " & sender_display_name & " bittet Alle Spieler um Hilfe!"'
+
+  Keks:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'cookie'
+    description: 'Einen Keks verschenken'
+    cooldownSeconds: 60
+
+    supportsSelf: true
+    supportsOthers: true
+    maximumNumberOfTargets: 3
+    supportsAll: true
+    broadcastToConsole: true
+
+    soundSender: 'ENTITY_PLAYER_BURP'
+    soundReceiver: 'ENTITY_PLAYER_BURP'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'COMPOSTER'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'COMPOSTER'
+
+    messagesSelfSender:
+      titleMessage$: 'lut["mainColor"] & "🍪 Keks 🍪"'
+      subTitleMessage$: '"&7Du isst einen Keks!"'
+    messagesSelfBroadcast:
+      titleMessage$: 'lut["mainColor"] & "🍪 Keks 🍪"'
+      subTitleMessage$: 'lut["highlightColor"] & sender_display_name & " &7isst einen Keks!"'
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7isst einen Keks!"'
+    messageSelfDiscord$: '"🍪 " & sender_display_name & " isst einen Keks!"'
+
+    messagesOneSender:
+      titleMessage$: 'lut["mainColor"] & "🍪 Keks 🍪"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+    messagesOneReceiver:
+      titleMessage$: 'lut["mainColor"] & "🍪 Keks 🍪"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesOneBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7gibt " & lut["highlightColor"] & receiver_display_name & " &7einen Keks!"'
+    messageOneDiscord$: '"🍪 " & sender_display_name & " gibt " & receiver_display_name & " einen Keks!"'
+
+    messagesManySender:
+      titleMessage$: 'lut["mainColor"] & "🍪 Keks 🍪"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ")'
+    messagesManyReceiver:
+      titleMessage$: 'lut["mainColor"] & "🍪 Keks 🍪"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesManyBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7gibt " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ") & " &7einen Keks!"'
+    messageManyDiscord$: '"🍪 " & sender_display_name & " gibt " & iter_cat(receivers_display_names, (name) => name, ", ") & " einen Keks!"'
+
+    messagesAllSender:
+      titleMessage$: 'lut["mainColor"] & "🍪 Keks 🍪"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & "Alle"'
+    messagesAllReceiver:
+      titleMessage$: 'lut["mainColor"] & "🍪 Keks 🍪"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesAllBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7gibt " & lut["highlightColor"] & "Allen Spielern &7einen Keks!"'
+    messageAllDiscord$: '"🍪 " & sender_display_name & " gibt Allen Spielern einen Keks!"'
+
+  Rüsten:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'ready'
+    description: 'Mitteilen, dass man für den Kampf gerüstet ist'
+    cooldownSeconds: 60
+
+    supportsSelf: true
+    supportsOthers: false
+    supportsAll: false
+    broadcastToConsole: true
+
+    soundSender: 'ITEM_ARMOR_EQUIP_NETHERITE'
+    soundReceiver: 'ITEM_ARMOR_EQUIP_NETHERITE'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.3
+      cloudParticleCount: 40
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'DUST_PLUME'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.5
+      cloudParticleCount: 40
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'DUST_PLUME'
+
+    messagesSelfSender:
+      titleMessage$: 'lut["mainColor"] & "🪖 Gerüstet 🪖"'
+      subTitleMessage$: 'lut["highlightColor"] & "Du bist für den Kampf gerüstet!"'
+    messagesSelfBroadcast:
+      titleMessage$: 'lut["mainColor"] & "🪖 Gerüstet 🪖"'
+      subTitleMessage$: 'lut["highlightColor"] & sender_display_name & " &7ist für den Kampf gerüstet!"'
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7ist für den Kampf gerüstet!"'
+    messageSelfDiscord$: '"☹ " & sender_display_name & " ist für den Kampf gerüstet!"'
+
+  Nase-Anstupsen:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'boop'
+    description: 'Stupse jemandes Nase an'
+    cooldownSeconds: 60
+
+    supportsSelf: false
+    supportsOthers: true
+    maximumNumberOfTargets: 3
+    supportsAll: false
+    broadcastToConsole: true
+
+    soundSender: 'ENCHANT_THORNS_HIT'
+    soundReceiver: 'ENCHANT_THORNS_HIT'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'ELECTRIC_SPARK'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'ELECTRIC_SPARK'
+
+    messagesOneSender:
+      titleMessage$: 'lut["mainColor"] & "👆 Boop 👆"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+    messagesOneReceiver:
+      titleMessage$: 'lut["mainColor"] & "👆 Boop 👆"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesOneBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7stupst die Nase von " & lut["highlightColor"] & receiver_display_name & " &7an!"'
+    messageOneDiscord$: '"👆 " & sender_display_name & " stupst die Nase von " & receiver_display_name & " an!"'
+
+    messagesManySender:
+      titleMessage$: 'lut["mainColor"] & "👆 Boop 👆"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ")'
+    messagesManyReceiver:
+      titleMessage$: 'lut["mainColor"] & "👆 Boop 👆"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesManyBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7stupst die Nasen von " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ") & " &7an!"'
+    messageManyDiscord$: '"👆 " & sender_display_name & " stupst die Nasen von " & iter_cat(receivers_display_names, (name) => name, ", ") & " an!"'
+
+  HighFive:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'high5'
+    - 'abklatschen'
+    description: 'Jemandem ein High-Five geben'
+    cooldownSeconds: 60
+
+    supportsSelf: false
+    supportsOthers: true
+    maximumNumberOfTargets: 3
+    supportsAll: true
+    broadcastToConsole: true
+
+    soundSender: 'ENTITY_PLAYER_BIG_FALL'
+    soundReceiver: 'ENTITY_PLAYER_BIG_FALL'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'TOTEM_OF_UNDYING'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'TOTEM_OF_UNDYING'
+
+    messagesOneSender:
+      titleMessage$: 'lut["mainColor"] & "🖐 High-Five 🖐"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+    messagesOneReceiver:
+      titleMessage$: 'lut["mainColor"] & "🖐 High-Five 🖐"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesOneBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7gibt " & lut["highlightColor"] & receiver_display_name & " &7ein High-Five!"'
+    messageOneDiscord$: '"🖐 " & sender_display_name & " gibt " & receiver_display_name & " ein High-Five!"'
+
+    messagesManySender:
+      titleMessage$: 'lut["mainColor"] & "🖐 High-Five 🖐"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ")'
+    messagesManyReceiver:
+      titleMessage$: 'lut["mainColor"] & "🖐 High-Five 🖐"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesManyBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7gibt " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ") & " &7ein High-Five!"'
+    messageManyDiscord$: '"🖐 " & sender_display_name & " gibt " & iter_cat(receivers_display_names, (name) => name, ", ") & " ein High-Five!"'
+
+    messagesAllSender:
+      titleMessage$: 'lut["mainColor"] & "🖐 High-Five 🖐"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & "Alle"'
+    messagesAllReceiver:
+      titleMessage$: 'lut["mainColor"] & "🖐 High-Five 🖐"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesAllBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7gibt " & lut["highlightColor"] & "Allen Spielern &7ein High-Five!"'
+    messageAllDiscord$: '"🖐 " & sender_display_name & " gibt Allen Spielern ein High-Five!"'
+
+  Enttäuscht:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'entsetzt'
+    - 'facepalm'
+    description: 'Enttäuschung ausdrücken'
+    cooldownSeconds: 60
+
+    supportsSelf: true
+    supportsOthers: true
+    maximumNumberOfTargets: 3
+    supportsAll: true
+    broadcastToConsole: true
+
+    soundSender: 'ENTITY_PLAYER_DEATH'
+    soundReceiver: 'ENTITY_PLAYER_DEATH'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'RAID_OMEN'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'RAID_OMEN'
+
+    messagesSelfSender:
+      titleMessage$: 'lut["mainColor"] & "🤦 Enttäuscht 🤦"'
+      subTitleMessage$: '"&7Du bist enttäuscht!"'
+    messagesSelfBroadcast:
+      titleMessage$: 'lut["mainColor"] & "🤦 Enttäuscht 🤦"'
+      subTitleMessage$: 'lut["highlightColor"] & sender_display_name & " &7ist enttäuscht!"'
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7ist enttäuscht!"'
+    messageSelfDiscord$: '"🤦 " & sender_display_name & " ist enttäuscht!"'
+
+    messagesOneSender:
+      titleMessage$: 'lut["mainColor"] & "🤦 Enttäuscht 🤦"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+    messagesOneReceiver:
+      titleMessage$: 'lut["mainColor"] & "🤦 Enttäuscht 🤦"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesOneBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7ist von " & lut["highlightColor"] & receiver_display_name & " &7enttäuscht!"'
+    messageOneDiscord$: '"🤦 " & sender_display_name & " ist von " & receiver_display_name & " enttäuscht!"'
+
+    messagesManySender:
+      titleMessage$: 'lut["mainColor"] & "🤦 Enttäuscht 🤦"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ")'
+    messagesManyReceiver:
+      titleMessage$: 'lut["mainColor"] & "🤦 Enttäuscht 🤦"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesManyBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7ist von " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ") & " &7enttäuscht!"'
+    messageManyDiscord$: '"🤦 " & sender_display_name & " ist von " & iter_cat(receivers_display_names, (name) => name, ", ") & " enttäuscht!"'
+
+    messagesAllSender:
+      titleMessage$: 'lut["mainColor"] & "🤦 Enttäuscht 🤦"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & "Alle"'
+    messagesAllReceiver:
+      titleMessage$: 'lut["mainColor"] & "🤦 Enttäuscht 🤦"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesAllBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7ist von " & lut["highlightColor"] & "Allen Spielern &7enttäuscht!"'
+    messageAllDiscord$: '"🤦 " & sender_display_name & " ist von Allen Spielern enttäuscht!"'
+
+  Winken:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'wave'
+    description: 'Winke jemandem zu'
+    cooldownSeconds: 60
+
+    supportsSelf: false
+    supportsOthers: true
+    maximumNumberOfTargets: 3
+    supportsAll: true
+    broadcastToConsole: true
+
+    soundSender: 'BLOCK_NOTE_BLOCK_BELL'
+    soundReceiver: 'BLOCK_NOTE_BLOCK_BELL'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 40
+      yOffset: 1.6
+      frequencyTicks: 10
+      numberOfExecutions: 3
+      particle: 'BUBBLE_COLUMN_UP'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 40
+      yOffset: 1.6
+      frequencyTicks: 10
+      numberOfExecutions: 3
+      particle: 'BUBBLE_COLUMN_UP'
+
+    messagesOneSender:
+      titleMessage$: 'lut["mainColor"] & "👋 Winken 👋"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+    messagesOneReceiver:
+      titleMessage$: 'lut["mainColor"] & "👋 Winken 👋"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesOneBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7winkt " & lut["highlightColor"] & receiver_display_name & " &7zu!"'
+    messageOneDiscord$: '"👋 " & sender_display_name & " winkt " & receiver_display_name & " zu!"'
+
+    messagesManySender:
+      titleMessage$: 'lut["mainColor"] & "👋 Winken 👋"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ")'
+    messagesManyReceiver:
+      titleMessage$: 'lut["mainColor"] & "👋 Winken 👋"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesManyBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7winkt " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ") & " &7zu!"'
+    messageManyDiscord$: '"👋 " & sender_display_name & " winkt " & iter_cat(receivers_display_names, (name) => name, ", ") & " zu!"'
+
+    messagesAllSender:
+      titleMessage$: 'lut["mainColor"] & "👋 Winken 👋"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & "Alle"'
+    messagesAllReceiver:
+      titleMessage$: 'lut["mainColor"] & "👋 Winken 👋"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesAllBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7winkt " & lut["highlightColor"] & "Allen Spielern &7zu!"'
+    messageAllDiscord$: '"👋 " & sender_display_name & " winkt Allen Spielern zu!"'
+
+  BaumUmarmen:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'treehug'
+    - 'baumhug'
+    description: 'Umarme einen Baum'
+    cooldownSeconds: 60
+
+    supportsSelf: true
+    supportsOthers: false
+    supportsAll: false
+    broadcastToConsole: true
+
+    soundSender: 'BLOCK_AZALEA_STEP'
+    soundReceiver: 'BLOCK_AZALEA_STEP'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.3
+      cloudParticleCount: 40
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'BLOCK_CRACK'
+      particleMaterial: 'OAK_LEAVES'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.5
+      cloudParticleCount: 40
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'BLOCK_CRACK'
+      particleMaterial: 'OAK_LEAVES'
+
+    messagesSelfSender:
+      titleMessage$: 'lut["mainColor"] & "🌳 Baum Umarmen 🌳"'
+      subTitleMessage$: 'lut["highlightColor"] & "Du umarmst einen Baum"'
+    messagesSelfBroadcast:
+      titleMessage$: 'lut["mainColor"] & "🌳 Baum Umarmen 🌳"'
+      subTitleMessage$: 'lut["highlightColor"] & sender_display_name & " &7umarmt einen Baum"'
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7umarmt einen Baum!"'
+    messageSelfDiscord$: '"🌳 " & sender_display_name & " umarmt einen Baum!"'
+
+  JaIchWill:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'marryyes'
+    description: 'Nimm einen Hochzeitsantrag an'
+    cooldownSeconds: 120
+
+    supportsSelf: false
+    supportsOthers: true
+    supportsAll: false
+    broadcastToConsole: true
+
+    soundSender: 'ENTITY_VILLAGER_YES'
+    soundReceiver: 'ENTITY_VILLAGER_YES'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.3
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'EGG_CRACK'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.5
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'EGG_CRACK'
+
+    messagesOneSender:
+      titleMessage$: 'lut["mainColor"] & "💍✔ Ja, ich will 💍✔"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+    messagesOneReceiver:
+      titleMessage$: 'lut["mainColor"] & "💍✔ Ja, ich will 💍✔"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesOneBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7nimmt den Hochzeitsantrag von " & lut["highlightColor"] & receiver_display_name & " &7an!"'
+    messageOneDiscord$: '"💍✅ " & sender_display_name & " nimmt den Hochzeitsantrag von " & receiver_display_name & " an!"'
+
+  NeinIchWillNicht:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'marryno'
+    description: 'Lehne einen Hochzeitsantrag ab'
+    cooldownSeconds: 120
+
+    supportsSelf: false
+    supportsOthers: true
+    supportsAll: false
+    broadcastToConsole: true
+
+    soundSender: 'ENTITY_VILLAGER_NO'
+    soundReceiver: 'ENTITY_VILLAGER_NO'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.3
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'ENCHANTED_HIT'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.5
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'ENCHANTED_HIT'
+
+    messagesOneSender:
+      titleMessage$: 'lut["mainColor"] & "💍❌ Nein, ich will nicht 💍❌"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+    messagesOneReceiver:
+      titleMessage$: 'lut["mainColor"] & "💍❌ Nein, ich will nicht 💍❌"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesOneBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7lehnt den Hochzeitsantrag von " & lut["highlightColor"] & receiver_display_name & " &7ab!"'
+    messageOneDiscord$: '"💍❌ " & sender_display_name & " lehnt den Hochzeitsantrag von " & receiver_display_name & " ab!"'
+
+  WillkommenZurück:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'welcomeback'
+    - 'weba'
+    description: 'Heiße jemanden willkommen zurück'
+    cooldownSeconds: 60
+
+    supportsSelf: false
+    supportsOthers: true
+    maximumNumberOfTargets: 3
+    supportsAll: false
+    broadcastToConsole: true
+
+    soundSender: 'BLOCK_NOTE_BLOCK_CHIME'
+    soundReceiver: 'BLOCK_NOTE_BLOCK_CHIME'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 35
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'NOTE'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 35
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'NOTE'
+
+    messagesOneSender:
+      titleMessage$: 'lut["mainColor"] & "✌ Willkommen Zurück ✌"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+    messagesOneReceiver:
+      titleMessage$: 'lut["mainColor"] & "✌ Willkommen Zurück ✌"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesOneBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7heißt " & lut["highlightColor"] & receiver_display_name & " &7willkommen zurück!"'
+    messageOneDiscord$: '"✌️ " & sender_display_name & " heißt " & receiver_display_name & " willkommen zurück!"'
+
+    messagesManySender:
+      titleMessage$: 'lut["mainColor"] & "✌ Willkommen Zurück ✌"'
+      subTitleMessage$: '"&7An " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ")'
+    messagesManyReceiver:
+      titleMessage$: 'lut["mainColor"] & "✌ Willkommen Zurück ✌"'
+      subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+    messagesManyBroadcast:
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7heißt " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ") & " &7willkommen zurück!"'
+    messageManyDiscord$: '"✌️ " & sender_display_name & " heißt " & iter_cat(receivers_display_names, (name) => name, ", ") & " willkommen zurück!"'
+
 # File-global lookup table
 lut:
   mainColor: '&#6E49C9'
