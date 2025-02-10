@@ -3,9 +3,10 @@ package me.blvckbytes.configurable_emotions.command.emotion_control;
 import me.blvckbytes.configurable_emotions.command.CommandPermission;
 import me.blvckbytes.syllables_matcher.EnumMatcher;
 import me.blvckbytes.syllables_matcher.EnumPredicate;
+import me.blvckbytes.syllables_matcher.MatchableEnum;
 import org.bukkit.permissions.Permissible;
 
-public enum ControlAction {
+public enum ControlAction implements MatchableEnum {
   RELOAD_CONFIG,
   TOGGLE_TITLE,
   TOGGLE_ACTION_BAR,
