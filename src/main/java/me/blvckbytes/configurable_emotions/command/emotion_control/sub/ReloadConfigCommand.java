@@ -14,7 +14,7 @@ import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ReloadConfigCommand extends SubCommand {
+public class ReloadConfigCommand implements SubCommand {
 
   private final ConfigKeeper<MainSection> config;
   private final Logger logger;

@@ -7,7 +7,7 @@ import me.blvckbytes.configurable_emotions.profile.PlayerProfileFlag;
 import me.blvckbytes.configurable_emotions.profile.PlayerProfileStore;
 import org.bukkit.entity.Player;
 
-public abstract class FlagToggleSubCommand extends SubCommand {
+public abstract class FlagToggleSubCommand implements SubCommand {
 
   protected final PlayerProfileFlag flag;
   protected final PlayerProfileStore profileStore;

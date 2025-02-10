@@ -7,14 +7,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public abstract class SubCommand {
+public interface SubCommand {
 
-  public abstract @Nullable CommandFailure onCommand(CommandSender sender, String[] args, Queue<NormalizedConstant<ControlAction>> queue);
+  @Nullable CommandFailure onCommand(CommandSender sender, String[] args, Queue<NormalizedConstant<ControlAction>> queue);
 
-  public abstract List<String> onTabComplete(CommandSender sender, String[] args);
+  List<String> onTabComplete(CommandSender sender, String[] args);
 
-  public abstract List<String> getPartialUsages(@Nullable Queue<NormalizedConstant<ControlAction>> actions, CommandSender sender);
+  List<String> getPartialUsages(@Nullable Queue<NormalizedConstant<ControlAction>> actions, CommandSender sender);
 
-  public abstract NormalizedConstant<ControlAction> getCorrespondingAction();
+  NormalizedConstant<ControlAction> getCorrespondingAction();
 
 }

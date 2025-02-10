@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Queue;
 
-public class ProfileCommand extends SubCommand {
+public class ProfileCommand implements SubCommand {
 
   private final ConfigKeeper<MainSection> config;
   private final PlayerProfileStore profileStore;
