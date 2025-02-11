@@ -1642,6 +1642,48 @@ emotions:
       chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7heißt " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ") & " &7willkommen zurück!"'
     messageManyDiscord$: '"✌️ " & sender_display_name & " heißt " & iter_cat(receivers_display_names, (name) => name, ", ") & " willkommen zurück!"'
 
+  Seufzer:
+    tryRegisterDirectly: true
+    directAliases:
+    - 'sigh'
+    description: 'Stoße einen Seufzer aus'
+    cooldownSeconds: 60
+
+    supportsSelf: true
+    supportsOthers: false
+    supportsAll: false
+    broadcastToConsole: true
+
+    soundSender: 'ENTITY_PILLAGER_DEATH'
+    soundReceiver: 'ENTITY_PILLAGER_DEATH'
+
+    effectsSender:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'DAMAGE_INDICATOR'
+
+    effectsReceiver:
+    - displayType: 'CLOUD'
+      cloudRadius: 1.2
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: 'DAMAGE_INDICATOR'
+
+    messagesSelfSender:
+      titleMessage$: 'lut["mainColor"] & "😪 Seufzer 😪"'
+      subTitleMessage$: '"&7Du stößt einen Seufzer aus!"'
+    messagesSelfBroadcast:
+      titleMessage$: 'lut["mainColor"] & "😪 Seufzer 😪"'
+      subTitleMessage$: 'lut["highlightColor"] & sender_display_name & " &7stößt einen Seufzer aus!"'
+      chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7stößt einen Seufzer aus!"'
+    messageSelfDiscord$: '"😪 " & sender_display_name & " stößt einen Seufzer aus!"'
+
 # File-global lookup table
 lut:
   mainColor: '&#6E49C9'
