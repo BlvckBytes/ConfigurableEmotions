@@ -1583,6 +1583,16 @@ emotions:
         titleMessage$: lut["mainColor"] & "😪 Seufzer 😪"
         subTitleMessage$: lut["highlightColor"] & sender_display_name & " &7stößt einen Seufzer aus!"
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7stößt einen Seufzer aus!"'
+    additionalAtSelfMessages:
+    -
+      toSender:
+        titleMessage$: lut["mainColor"] & "😪 Seufzer 😪"
+        subTitleMessage$: '"&7Du seufzst!"'
+      toDiscord$: '"😪 " & sender_display_name & " seufzt!"'
+      asBroadcast:
+        titleMessage$: lut["mainColor"] & "😪 Seufzer 😪"
+        subTitleMessage$: lut["highlightColor"] & sender_display_name & " &7seufzt!"
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7seufzt!"'
 
 # File-global lookup table
 lut:
