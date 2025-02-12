@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @CSAlways
 public class EmotionSection extends AConfigSection {
@@ -34,13 +35,17 @@ public class EmotionSection extends AConfigSection {
   public List<DisplayedEffect> effectsSender;
   public List<DisplayedEffect> effectsReceiver;
 
-  // TODO: Making these members private now as a preparation to introduce randomized message-pools
-  //       by allowing the user to define "additional" messages the plugin will select from.
-
   private MultiDirectedMessages atSelfMessages;
+  private @Nullable List<MultiDirectedMessages> additionalAtSelfMessages;
+
   private MultiDirectedMessages atOneMessages;
+  private @Nullable List<MultiDirectedMessages> additionalAtOneMessages;
+
   private MultiDirectedMessages atManyMessages;
+  private @Nullable List<MultiDirectedMessages> additionalAtManyMessages;
+
   private MultiDirectedMessages atAllMessages;
+  private @Nullable List<MultiDirectedMessages> additionalAtAllMessages;
 
   @CSIgnore
   public @Nullable XSound _soundSender, _soundReceiver;
@@ -81,18 +86,31 @@ public class EmotionSection extends AConfigSection {
   }
 
   public MultiDirectedMessages accessAtSelfMessages() {
-    return atSelfMessages;
+    return chooseRandomizedMessages(atSelfMessages, additionalAtSelfMessages);
   }
 
   public MultiDirectedMessages accessAtOneMessages() {
-    return atOneMessages;
+    return chooseRandomizedMessages(atOneMessages, additionalAtOneMessages);
   }
 
   public MultiDirectedMessages accessAtManyMessages() {
-    return atManyMessages;
+    return chooseRandomizedMessages(atManyMessages, additionalAtManyMessages);
   }
 
   public MultiDirectedMessages accessAtAllMessages() {
-    return atAllMessages;
+    return chooseRandomizedMessages(atAllMessages, additionalAtAllMessages);
+  }
+
+  private static MultiDirectedMessages chooseRandomizedMessages(MultiDirectedMessages main, @Nullable List<MultiDirectedMessages> additional) {
+    if (additional == null)
+      return main;
+
+    var additionalCount = additional.size();
+    var itemIndex = ThreadLocalRandom.current().nextInt(additionalCount + 1);
+
+    if (itemIndex == additionalCount)
+      return main;
+
+    return additional.get(itemIndex);
   }
 }
