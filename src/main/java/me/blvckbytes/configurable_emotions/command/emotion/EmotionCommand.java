@@ -472,14 +472,15 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     var receivers = new ArrayList<Player>();
     var messageEnvironment = makeMessageEnvironment(sender);
     var builtMessageEnvironment = messageEnvironment.build();
+    var messages = emotion.accessAtAllMessages();
 
     for (var receiver : Bukkit.getOnlinePlayers()) {
       // Avoid looping twice - send ahead of all other actions
 
       var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
 
-      if (emotion.messagesAllBroadcast != null)
-        displayMessages(receiver, builtMessageEnvironment, emotion.messagesAllBroadcast);
+      if (messages.asBroadcast != null)
+        displayMessages(receiver, builtMessageEnvironment, messages.asBroadcast);
 
       if (receiver.equals(sender))
         continue;
@@ -488,11 +489,11 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
       playEmotionSound(emotion, receiver, true);
 
-      if (emotion.messagesAllReceiver != null)
-        displayMessages(receiver, receiverEnvironment, emotion.messagesAllReceiver);
+      if (messages.toReceiver != null)
+        displayMessages(receiver, receiverEnvironment, messages.toReceiver);
     }
 
-    possiblyBroadcastToConsole(emotion, emotion.messagesAllBroadcast, builtMessageEnvironment);
+    possiblyBroadcastToConsole(emotion, messages.asBroadcast, builtMessageEnvironment);
 
     for (var senderEffect : emotion.effectsSender)
       effectPlayer.playEffect(senderEffect, List.of(sender));
@@ -502,13 +503,13 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     playEmotionSound(emotion, sender, false);
 
-    if (emotion.messagesAllSender != null)
-      displayMessages(sender, builtMessageEnvironment, emotion.messagesAllSender);
+    if (messages.toSender != null)
+      displayMessages(sender, builtMessageEnvironment, messages.toSender);
 
     DiscordApi discordApi;
 
-    if (emotion.messageAllDiscord != null && (discordApi = discordApiManager.getApi()) != null)
-      discordApi.sendMessage(emotion.messageAllDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
+    if (messages.toDiscord != null && (discordApi = discordApiManager.getApi()) != null)
+      discordApi.sendMessage(messages.toDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
 
     return true;
   }
@@ -516,6 +517,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
   private void playEmotionMany(Player sender, Collection<Player> receivers, EmotionSection emotion) {
     var receiverNames = new ArrayList<String>(receivers.size());
     var receiverDisplayNames = new ArrayList<String>(receivers.size());
+    var messages = emotion.accessAtManyMessages();
 
     for (var receiver : receivers) {
       receiverNames.add(receiver.getName());
@@ -528,9 +530,9 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     var builtMessageEnvironment = messageEnvironment.build();
 
-    if (emotion.messagesManyBroadcast != null) {
+    if (messages.asBroadcast != null) {
       for (var broadcastReceiver : Bukkit.getOnlinePlayers())
-        displayMessages(broadcastReceiver, builtMessageEnvironment, emotion.messagesManyBroadcast);
+        displayMessages(broadcastReceiver, builtMessageEnvironment, messages.asBroadcast);
     }
 
     for (var receiver : receivers) {
@@ -538,11 +540,11 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
       playEmotionSound(emotion, receiver, true);
 
-      if (emotion.messagesManyReceiver != null)
-        displayMessages(receiver, receiverEnvironment, emotion.messagesManyReceiver);
+      if (messages.toReceiver != null)
+        displayMessages(receiver, receiverEnvironment, messages.toReceiver);
     }
 
-    possiblyBroadcastToConsole(emotion, emotion.messagesManyBroadcast, builtMessageEnvironment);
+    possiblyBroadcastToConsole(emotion, messages.asBroadcast, builtMessageEnvironment);
 
     for (var senderEffect : emotion.effectsSender)
       effectPlayer.playEffect(senderEffect, List.of(sender));
@@ -552,13 +554,13 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     playEmotionSound(emotion, sender, false);
 
-    if (emotion.messagesManySender != null)
-      displayMessages(sender, builtMessageEnvironment, emotion.messagesManySender);
+    if (messages.toSender != null)
+      displayMessages(sender, builtMessageEnvironment, messages.toSender);
 
     DiscordApi discordApi;
 
-    if (emotion.messageManyDiscord != null && (discordApi = discordApiManager.getApi()) != null)
-      discordApi.sendMessage(emotion.messageManyDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
+    if (messages.toDiscord != null && (discordApi = discordApiManager.getApi()) != null)
+      discordApi.sendMessage(messages.toDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
   }
 
   private IEvaluationEnvironment addReceiverVariablesAndBuild(Player receiver, EvaluationEnvironmentBuilder environment) {
@@ -612,18 +614,19 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
   private void playEmotionOther(Player sender, Player receiver, EmotionSection emotion) {
     var messageEnvironment = makeMessageEnvironment(sender);
     var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
+    var messages = emotion.accessAtOneMessages();
 
-    if (emotion.messagesOneBroadcast != null) {
+    if (messages.asBroadcast != null) {
       for (var messageReceiver : Bukkit.getOnlinePlayers())
-        displayMessages(messageReceiver, receiverEnvironment, emotion.messagesOneBroadcast);
+        displayMessages(messageReceiver, receiverEnvironment, messages.asBroadcast);
 
-      possiblyBroadcastToConsole(emotion, emotion.messagesOneBroadcast, receiverEnvironment);
+      possiblyBroadcastToConsole(emotion, messages.asBroadcast, receiverEnvironment);
     }
 
     playEmotionSound(emotion, receiver, true);
 
-    if (emotion.messagesOneReceiver != null)
-      displayMessages(receiver, receiverEnvironment, emotion.messagesOneReceiver);
+    if (messages.toReceiver != null)
+      displayMessages(receiver, receiverEnvironment, messages.toReceiver);
 
     for (var senderEffect : emotion.effectsSender)
       effectPlayer.playEffect(senderEffect, List.of(sender));
@@ -635,23 +638,24 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     var builtMessageEnvironment = messageEnvironment.build();
 
-    if (emotion.messagesOneSender != null)
-      displayMessages(sender, builtMessageEnvironment, emotion.messagesOneSender);
+    if (messages.toSender != null)
+      displayMessages(sender, builtMessageEnvironment, messages.toSender);
 
     DiscordApi discordApi;
 
-    if (emotion.messageOneDiscord != null && (discordApi = discordApiManager.getApi()) != null)
-      discordApi.sendMessage(emotion.messageOneDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
+    if (messages.toDiscord != null && (discordApi = discordApiManager.getApi()) != null)
+      discordApi.sendMessage(messages.toDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
   }
 
   private void playEmotionSelf(Player sender, EmotionSection emotion) {
     var messageEnvironment = makeMessageEnvironment(sender).build();
+    var messages = emotion.accessAtSelfMessages();
 
-    if (emotion.messagesSelfBroadcast != null) {
+    if (messages.asBroadcast != null) {
       for (var messageReceiver : Bukkit.getOnlinePlayers())
-        displayMessages(messageReceiver, messageEnvironment, emotion.messagesSelfBroadcast);
+        displayMessages(messageReceiver, messageEnvironment, messages.asBroadcast);
 
-      possiblyBroadcastToConsole(emotion, emotion.messagesSelfBroadcast, messageEnvironment);
+      possiblyBroadcastToConsole(emotion, messages.asBroadcast, messageEnvironment);
     }
 
     for (var senderEffect : emotion.effectsSender)
@@ -659,13 +663,13 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     playEmotionSound(emotion, sender, true);
 
-    if (emotion.messagesSelfSender != null)
-      displayMessages(sender, messageEnvironment, emotion.messagesSelfSender);
+    if (messages.toSender != null)
+      displayMessages(sender, messageEnvironment, messages.toSender);
 
     DiscordApi discordApi;
 
-    if (emotion.messageSelfDiscord != null && (discordApi = discordApiManager.getApi()) != null)
-      discordApi.sendMessage(emotion.messageSelfDiscord.asScalar(ScalarType.STRING, messageEnvironment));
+    if (messages.toDiscord != null && (discordApi = discordApiManager.getApi()) != null)
+      discordApi.sendMessage(messages.toDiscord.asScalar(ScalarType.STRING, messageEnvironment));
   }
 
   private void possiblyBroadcastToConsole(
