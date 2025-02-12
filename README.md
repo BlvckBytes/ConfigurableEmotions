@@ -1,4 +1,4 @@
-# ConfigurableEmotions
+it re# ConfigurableEmotions
 
 A versatile bukkit-plugin which allows its users to configure any number of custom in-game emotions, each supporting a whole host of nuanced properties.
 
@@ -88,63 +88,49 @@ emotions:
 
     # Deleting the keys of undesired messages will cause them to not be displayed
 
-    # Played the emotion on themselves
-
-    messagesSelfSender:
-      chatMessage: '...'
-      actionBarMessage: '...'
-      titleMessage: '...'
-      subTitleMessage: '...'
-      # Animation-durations in ticks; only active if there is a title, a subtitle, or both
-      titleFadeIn: 1
-      titleStay: 1
-      titleFadeOut: 1
-
-    # - sender_name: String
-    # - sender_display_name: String
-    messagesSelfBroadcast: # Layout equals to that of messageSelfSender
-    messageSelfDiscord: # Omit to not send a message to discord
-
     # Played the emotion at one other player
-
     # - receiver_name: String
     # - receiver_display_name: String
     # - sender_name: String
     # - sender_display_name: String
-    messagesOneSender: # Layout equals to that of messageSelfSender
-    messagesOneReceiver: # Layout equals to that of messageSelfSender
-    messagesOneBroadcast: # Layout equals to that of messageSelfSender
-    messageOneDiscord: # Omit to not send a message to discord
+    atOneMessages:
+      toSender:
+          chatMessage: '...'
+          actionBarMessage: '...'
+          titleMessage: '...'
+          subTitleMessage: '...'
+          # Animation-durations in ticks; only active if there is a title, a subtitle, or both
+          titleFadeIn: 1
+          titleStay: 1
+          titleFadeOut: 1
+      # Same layout as toSender
+      toReceiver: '...'
+      # Same layout as toSender
+      asBroadcast: '...'
+      # Message sent to discord
+      toDiscord: '...'
 
+    # Same layout as atOneMessages
+    # Played the emotion on themselves
+    # - sender_name: String
+    # - sender_display_name: String
+    atSelfMessages:
+
+    # Same layout as atOneMessages
     # Played the emotion at multiple other players (not all; as determined by maximumNumberOfTargets)
-
     # - sender_name: String
     # - sender_display_name: String
     # - receivers_names: List<String>
     # - receivers_display_names: List<String>
-    messagesManySender: # Layout equals to that of messageSelfSender
-    # - sender_name: String
-    # - sender_display_name: String
-    # - receiver_name: String
-    # - receiver_display_name: String
-    messagesManyReceiver: # Layout equals to that of messageSelfSender
-    # - sender_name: String
-    # - sender_display_name: String
-    # - receivers_names: List<String>
-    # - receivers_display_names: List<String>
-    messagesManyBroadcast: # Layout equals to that of messageSelfSender
-    messageManyDiscord: # Omit to not send a message to discord
+    atManyMessages:
 
+    # Same layout as atOneMessages
     # Played the emotion at all other online players
-
     # - receiver_name: String
     # - receiver_display_name: String
     # - sender_name: String
     # - sender_display_name: String
-    messagesAllSender: # Layout equals to that of messageSelfSender
-    messagesAllReceiver: # Layout equals to that of messageSelfSender
-    messagesAllBroadcast: # Layout equals to that of messageSelfSender
-    messageAllDiscord: # Omit to not send a message to discord
+    atAllMessages:
 ```
 
 Sounds are the names of a constant of [XSound](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XSound.java); particle are the names of a constant of [XParticle](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/particles/XParticle.java); materials are the names of a constant of [XMaterial](https://github.com/CryptoMorin/XSeries/blob/master/src/main/java/com/cryptomorin/xseries/XMaterial.java); colors can be the names of a constant of bukkit's [Color](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Color.html)-class.
