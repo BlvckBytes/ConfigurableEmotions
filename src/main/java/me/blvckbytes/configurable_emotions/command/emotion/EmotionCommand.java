@@ -189,7 +189,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
           return true;
         }
 
-        var targetPlayer = getPlayerByNameOrDisplayName(targetName);
+        var targetPlayer = getPlayerByNameOrDisplayName(player, targetName);
 
         if (targetPlayer == null || !targetPlayer.isOnline()) {
           config.rootSection.playerMessages.receivingPlayerNotOnline.sendMessage(
@@ -265,6 +265,9 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
   @Override
   public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    if (!(sender instanceof Player player))
+      return List.of();
+
     if (!CommandPermission.COMMAND_EMOTION.hasPermission(sender))
       return List.of();
 
@@ -299,12 +302,15 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     var nameSuggestions = new ArrayList<String>();
     var lastArg = args[args.length - 1];
 
-    for (var player : Bukkit.getOnlinePlayers()) {
-      if (player.equals(sender))
+    for (var target : Bukkit.getOnlinePlayers()) {
+      if (target.equals(player))
         continue;
 
-      var name = player.getName();
-      var displayName = sanitize(player.getDisplayName());
+      if (!player.canSee(target) && !player.hasPermission("configurableemotions.bypass-hidden"))
+        continue;
+
+      var name = target.getName();
+      var displayName = sanitize(target.getDisplayName());
 
       if (!name.equals(displayName)) {
         if (!StringUtils.containsIgnoreCase(displayName, lastArg))
@@ -428,11 +434,13 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     return false;
   }
 
-  private @Nullable Player getPlayerByNameOrDisplayName(String input) {
-    for (var player : Bukkit.getOnlinePlayers()) {
+  private @Nullable Player getPlayerByNameOrDisplayName(Player sender, String input) {
+    for (var target : Bukkit.getOnlinePlayers()) {
+      if (!sender.canSee(target) && !sender.hasPermission("configurableemotions.bypass-hidden"))
+        continue;
 
-      if (player.getName().equals(input) || sanitize(player.getDisplayName()).equals(input))
-        return player;
+      if (target.getName().equals(input) || sanitize(target.getDisplayName()).equals(input))
+        return target;
     }
 
     return null;
