@@ -1,6 +1,19 @@
-it re# ConfigurableEmotions
+# ConfigurableEmotions
 
 A versatile bukkit-plugin which allows its users to configure any number of custom in-game emotions, each supporting a whole host of nuanced properties.
+
+## Permissions
+
+- `configurableemotions.command.emotion`
+  - Execute the main `/emotion` command
+- `configurableemotions.command.emotionrl`
+    - Execute the `/emotionrl` command to reload the configuration-file
+- `configurableemotions.bypass-cooldown.<lowercase_name>`
+    - Bypass the cooldown of a specific emotion (use `*` as a name to bypass all)
+- `configurableemotions.bypass-hidden`
+    - Bypass not being able to send emotions to hidden players (vanish, etc.)
+- `configurableemotions.emotion.<lowercase_name>`
+    - Enables the player to use the corresponding emotion
 
 ## Configuration
 
