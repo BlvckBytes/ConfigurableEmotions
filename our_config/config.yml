@@ -38,25 +38,21 @@ discord:
 playerProfiles:
   flags:
     titleEnabled:
-      defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aTitelbildschirme &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Titelbildschirme &7von Emotionen mehr."'
+      defaultValue: SELF_AND_OTHERS
+      # - value: String
+      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für " & lut["highlightColor"] & "Bildschirmtexte&7: " & lut["flagValue"][value]'
     actionBarEnabled:
-      defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aActionBar-Nachrichten &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine ActionBar-Nachrichten &7von Emotionen mehr."'
+      defaultValue: SELF_AND_OTHERS
+      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für " & lut["highlightColor"] & "Hotbartexte&7: " & lut["flagValue"][value]'
     chatEnabled:
-      defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aChat-Nachrichten &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Chat-Nachrichten &7von Emotionen mehr."'
+      defaultValue: SELF_AND_OTHERS
+      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für " & lut["highlightColor"] & "Chatausgaben&7: " & lut["flagValue"][value]'
     soundEnabled:
-      defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aGeräusche &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Geräusche &7von Emotionen mehr."'
+      defaultValue: SELF_AND_OTHERS
+      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für " & lut["highlightColor"] & "Geräusche&7: " & lut["flagValue"][value]'
     effectEnabled:
-      defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aPartikel-Effekte &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Partikel-Effekte &7von Emotionen mehr."'
+      defaultValue: SELF_AND_OTHERS
+      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für " & lut["highlightColor"] & "Partikeleffekte&7: " & lut["flagValue"][value]'
 
 playerMessages:
   noUsageMessage$: 'lut["prefix"] & "&cDeine Eingabe konnte mit keinem existierenden oder dir zugänglichem Befehl korrespondiert werden!"'
@@ -69,29 +65,32 @@ playerMessages:
       map(usages, (it) => "&8> " & lut["highlightColor"] & "" & it),
       "&8&m                         &8[" & lut["mainColor"] & "Emotionen&8]&8&m                         "
     )
-# - title_enabled: boolean
-# - action_bar_enabled: boolean
-# - chat_enabled: boolean
-# - sound_enabled: boolean
-# - effect_enabled: boolean
-# - holder_name: String
-# - holder_display_name: String
+  # - title_value: boolean
+  # - action_bar_value: boolean
+  # - chat_value: boolean
+  # - sound_value: boolean
+  # - effect_value: boolean
+  # - holder_name: String
+  # - holder_display_name: String
   playerProfileScreen$: |
     flatten(
       "&8&m                         &8[" & lut["mainColor"] & "Emotionen&8]&8&m                         ",
       "&7- Einstellungsprofil von " & lut["highlightColor"] & holder_display_name,
-      "&8> &7Bildschirmtext: " & if title_enabled then "&aaktiviert" else "&cdeaktiviert",
-      "&8> &7Hotbartext: " & if action_bar_enabled then "&aaktiviert" else "&cdeaktiviert",
-      "&8> &7Chatausgabe: " & if chat_enabled then "&aaktiviert" else "&cdeaktiviert",
-      "&8> &7Geräusche: " & if sound_enabled then "&aaktiviert" else "&cdeaktiviert",
-      "&8> &7Partikeleffekte: " & if effect_enabled then "&aaktiviert" else "&cdeaktiviert",
+      "&8> &7Bildschirmtext: " & lut["flagValue"][title_value],
+      "&8> &7Hotbartext: " & lut["flagValue"][action_bar_value],
+      "&8> &7Chatausgabe: " & lut["flagValue"][chat_value],
+      "&8> &7Geräusche: " & lut["flagValue"][sound_value],
+      "&8> &7Partikeleffekte: " & lut["flagValue"][effect_value],
       "&8&m                         &8[" & lut["mainColor"] & "Emotionen&8]&8&m                         "
     )
   actionReloadConfigSuccess$: 'lut["prefix"] & "&7Die Konfiguration des Plugins wurde &aerfolgreich neu geladen&7!"'
   actionReloadConfigFailure$: 'lut["prefix"] & "&cWährend des Neuladeprozesses der Konfiguration trat ein Fehler auf; bitte überprüfe die Konsole!"'
   # - label: String
   # - all_sentinel: String
-  # - emotions: List<HelpScreenEntry> where HelpScreenEntry: { identifier: String, description: String, supports_others: Boolean, supports_all: Boolean }
+  # - emotions: List<HelpScreenEntry> where HelpScreenEntry: { identifier: String, description: String, aliases: List<String>, supports_others: Boolean, supports_all: Boolean }
+  # - current_page: Integer
+  # - page_size: Integer
+  # - number_of_pages: Integer
   commandEmotionHelpScreen$: |
     flatten(
       "&8&m                         &8[" & lut["mainColor"] & "Emotionen&8]&8&m                         ",
@@ -132,7 +131,7 @@ playerMessages:
   # - emotion_identifier: String
   unsupportedPlayingOnSelf$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &ckann nicht auf dir selbst ausgeführt werden!"'
   # - emotion_identifier: String
-  unsupportedOtherTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an einen anderen Spieler nicht!"'
+  unsupportedOtherTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an andere Spieler nicht!"'
   # - emotion_identifier: String
   unsupportedAllTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an alle Spieler nicht!"'
   # - emotion_identifier: String
@@ -1331,3 +1330,7 @@ lut:
   mainColor: '&#6E49C9'
   highlightColor: '&#AB82FF'
   prefix: '&8[&#6E49C9Emotionen&8] '
+  flagValue:
+    ONLY_SELF: '&6Nur persönliche'
+    SELF_AND_OTHERS: '&aAlle'
+    HIDE_ALL: '&cKeine'

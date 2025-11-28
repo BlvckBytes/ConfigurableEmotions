@@ -9,7 +9,7 @@ public class PlayerProfile {
   private final PlayerProfileStore store;
   public final UUID holderId;
 
-  private final Map<PlayerProfileFlag, Boolean> valueByFlag;
+  private final Map<PlayerProfileFlag, FlagValue> valueByFlag;
 
   protected PlayerProfile(PlayerProfileStore store, UUID holderId
   ) {
@@ -18,18 +18,19 @@ public class PlayerProfile {
     this.valueByFlag = new HashMap<>();
   }
 
-  public void setFlag(PlayerProfileFlag flag, boolean value) {
+  public void setFlag(PlayerProfileFlag flag, FlagValue value) {
     this.valueByFlag.put(flag, value);
     this.store.onProfileUpdate(this);
   }
 
-  public boolean toggleFlagAndGet(PlayerProfileFlag flag) {
+  public FlagValue cycleFlagAndGet(PlayerProfileFlag flag) {
     var priorValue = getFlagOrDefault(flag);
-    setFlag(flag, !priorValue);
-    return !priorValue;
+    var nextValue = priorValue.next();
+    setFlag(flag, nextValue);
+    return nextValue;
   }
 
-  public boolean getFlagOrDefault(PlayerProfileFlag flag) {
+  public FlagValue getFlagOrDefault(PlayerProfileFlag flag) {
     return valueByFlag.computeIfAbsent(flag, store::getDefaultFlagValue);
   }
 

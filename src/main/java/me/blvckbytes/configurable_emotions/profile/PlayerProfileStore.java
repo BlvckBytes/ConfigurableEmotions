@@ -54,7 +54,7 @@ public class PlayerProfileStore {
     this.store();
   }
 
-  protected boolean getDefaultFlagValue(PlayerProfileFlag flag) {
+  protected FlagValue getDefaultFlagValue(PlayerProfileFlag flag) {
     return flag.accessFlagSection(config.rootSection.playerProfiles.flags).defaultValue;
   }
 
@@ -106,8 +106,21 @@ public class PlayerProfileStore {
           if (!(profileObject.get(profileFlag.name()) instanceof JsonPrimitive valuePrimitive))
             continue;
 
-          if (valuePrimitive.isBoolean())
-            playerProfile.setFlag(profileFlag, valuePrimitive.getAsBoolean());
+          var stringValue = valuePrimitive.getAsString();
+
+          FlagValue value;
+
+          try {
+            value = FlagValue.valueOf(stringValue);
+          } catch (IllegalArgumentException ignored) {
+            // Automatically migrate prior schema of boolean-values
+            value = switch (stringValue.toLowerCase()) {
+              case "true", "yes" -> FlagValue.SELF_AND_OTHERS;
+              default -> FlagValue.HIDE_ALL;
+            };
+          }
+
+          playerProfile.setFlag(profileFlag, value);
         }
 
         profileByHolderId.put(holderId, playerProfile);
@@ -132,7 +145,7 @@ public class PlayerProfileStore {
 
         for (var profileFlag : PlayerProfileFlag.values) {
           if (playerProfile.isFlagSet(profileFlag))
-            profileObject.addProperty(profileFlag.name(), playerProfile.getFlagOrDefault(profileFlag));
+            profileObject.addProperty(profileFlag.name(), playerProfile.getFlagOrDefault(profileFlag).name());
         }
 
         profileMapObject.add(playerProfile.holderId.toString(), profileObject);

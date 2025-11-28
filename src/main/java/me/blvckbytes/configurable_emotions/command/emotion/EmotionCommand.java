@@ -485,12 +485,14 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     for (var receiver : Bukkit.getOnlinePlayers()) {
       // Avoid looping twice - send ahead of all other actions
 
+      var isSender = receiver.equals(sender);
+
       var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
 
       if (messages.asBroadcast != null)
-        displayMessages(receiver, builtMessageEnvironment, messages.asBroadcast);
+        displayMessages(receiver, isSender, builtMessageEnvironment, messages.asBroadcast);
 
-      if (receiver.equals(sender))
+      if (isSender)
         continue;
 
       receivers.add(receiver);
@@ -498,7 +500,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       playEmotionSound(emotion, receiver);
 
       if (messages.toReceiver != null)
-        displayMessages(receiver, receiverEnvironment, messages.toReceiver);
+        displayMessages(receiver, true, receiverEnvironment, messages.toReceiver);
     }
 
     if (messages.asBroadcast != null)
@@ -512,7 +514,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     playEmotionSound(emotion, sender);
 
     if (messages.toSender != null)
-      displayMessages(sender, builtMessageEnvironment, messages.toSender);
+      displayMessages(sender, true, builtMessageEnvironment, messages.toSender);
 
     DiscordApi discordApi;
 
@@ -540,7 +542,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     if (messages.asBroadcast != null) {
       for (var broadcastReceiver : Bukkit.getOnlinePlayers())
-        displayMessages(broadcastReceiver, builtMessageEnvironment, messages.asBroadcast);
+        displayMessages(broadcastReceiver, sender.equals(broadcastReceiver) || receivers.contains(broadcastReceiver), builtMessageEnvironment, messages.asBroadcast);
 
       possiblyBroadcastToConsole(emotion, messages.asBroadcast, builtMessageEnvironment);
     }
@@ -551,7 +553,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       playEmotionSound(emotion, receiver);
 
       if (messages.toReceiver != null)
-        displayMessages(receiver, receiverEnvironment, messages.toReceiver);
+        displayMessages(receiver, true, receiverEnvironment, messages.toReceiver);
     }
 
     for (var effect : emotion.effects) {
@@ -562,7 +564,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     playEmotionSound(emotion, sender);
 
     if (messages.toSender != null)
-      displayMessages(sender, builtMessageEnvironment, messages.toSender);
+      displayMessages(sender, true, builtMessageEnvironment, messages.toSender);
 
     DiscordApi discordApi;
 
@@ -583,16 +585,21 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       .withStaticVariable("sender_display_name", sender.getDisplayName());
   }
 
-  private void displayMessages(Player receiver, IEvaluationEnvironment messageEnvironment, DisplayedMessages messages) {
+  private void displayMessages(
+    Player receiver,
+    boolean isTargetedByEmotion,
+    IEvaluationEnvironment messageEnvironment,
+    DisplayedMessages messages
+  ) {
     var profile = profileStore.getProfile(receiver);
 
-    if (messages.actionBarMessage != null && profile.getFlagOrDefault(PlayerProfileFlag.ACTION_BAR_ENABLED))
+    if (messages.actionBarMessage != null && profile.getFlagOrDefault(PlayerProfileFlag.ACTION_BAR_ENABLED).doesShow(isTargetedByEmotion))
       messages.actionBarMessage.sendActionBarMessage(receiver, messageEnvironment);
 
-    if (messages.chatMessage != null && profile.getFlagOrDefault(PlayerProfileFlag.CHAT_ENABLED))
+    if (messages.chatMessage != null && profile.getFlagOrDefault(PlayerProfileFlag.CHAT_ENABLED).doesShow(isTargetedByEmotion))
       messages.chatMessage.sendMessage(receiver, messageEnvironment);
 
-    if (profile.getFlagOrDefault(PlayerProfileFlag.TITLE_ENABLED)) {
+    if (profile.getFlagOrDefault(PlayerProfileFlag.TITLE_ENABLED).doesShow(isTargetedByEmotion)) {
       if (messages.titleMessage != null || messages.subTitleMessage != null) {
         var applicator = (messages.titleMessage == null ? messages.subTitleMessage : messages.titleMessage).applicator;
 
@@ -612,7 +619,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion._sound == null)
       return;
 
-    if (profileStore.getProfile(player).getFlagOrDefault(PlayerProfileFlag.SOUND_ENABLED))
+    // As of now, sounds only play for sender/receiver, so they're always the target of the emotion
+    if (profileStore.getProfile(player).getFlagOrDefault(PlayerProfileFlag.SOUND_ENABLED).doesShow(true))
       emotion._sound.play(player);
   }
 
@@ -623,7 +631,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     if (messages.asBroadcast != null) {
       for (var messageReceiver : Bukkit.getOnlinePlayers())
-        displayMessages(messageReceiver, receiverEnvironment, messages.asBroadcast);
+        displayMessages(messageReceiver, messageReceiver.equals(receiver) || messageReceiver.equals(sender), receiverEnvironment, messages.asBroadcast);
 
       possiblyBroadcastToConsole(emotion, messages.asBroadcast, receiverEnvironment);
     }
@@ -631,7 +639,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     playEmotionSound(emotion, receiver);
 
     if (messages.toReceiver != null)
-      displayMessages(receiver, receiverEnvironment, messages.toReceiver);
+      displayMessages(receiver, true, receiverEnvironment, messages.toReceiver);
 
     for (var effect : emotion.effects) {
       effectPlayer.playEffect(effect, List.of(sender));
@@ -643,7 +651,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     var builtMessageEnvironment = messageEnvironment.build();
 
     if (messages.toSender != null)
-      displayMessages(sender, builtMessageEnvironment, messages.toSender);
+      displayMessages(sender, true, builtMessageEnvironment, messages.toSender);
 
     DiscordApi discordApi;
 
@@ -657,7 +665,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     if (messages.asBroadcast != null) {
       for (var messageReceiver : Bukkit.getOnlinePlayers())
-        displayMessages(messageReceiver, messageEnvironment, messages.asBroadcast);
+        displayMessages(messageReceiver, messageReceiver.equals(sender), messageEnvironment, messages.asBroadcast);
 
       possiblyBroadcastToConsole(emotion, messages.asBroadcast, messageEnvironment);
     }
@@ -668,7 +676,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     playEmotionSound(emotion, sender);
 
     if (messages.toSender != null)
-      displayMessages(sender, messageEnvironment, messages.toSender);
+      displayMessages(sender, true, messageEnvironment, messages.toSender);
 
     DiscordApi discordApi;
 

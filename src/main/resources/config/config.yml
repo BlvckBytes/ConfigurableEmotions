@@ -36,25 +36,21 @@ discord:
 playerProfiles:
   flags:
     titleEnabled:
-      defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aBildschirmtexte &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Bildschirmtexte &7von Emotionen mehr."'
+      defaultValue: SELF_AND_OTHERS
+      # - value: String
+      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für &aBildschirmtexte&7: " & lut["flagValue"][value]'
     actionBarEnabled:
-      defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aHotbartexte &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Hotbartexte &7von Emotionen mehr."'
+      defaultValue: SELF_AND_OTHERS
+      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für &aHotbartexte&7: " & lut["flagValue"][value]'
     chatEnabled:
-      defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aChatausgaben &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Chatausgaben &7von Emotionen mehr."'
+      defaultValue: SELF_AND_OTHERS
+      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für &aChatausgaben&7: " & lut["flagValue"][value]'
     soundEnabled:
-      defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aGeräusche &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Geräusche &7von Emotionen mehr."'
+      defaultValue: SELF_AND_OTHERS
+      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für &aGeräusche&7: " & lut["flagValue"][value]'
     effectEnabled:
-      defaultValue: true
-      toggleOnMessage$: 'lut["prefix"] & "&7Du &aempfängst &7nun wieder &aPartikeleffekte &7von Emotionen."'
-      toggleOffMessage$: 'lut["prefix"] & "&7Du empfängst nun &ckeine Partikeleffekte &7von Emotionen mehr."'
+      defaultValue: SELF_AND_OTHERS
+      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für &aPartikeleffekte&7: " & lut["flagValue"][value]'
 
 playerMessages:
   noUsageMessage$: 'lut["prefix"] & "&cDeine Eingabe konnte mit keinem existierenden oder dir zugänglichem Befehl korrespondiert werden!"'
@@ -67,22 +63,22 @@ playerMessages:
       map(usages, (it) => "&8> &e" & it),
       "&8&m                       &8[&5Emotionen&8]&8&m                       "
     )
-  # - title_enabled: boolean
-  # - action_bar_enabled: boolean
-  # - chat_enabled: boolean
-  # - sound_enabled: boolean
-  # - effect_enabled: boolean
+  # - title_value: boolean
+  # - action_bar_value: boolean
+  # - chat_value: boolean
+  # - sound_value: boolean
+  # - effect_value: boolean
   # - holder_name: String
   # - holder_display_name: String
   playerProfileScreen$: |
     flatten(
       "&8&m                       &8[&5Emotionen&8]&8&m                       ",
       "&7- Einstellungsprofil von &d" & holder_display_name,
-      "&8> &7Bildschirmtext: " & if title_enabled then "&aaktiviert" else "&cdeaktiviert",
-      "&8> &7Hotbartext: " & if action_bar_enabled then "&aaktiviert" else "&cdeaktiviert",
-      "&8> &7Chatausgabe: " & if chat_enabled then "&aaktiviert" else "&cdeaktiviert",
-      "&8> &7Geräusche: " & if sound_enabled then "&aaktiviert" else "&cdeaktiviert",
-      "&8> &7Partikeleffekte: " & if effect_enabled then "&aaktiviert" else "&cdeaktiviert",
+      "&8> &7Bildschirmtext: " & lut["flagValue"][title_value],
+      "&8> &7Hotbartext: " & lut["flagValue"][action_bar_value],
+      "&8> &7Chatausgabe: " & lut["flagValue"][chat_value],
+      "&8> &7Geräusche: " & lut["flagValue"][sound_value],
+      "&8> &7Partikeleffekte: " & lut["flagValue"][effect_value],
       "&8&m                       &8[&5Emotionen&8]&8&m                       "
     )
   actionReloadConfigSuccess$: 'lut["prefix"] & "&7Die Konfiguration des Plugins wurde &aerfolgreich neu geladen&7!"'
@@ -157,3 +153,7 @@ emotions:
 # File-global lookup table
 lut:
   prefix: '&8[&5Emotionen&8] '
+  flagValue:
+    ONLY_SELF: '&6Nur persönliche'
+    SELF_AND_OTHERS: '&aAlle'
+    HIDE_ALL: '&cKeine'

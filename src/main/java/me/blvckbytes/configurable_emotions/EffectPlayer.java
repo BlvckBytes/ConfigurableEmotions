@@ -43,7 +43,8 @@ public class EffectPlayer {
 
   private void playEffectInstance(DisplayedEffect effect, Collection<Player> targets, int executionCounter) {
     for (var target : targets) {
-      if (!profileStore.getProfile(target).getFlagOrDefault(PlayerProfileFlag.PARTICLE_EFFECT_ENABLED))
+      // As of now, effects only play for sender/receiver, so they're always the target of the emotion
+      if (!profileStore.getProfile(target).getFlagOrDefault(PlayerProfileFlag.PARTICLE_EFFECT_ENABLED).doesShow(true))
         continue;
 
       var effectLocation = target.getLocation().add(0, effect.yOffset, 0);

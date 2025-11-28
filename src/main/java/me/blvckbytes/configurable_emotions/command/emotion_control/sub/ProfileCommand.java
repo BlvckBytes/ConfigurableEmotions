@@ -39,11 +39,11 @@ public class ProfileCommand implements SubCommand {
       config.rootSection.getBaseEnvironment()
         .withStaticVariable("holder_name", player.getName())
         .withStaticVariable("holder_display_name", player.getDisplayName())
-        .withStaticVariable("title_enabled", profile.getFlagOrDefault(PlayerProfileFlag.TITLE_ENABLED))
-        .withStaticVariable("action_bar_enabled", profile.getFlagOrDefault(PlayerProfileFlag.ACTION_BAR_ENABLED))
-        .withStaticVariable("chat_enabled", profile.getFlagOrDefault(PlayerProfileFlag.CHAT_ENABLED))
-        .withStaticVariable("sound_enabled", profile.getFlagOrDefault(PlayerProfileFlag.SOUND_ENABLED))
-        .withStaticVariable("effect_enabled", profile.getFlagOrDefault(PlayerProfileFlag.PARTICLE_EFFECT_ENABLED))
+        .withStaticVariable("title_value", profile.getFlagOrDefault(PlayerProfileFlag.TITLE_ENABLED))
+        .withStaticVariable("action_bar_value", profile.getFlagOrDefault(PlayerProfileFlag.ACTION_BAR_ENABLED))
+        .withStaticVariable("chat_value", profile.getFlagOrDefault(PlayerProfileFlag.CHAT_ENABLED))
+        .withStaticVariable("sound_value", profile.getFlagOrDefault(PlayerProfileFlag.SOUND_ENABLED))
+        .withStaticVariable("effect_value", profile.getFlagOrDefault(PlayerProfileFlag.PARTICLE_EFFECT_ENABLED))
         .build()
     );
 
