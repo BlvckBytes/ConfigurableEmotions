@@ -34,17 +34,17 @@ public class EffectPlayer {
     this.logger = logger;
   }
 
-  public void playEffect(DisplayedEffect effect, Collection<Player> targets) {
+  public void playEffect(DisplayedEffect effect, boolean isBroadcast, Collection<Player> targets) {
     if (effect.numberOfExecutions == 0 || effect._particle == null)
       return;
 
-    playEffectInstance(effect, targets, 1);
+    playEffectInstance(effect, isBroadcast, targets, 1);
   }
 
-  private void playEffectInstance(DisplayedEffect effect, Collection<Player> targets, int executionCounter) {
+  private void playEffectInstance(DisplayedEffect effect, boolean isBroadcast, Collection<Player> targets, int executionCounter) {
     for (var target : targets) {
       // As of now, effects only play for sender/receiver, so they're always the target of the emotion
-      if (!profileStore.getProfile(target).getFlagOrDefault(PlayerProfileFlag.PARTICLE_EFFECT_ENABLED).doesShow(true))
+      if (!profileStore.getProfile(target).getFlagOrDefault(PlayerProfileFlag.PARTICLE_EFFECT_ENABLED).doesShow(!isBroadcast))
         continue;
 
       var effectLocation = target.getLocation().add(0, effect.yOffset, 0);
@@ -59,7 +59,7 @@ public class EffectPlayer {
     if (executionCounter < effect.numberOfExecutions) {
       Bukkit.getScheduler().runTaskLater(
         plugin,
-        () -> playEffectInstance(effect, targets, executionCounter + 1),
+        () -> playEffectInstance(effect, isBroadcast, targets, executionCounter + 1),
         effect.frequencyTicks
       );
     }
