@@ -29,11 +29,9 @@ public class EmotionSection extends AConfigSection {
   public int maximumNumberOfTargets;
   public boolean broadcastToConsole;
 
-  public @Nullable BukkitEvaluable soundSender;
-  public @Nullable BukkitEvaluable soundReceiver;
+  public @Nullable BukkitEvaluable sound;
 
-  public List<DisplayedEffect> effectsSender;
-  public List<DisplayedEffect> effectsReceiver;
+  public List<DisplayedEffect> effects;
 
   private MultiDirectedMessages atSelfMessages;
   private @Nullable List<MultiDirectedMessages> additionalAtSelfMessages;
@@ -48,13 +46,12 @@ public class EmotionSection extends AConfigSection {
   private @Nullable List<MultiDirectedMessages> additionalAtAllMessages;
 
   @CSIgnore
-  public @Nullable XSound _soundSender, _soundReceiver;
+  public @Nullable XSound _sound;
 
   public EmotionSection(EvaluationEnvironmentBuilder baseEnvironment) {
     super(baseEnvironment);
 
-    this.effectsSender = new ArrayList<>();
-    this.effectsReceiver = new ArrayList<>();
+    this.effects = new ArrayList<>();
     this.directAliases = new ArrayList<>();
     this.maximumNumberOfTargets = 1;
   }
@@ -74,14 +71,9 @@ public class EmotionSection extends AConfigSection {
     if (description == null)
       throw new MappingError("Property \"description\" was absent, but is required");
 
-    if (soundSender != null) {
-      if ((_soundSender = soundSender.asXSound(builtBaseEnvironment)) == null)
-        throw new MappingError("Property \"soundSender\" could not be corresponded to any valid sound");
-    }
-
-    if (soundReceiver != null) {
-      if ((_soundReceiver = soundReceiver.asXSound(builtBaseEnvironment)) == null)
-        throw new MappingError("Property \"soundReceiver\" could not be corresponded to any valid sound");
+    if (sound != null) {
+      if ((_sound = sound.asXSound(builtBaseEnvironment)) == null)
+        throw new MappingError("Property \"sound\" could not be corresponded to any valid sound");
     }
   }
 

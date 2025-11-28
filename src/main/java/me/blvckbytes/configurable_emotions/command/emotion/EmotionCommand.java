@@ -495,7 +495,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
       receivers.add(receiver);
 
-      playEmotionSound(emotion, receiver, true);
+      playEmotionSound(emotion, receiver);
 
       if (messages.toReceiver != null)
         displayMessages(receiver, receiverEnvironment, messages.toReceiver);
@@ -503,13 +503,12 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     possiblyBroadcastToConsole(emotion, messages.asBroadcast, builtMessageEnvironment);
 
-    for (var senderEffect : emotion.effectsSender)
-      effectPlayer.playEffect(senderEffect, List.of(sender));
+    for (var effect : emotion.effects) {
+      effectPlayer.playEffect(effect, List.of(sender));
+      effectPlayer.playEffect(effect, receivers);
+    }
 
-    for (var receiverEffect : emotion.effectsReceiver)
-      effectPlayer.playEffect(receiverEffect, receivers);
-
-    playEmotionSound(emotion, sender, false);
+    playEmotionSound(emotion, sender);
 
     if (messages.toSender != null)
       displayMessages(sender, builtMessageEnvironment, messages.toSender);
@@ -546,7 +545,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     for (var receiver : receivers) {
       var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
 
-      playEmotionSound(emotion, receiver, true);
+      playEmotionSound(emotion, receiver);
 
       if (messages.toReceiver != null)
         displayMessages(receiver, receiverEnvironment, messages.toReceiver);
@@ -554,13 +553,12 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     possiblyBroadcastToConsole(emotion, messages.asBroadcast, builtMessageEnvironment);
 
-    for (var senderEffect : emotion.effectsSender)
-      effectPlayer.playEffect(senderEffect, List.of(sender));
+    for (var effect : emotion.effects) {
+      effectPlayer.playEffect(effect, List.of(sender));
+      effectPlayer.playEffect(effect, receivers);
+    }
 
-    for (var receiverEffect : emotion.effectsReceiver)
-      effectPlayer.playEffect(receiverEffect, receivers);
-
-    playEmotionSound(emotion, sender, false);
+    playEmotionSound(emotion, sender);
 
     if (messages.toSender != null)
       displayMessages(sender, builtMessageEnvironment, messages.toSender);
@@ -609,14 +607,12 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     }
   }
 
-  private void playEmotionSound(EmotionSection emotion, Player player, boolean receiver) {
-    var sound = receiver ? emotion._soundReceiver : emotion._soundSender;
-
-    if (sound == null)
+  private void playEmotionSound(EmotionSection emotion, Player player) {
+    if (emotion._sound == null)
       return;
 
     if (profileStore.getProfile(player).getFlagOrDefault(PlayerProfileFlag.SOUND_ENABLED))
-      sound.play(player);
+      emotion._sound.play(player);
   }
 
   private void playEmotionOther(Player sender, Player receiver, EmotionSection emotion) {
@@ -631,18 +627,17 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       possiblyBroadcastToConsole(emotion, messages.asBroadcast, receiverEnvironment);
     }
 
-    playEmotionSound(emotion, receiver, true);
+    playEmotionSound(emotion, receiver);
 
     if (messages.toReceiver != null)
       displayMessages(receiver, receiverEnvironment, messages.toReceiver);
 
-    for (var senderEffect : emotion.effectsSender)
-      effectPlayer.playEffect(senderEffect, List.of(sender));
+    for (var effect : emotion.effects) {
+      effectPlayer.playEffect(effect, List.of(sender));
+      effectPlayer.playEffect(effect, List.of(receiver));
+    }
 
-    for (var receiverEffect : emotion.effectsReceiver)
-      effectPlayer.playEffect(receiverEffect, List.of(receiver));
-
-    playEmotionSound(emotion, sender, false);
+    playEmotionSound(emotion, sender);
 
     var builtMessageEnvironment = messageEnvironment.build();
 
@@ -666,10 +661,10 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       possiblyBroadcastToConsole(emotion, messages.asBroadcast, messageEnvironment);
     }
 
-    for (var senderEffect : emotion.effectsSender)
-      effectPlayer.playEffect(senderEffect, List.of(sender));
+    for (var effect : emotion.effects)
+      effectPlayer.playEffect(effect, List.of(sender));
 
-    playEmotionSound(emotion, sender, true);
+    playEmotionSound(emotion, sender);
 
     if (messages.toSender != null)
       displayMessages(sender, messageEnvironment, messages.toSender);

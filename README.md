@@ -58,14 +58,11 @@ emotions:
     # Whether broadcast-messages as defined on this emotion will be sent to the console as well
     broadcastToConsole: false
 
-    # The sound played to the executor at execution; delete key to play no sound
-    soundSender: '...'
+    # The sound played at execution; delete key to play no sound
+    sound: '...'
 
-    # The sound played to the receiver(s) at execution; delete key to play no sound
-    soundReceiver: '...'
-
-    # The particle-effects played to the executor at execution; delete section to play no effect
-    effectsSender:
+    # The particle-effects played at execution; delete section to play no effect
+    effects:
       # There may be as many parallel effects as desired
       -
           displayType: 'SINGLE/CLOUD/HELIX'
@@ -95,9 +92,6 @@ emotions:
           particleColor: '...'
           # Size of redstone dust particles
           particleSize: 1
-
-    # The particle-effect played to the receiver(s) at execution; delete section to play no effect
-    effectsReceiver: # Layout equals to that of effectSender
 
     # Deleting the keys of undesired messages will cause them to not be displayed
 

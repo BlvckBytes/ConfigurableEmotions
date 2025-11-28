@@ -164,17 +164,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: CAT_PURR
-    soundReceiver: CAT_PURR
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: HEART
-    effectsReceiver:
+    sound: CAT_PURR
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.5
       cloudParticleCount: 30
@@ -232,17 +223,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: ENTITY_VILLAGER_TRADE
-    soundReceiver: ENTITY_VILLAGER_TRADE
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 40
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: HAPPY_VILLAGER
-    effectsReceiver:
+    sound: ENTITY_VILLAGER_TRADE
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.5
       cloudParticleCount: 40
@@ -292,17 +274,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: ENTITY_PLAYER_HURT
-    soundReceiver: ENTITY_PLAYER_HURT
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: ANGRY_VILLAGER
-    effectsReceiver:
+    sound: ENTITY_PLAYER_HURT
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.5
       cloudParticleCount: 30
@@ -360,24 +333,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: ENTITY_CAT_PURREOW
-    soundReceiver: ENTITY_CAT_PURREOW
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: HEART
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: SMALL_FLAME
-    effectsReceiver:
+    sound: ENTITY_CAT_PURREOW
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.5
       cloudParticleCount: 30
@@ -434,17 +391,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: ENTITY_CHICKEN_EGG
-    soundReceiver: ENTITY_CHICKEN_EGG
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: VILLAGER_ANGRY
-    effectsReceiver:
+    sound: ENTITY_CHICKEN_EGG
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.5
       cloudParticleCount: 30
@@ -501,17 +449,8 @@ emotions:
     supportsOthers: true
     supportsAll: false
     broadcastToConsole: true
-    soundSender: ENTITY_FIREWORK_ROCKET_BLAST
-    soundReceiver: ENTITY_FIREWORK_ROCKET_BLAST
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: HEART
-    effectsReceiver:
+    sound: ENTITY_FIREWORK_ROCKET_BLAST
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.5
       cloudParticleCount: 30
@@ -540,19 +479,10 @@ emotions:
     supportsOthers: false
     supportsAll: false
     broadcastToConsole: true
-    soundSender: ENTITY_BAT_HURT
-    soundReceiver: ENTITY_BAT_HURT
-    effectsSender:
+    sound: ENTITY_BAT_HURT
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.3
-      cloudParticleCount: 40
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: DRIPPING_WATER
-    effectsReceiver:
-    - displayType: CLOUD
-      cloudRadius: 1.5
       cloudParticleCount: 40
       yOffset: 1.6
       frequencyTicks: 15
@@ -578,34 +508,8 @@ emotions:
     supportsOthers: false
     supportsAll: false
     broadcastToConsole: true
-    soundSender: BLOCK_NOTE_BLOCK_CHIME
-    soundReceiver: BLOCK_NOTE_BLOCK_CHIME
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: REDSTONE
-      particleColor: 255 8 0
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: REDSTONE
-      particleColor: 255 164 0
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: REDSTONE
-      particleColor: 250 255 0
-    effectsReceiver:
+    sound: BLOCK_NOTE_BLOCK_CHIME
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.3
       cloudParticleCount: 30
@@ -652,28 +556,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: BLOCK_AMETHYST_BLOCK_CHIME
-    soundReceiver: BLOCK_AMETHYST_BLOCK_CHIME
-    effectsSender:
-    - displayType: HELIX
-      yOffset: 0.1
-      helixHeight: 2
-      helixRadius: 0.8
-      helixWindings: 3
-      numberOfHelixCurves: 1
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: REDSTONE
-      particleColor: 77 60 245
-      particleSize: 1
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 35
-      yOffset: 1.6
-      frequencyTicks: 7
-      numberOfExecutions: 4
-      particle: BUBBLE_POP
-    effectsReceiver:
+    sound: BLOCK_AMETHYST_BLOCK_CHIME
+    effects:
     - displayType: HELIX
       yOffset: 0.1
       helixHeight: 2
@@ -736,24 +620,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: ENTITY_VILLAGER_YES
-    soundReceiver: ENTITY_VILLAGER_YES
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 25
-      numberOfExecutions: 1
-      particle: HAPPY_VILLAGER
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: HEART
-    effectsReceiver:
+    sound: ENTITY_VILLAGER_YES
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.3
       cloudParticleCount: 30
@@ -809,17 +677,8 @@ emotions:
     supportsOthers: false
     supportsAll: false
     broadcastToConsole: true
-    soundSender: ENTITY_WITCH_CELEBRATE
-    soundReceiver: ENTITY_WITCH_CELEBRATE
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 40
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: NOTE
-    effectsReceiver:
+    sound: ENTITY_WITCH_CELEBRATE
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.5
       cloudParticleCount: 40
@@ -848,17 +707,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: ENTITY_VINDICATOR_CELEBRATE
-    soundReceiver: ENTITY_VINDICATOR_CELEBRATE
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: FIREWORK
-    effectsReceiver:
+    sound: ENTITY_VINDICATOR_CELEBRATE
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.2
       cloudParticleCount: 30
@@ -909,17 +759,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: ENTITY_FIREWORK_ROCKET_LAUNCH
-    soundReceiver: ENTITY_FIREWORK_ROCKET_LAUNCH
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: CHERRY_LEAVES
-    effectsReceiver:
+    sound: ENTITY_FIREWORK_ROCKET_LAUNCH
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.2
       cloudParticleCount: 30
@@ -970,17 +811,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: BLOCK_BELL_USE
-    soundReceiver: BLOCK_BELL_USE
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: DAMAGE_INDICATOR
-    effectsReceiver:
+    sound: BLOCK_BELL_USE
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.2
       cloudParticleCount: 30
@@ -1039,17 +871,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: ENTITY_PLAYER_BURP
-    soundReceiver: ENTITY_PLAYER_BURP
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: COMPOSTER
-    effectsReceiver:
+    sound: ENTITY_PLAYER_BURP
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.2
       cloudParticleCount: 30
@@ -1107,17 +930,8 @@ emotions:
     supportsOthers: false
     supportsAll: false
     broadcastToConsole: true
-    soundSender: ITEM_ARMOR_EQUIP_NETHERITE
-    soundReceiver: ITEM_ARMOR_EQUIP_NETHERITE
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 40
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: DUST_PLUME
-    effectsReceiver:
+    sound: ITEM_ARMOR_EQUIP_NETHERITE
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.5
       cloudParticleCount: 40
@@ -1146,17 +960,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: false
     broadcastToConsole: true
-    soundSender: ENCHANT_THORNS_HIT
-    soundReceiver: ENCHANT_THORNS_HIT
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: ELECTRIC_SPARK
-    effectsReceiver:
+    sound: ENCHANT_THORNS_HIT
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.2
       cloudParticleCount: 30
@@ -1197,17 +1002,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: ENTITY_PLAYER_BIG_FALL
-    soundReceiver: ENTITY_PLAYER_BIG_FALL
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: TOTEM_OF_UNDYING
-    effectsReceiver:
+    sound: ENTITY_PLAYER_BIG_FALL
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.2
       cloudParticleCount: 30
@@ -1258,17 +1054,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: ENTITY_PLAYER_DEATH
-    soundReceiver: ENTITY_PLAYER_DEATH
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: RAID_OMEN
-    effectsReceiver:
+    sound: ENTITY_PLAYER_DEATH
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.2
       cloudParticleCount: 30
@@ -1327,17 +1114,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: true
     broadcastToConsole: true
-    soundSender: BLOCK_NOTE_BLOCK_BELL
-    soundReceiver: BLOCK_NOTE_BLOCK_BELL
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 40
-      yOffset: 1.6
-      frequencyTicks: 10
-      numberOfExecutions: 3
-      particle: BUBBLE_COLUMN_UP
-    effectsReceiver:
+    sound: BLOCK_NOTE_BLOCK_BELL
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.2
       cloudParticleCount: 40
@@ -1387,18 +1165,8 @@ emotions:
     supportsOthers: false
     supportsAll: false
     broadcastToConsole: true
-    soundSender: BLOCK_AZALEA_STEP
-    soundReceiver: BLOCK_AZALEA_STEP
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 40
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: BLOCK_CRACK
-      particleMaterial: OAK_LEAVES
-    effectsReceiver:
+    sound: BLOCK_AZALEA_STEP
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.5
       cloudParticleCount: 40
@@ -1427,17 +1195,8 @@ emotions:
     supportsOthers: true
     supportsAll: false
     broadcastToConsole: true
-    soundSender: ENTITY_VILLAGER_YES
-    soundReceiver: ENTITY_VILLAGER_YES
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: EGG_CRACK
-    effectsReceiver:
+    sound: ENTITY_VILLAGER_YES
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.5
       cloudParticleCount: 30
@@ -1466,17 +1225,8 @@ emotions:
     supportsOthers: true
     supportsAll: false
     broadcastToConsole: true
-    soundSender: ENTITY_VILLAGER_NO
-    soundReceiver: ENTITY_VILLAGER_NO
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: ENCHANTED_HIT
-    effectsReceiver:
+    sound: ENTITY_VILLAGER_NO
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.5
       cloudParticleCount: 30
@@ -1507,17 +1257,8 @@ emotions:
     maximumNumberOfTargets: 3
     supportsAll: false
     broadcastToConsole: true
-    soundSender: BLOCK_NOTE_BLOCK_CHIME
-    soundReceiver: BLOCK_NOTE_BLOCK_CHIME
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 35
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: NOTE
-    effectsReceiver:
+    sound: BLOCK_NOTE_BLOCK_CHIME
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.2
       cloudParticleCount: 35
@@ -1556,17 +1297,8 @@ emotions:
     supportsOthers: false
     supportsAll: false
     broadcastToConsole: true
-    soundSender: ENTITY_PILLAGER_DEATH
-    soundReceiver: ENTITY_PILLAGER_DEATH
-    effectsSender:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: DAMAGE_INDICATOR
-    effectsReceiver:
+    sound: ENTITY_PILLAGER_DEATH
+    effects:
     - displayType: CLOUD
       cloudRadius: 1.2
       cloudParticleCount: 30
