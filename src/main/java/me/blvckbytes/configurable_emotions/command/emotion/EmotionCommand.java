@@ -501,7 +501,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         displayMessages(receiver, receiverEnvironment, messages.toReceiver);
     }
 
-    possiblyBroadcastToConsole(emotion, messages.asBroadcast, builtMessageEnvironment);
+    if (messages.asBroadcast != null)
+      possiblyBroadcastToConsole(emotion, messages.asBroadcast, builtMessageEnvironment);
 
     for (var effect : emotion.effects) {
       effectPlayer.playEffect(effect, List.of(sender));
@@ -540,6 +541,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (messages.asBroadcast != null) {
       for (var broadcastReceiver : Bukkit.getOnlinePlayers())
         displayMessages(broadcastReceiver, builtMessageEnvironment, messages.asBroadcast);
+
+      possiblyBroadcastToConsole(emotion, messages.asBroadcast, builtMessageEnvironment);
     }
 
     for (var receiver : receivers) {
@@ -550,8 +553,6 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       if (messages.toReceiver != null)
         displayMessages(receiver, receiverEnvironment, messages.toReceiver);
     }
-
-    possiblyBroadcastToConsole(emotion, messages.asBroadcast, builtMessageEnvironment);
 
     for (var effect : emotion.effects) {
       effectPlayer.playEffect(effect, List.of(sender));
