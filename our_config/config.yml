@@ -1325,6 +1325,244 @@ emotions:
         subTitleMessage$: lut["highlightColor"] & sender_display_name & " &7seufzt!"
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7seufzt!"'
 
+  Snickers:
+    tryRegisterDirectly: true
+    description: Jemand ist eine Diva? Gib Ihm/Ihr ein Snickers!
+    cooldownSeconds: 60
+    supportsSelf: false
+    supportsOthers: true
+    maximumNumberOfTargets: 1
+    supportsAll: false
+    broadcastToConsole: true
+    sound: ENTITY_TURTLE_EGG_CRACK
+    effects:
+    - displayType: CLOUD
+      cloudRadius: 1.5
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: ANGRY_VILLAGER
+    atOneMessages:
+      toSender:
+        titleMessage$: lut["mainColor"] & "🍫 Snickers 🍫"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+      toReceiver:
+        titleMessage$: lut["mainColor"] & "🍫 Snickers 🍫"
+        subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+      toDiscord$: '"🍫 " & sender_display_name & " gibt der Diva " & receiver_display_name & " ein Snickers!"'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7gibt der Diva " & lut["highlightColor"] & receiver_display_name & " &7ein Snickers!"'
+
+  Unschuldig:
+    tryRegisterDirectly: true
+    description: Verkünde deine Unschuld! Oder die eines Anderen.
+    cooldownSeconds: 60
+    supportsSelf: true
+    supportsOthers: true
+    maximumNumberOfTargets: 1
+    supportsAll: false
+    broadcastToConsole: true
+    sound: ENTITY_VILLAGER_YES
+    effects:
+    - displayType: CLOUD
+      cloudRadius: 1.5
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: DRIPPING_WATER
+    atSelfMessages:
+      toSender:
+        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & "dich selbst"'
+      toDiscord$: '"😅 " & sender_display_name & " bekennt seine Unschuld!"'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7bekennt " & lut["highlightColor"] & "seine/ihre &7Unschuld!"'
+    additionalAtSelfMessages:
+    -
+      toSender:
+        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & "dich selbst"'
+      toDiscord$: '"😅 " & sender_display_name & " war es nicht!"'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7war es nicht!"'
+    atOneMessages:
+      toSender:
+        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+      toReceiver:
+        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+        subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+      toDiscord$: '"😅 " & sender_display_name & " bekennt die Unschuld von " & receiver_display_name & "!"'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7bekennt die Unschuld von " & lut["highlightColor"] & receiver_display_name & "&7!"'
+    additionalAtOneMessages:
+    -
+      toSender:
+        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+      toReceiver:
+        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+        subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+      toDiscord$: '"😅 " & sender_display_name & " bekennt " & receiver_display_name & "''s Unschuld!"'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7bekennt " & lut["highlightColor"] & receiver_display_name & "''s &7Unschuld!"'
+    -
+      toSender:
+        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+      toReceiver:
+        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+        subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+      toDiscord$: '"😅 " & sender_display_name & " sagt, dass " & receiver_display_name & " es nicht war!"'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7sagt, dass " & lut["highlightColor"] & receiver_display_name & " &7es nicht war!"'
+
+  Überrascht:
+    tryRegisterDirectly: true
+    directAliases:
+    - surprised
+    - ueberrascht
+    description: Teile mit, dass du überrascht bist.
+    cooldownSeconds: 60
+    supportsSelf: true
+    supportsOthers: true
+    maximumNumberOfTargets: 1
+    supportsAll: false
+    broadcastToConsole: true
+    sound: ENTITY_VILLAGER_TRADE
+    effects:
+    - displayType: CLOUD
+      cloudRadius: 1.5
+      cloudParticleCount: 5
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: EXPLOSION_LARGE
+    atSelfMessages:
+      toSender:
+        titleMessage$: lut["mainColor"] & "😱 Überrascht 😱"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & "dich selbst"'
+      toDiscord$: '"😱 " & sender_display_name & " ist überrascht!"'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7ist überrascht!"'
+    atOneMessages:
+      toSender:
+        titleMessage$: lut["mainColor"] & "😱 Überrascht 😱"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+      toReceiver:
+        titleMessage$: lut["mainColor"] & "😱 Überrascht 😱"
+        subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+      toDiscord$: '"😱 " & sender_display_name & " ist von " & receiver_display_name & " überrascht!"'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7ist von " & lut["highlightColor"] & receiver_display_name & "&7 überrascht!"'
+
+  GrasAnfassen:
+    directAliases:
+    - touchgrass
+    tryRegisterDirectly: true
+    description: Jemand sollte mal Gras anfassen? Sag's Ihm/Ihr!
+    cooldownSeconds: 60
+    supportsSelf: true
+    supportsOthers: true
+    maximumNumberOfTargets: 1
+    supportsAll: false
+    broadcastToConsole: true
+    sound: BLOCK_GRASS_BREAK
+    effects:
+    - displayType: CLOUD
+      cloudRadius: 1.5
+      cloudParticleCount: 35
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: SNEEZE
+    atSelfMessages:
+      toSender:
+        titleMessage$: lut["mainColor"] & "⸙ Gras anfassen ⸙"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & "dich selbst"'
+      toDiscord$: '"⸙ " & sender_display_name & " muss jetzt zur Beruhigung mal Gras anfassen gehen."'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7muss jetzt zur Beruhigung mal Gras anfassen gehen."'
+    atOneMessages:
+      toSender:
+        titleMessage$: lut["mainColor"] & "⸙ Gras anfassen ⸙"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+      toReceiver:
+        titleMessage$: lut["mainColor"] & "⸙ Gras anfassen ⸙"
+        subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+      toDiscord$: '"⸙ " & sender_display_name & " denkt, dass " & receiver_display_name & " mal Gras anfassen gehen sollte!"'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7denkt, dass " & lut["highlightColor"] & receiver_display_name & "&7 mal Gras anfassen gehen sollte!"'
+
+  Patricked:
+    tryRegisterDirectly: true
+    description: Patricke jemanden und ernenne die Person für 24h als „dumm“.
+    cooldownSeconds: 60
+    supportsSelf: false
+    supportsOthers: true
+    maximumNumberOfTargets: 1
+    supportsAll: false
+    broadcastToConsole: true
+    sound: ENTITY_VILLAGER_NO
+    effects:
+    - displayType: CLOUD
+      cloudRadius: 1.5
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: ANGRY_VILLAGER
+    atOneMessages:
+      toSender:
+        titleMessage$: lut["mainColor"] & "⭐ Patricked ⭐"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+      toReceiver:
+        titleMessage$: lut["mainColor"] & "⭐ Patricked ⭐"
+        subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+      toDiscord$: '"⭐ " & sender_display_name & " hat " & receiver_display_name & " ge-patricked; " & receiver_display_name & " ist jetzt für 24h dumm."'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7hat " & lut["highlightColor"] & receiver_display_name & "&7 ge-patricked; " & lut["highlightColor"] & receiver_display_name & " &7ist jetzt für 24h dumm."'
+
+  UwU:
+    tryRegisterDirectly: true
+    description: UwU!
+    cooldownSeconds: 60
+    supportsSelf: true
+    supportsOthers: true
+    maximumNumberOfTargets: 1
+    supportsAll: false
+    broadcastToConsole: true
+    sound: ENTITY_CAT_BEG_FOR_FOOD
+    soundPitch: .88
+    soundVolume: 1.40
+    effects:
+    - displayType: CLOUD
+      cloudRadius: 1.5
+      cloudParticleCount: 30
+      yOffset: 1.6
+      frequencyTicks: 15
+      numberOfExecutions: 2
+      particle: HEART
+    atSelfMessages:
+      toSender:
+        titleMessage$: lut["mainColor"] & "👉👈 UwU 👉👈"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & "dich selbst"'
+      toDiscord$: '"👉👈 " & sender_display_name & " ."'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7sagt UwU."'
+    atOneMessages:
+      toSender:
+        titleMessage$: lut["mainColor"] & "👉👈 UwU 👉👈"
+        subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+      toReceiver:
+        titleMessage$: lut["mainColor"] & "👉👈 UwU 👉👈"
+        subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+      toDiscord$: '"👉👈 " & sender_display_name & " sagt UwU zu " & receiver_display_name'
+      asBroadcast:
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7sagt UwU zu " & lut["highlightColor"] & receiver_display_name'
+
 # File-global lookup table
 lut:
   mainColor: '&#6E49C9'
