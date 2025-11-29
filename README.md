@@ -61,6 +61,10 @@ emotions:
     # The sound played at execution; delete key to play no sound
     sound: '...'
 
+    # Pitch and volume are optional and allow for more fine-grained control
+    soundPitch: 1
+    soundVolume: 1
+
     # The particle-effects played at execution; delete section to play no effect
     effects:
       # There may be as many parallel effects as desired

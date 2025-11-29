@@ -2,6 +2,7 @@ package me.blvckbytes.configurable_emotions.config;
 
 import com.cryptomorin.xseries.XSound;
 import me.blvckbytes.bbconfigmapper.MappingError;
+import me.blvckbytes.bbconfigmapper.ScalarType;
 import me.blvckbytes.bbconfigmapper.sections.AConfigSection;
 import me.blvckbytes.bbconfigmapper.sections.CSAlways;
 import me.blvckbytes.bbconfigmapper.sections.CSIgnore;
@@ -29,7 +30,18 @@ public class EmotionSection extends AConfigSection {
   public int maximumNumberOfTargets;
   public boolean broadcastToConsole;
 
-  public @Nullable BukkitEvaluable sound;
+  private @Nullable BukkitEvaluable sound;
+  private @Nullable BukkitEvaluable soundPitch;
+  private @Nullable BukkitEvaluable soundVolume;
+
+  @CSIgnore
+  public @Nullable XSound _sound;
+
+  @CSIgnore
+  public float _soundPitch = 1;
+
+  @CSIgnore
+  public float _soundVolume = 1;
 
   public List<DisplayedEffect> effects;
 
@@ -44,9 +56,6 @@ public class EmotionSection extends AConfigSection {
 
   private MultiDirectedMessages atAllMessages;
   private @Nullable List<MultiDirectedMessages> additionalAtAllMessages;
-
-  @CSIgnore
-  public @Nullable XSound _sound;
 
   public EmotionSection(EvaluationEnvironmentBuilder baseEnvironment) {
     super(baseEnvironment);
@@ -75,6 +84,12 @@ public class EmotionSection extends AConfigSection {
       if ((_sound = sound.asXSound(builtBaseEnvironment)) == null)
         throw new MappingError("Property \"sound\" could not be corresponded to any valid sound");
     }
+
+    if (soundPitch != null)
+      _soundPitch = soundPitch.asScalar(ScalarType.DOUBLE, builtBaseEnvironment).floatValue();
+
+    if (soundVolume != null)
+      _soundVolume = soundVolume.asScalar(ScalarType.DOUBLE, builtBaseEnvironment).floatValue();
   }
 
   public MultiDirectedMessages accessAtSelfMessages() {

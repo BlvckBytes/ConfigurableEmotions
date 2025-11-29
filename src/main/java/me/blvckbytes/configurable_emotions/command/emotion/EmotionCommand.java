@@ -621,7 +621,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     // As of now, sounds only play for sender/receiver, so they're always the target of the emotion
     if (profileStore.getProfile(player).getFlagOrDefault(PlayerProfileFlag.SOUND_ENABLED).doesShow(!isBroadcast))
-      emotion._sound.play(player);
+      emotion._sound.play(player, emotion._soundVolume, emotion._soundPitch);
   }
 
   private void playEmotionOther(Player sender, Player receiver, EmotionSection emotion) {
