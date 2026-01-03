@@ -2,7 +2,7 @@ name: ConfigurableEmotions
 version: 0.0.1
 author: BlvckBytes
 main: me.blvckbytes.configurable_emotions.ConfigurableEmotionsPlugin
-api-version: 1.14
+api-version: 1.21
 softdepend: [EssentialsDiscord]
 commands:
   emotion:

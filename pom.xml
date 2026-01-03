@@ -29,7 +29,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.14-R0.1-SNAPSHOT</version>
+            <version>1.21.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -100,6 +100,7 @@
                             <!-- [1] Shouldn't be necessary anymore on newer versions of bukkit, but I prefer backwards-compatibility over file-size. -->
                             <include>org.yaml:snakeyaml</include>
                             <include>com.github.cryptomorin:XSeries</include>
+                            <include>org.jetbrains:annotations</include>
                         </includes>
                     </artifactSet>
 
@@ -121,6 +122,16 @@
                             <pattern>com/cryptomorin/xseries/(.*)</pattern>
                             <shadedPattern>me/blvckbytes/configurable_emotions/com/cryptomorin/xseries/$1</shadedPattern>
                             <rawString>true</rawString>
+                        </relocation>
+
+                        <relocation>
+                            <pattern>org.jetbrains.annotations</pattern>
+                            <shadedPattern>me.blvckbytes.configurable_emotions.jetbrains_annotations</shadedPattern>
+                        </relocation>
+
+                        <relocation>
+                            <pattern>org.intellij.lang.annotations</pattern>
+                            <shadedPattern>me.blvckbytes.configurable_emotions.intellij_annotations</shadedPattern>
                         </relocation>
                     </relocations>
 
