@@ -7,6 +7,7 @@ import at.blvckbytes.component_markup.util.logging.InterpreterLogger;
 
 public class PlayerMessagesSection extends ConfigSection {
 
+  public ComponentMarkup profileFlagToggled;
   public ComponentMarkup actionReloadConfigSuccess;
   public ComponentMarkup actionReloadConfigFailure;
   public ComponentMarkup noUsageMessage;

@@ -26,11 +26,11 @@ public abstract class FlagToggleSubCommand implements SubCommand {
 
   protected void toggleAndSendMessage(Player player) {
     var newValue = profileStore.getProfile(player).cycleFlagAndGet(flag);
-    var flagSection = flag.accessFlagSection(config.rootSection.playerProfiles.flags);
 
-    flagSection.toggleMessage.sendMessage(
+    config.rootSection.playerMessages.profileFlagToggled.sendMessage(
       player,
       new InterpretationEnvironment()
+        .withVariable("flag", flag.name())
         .withVariable("value", newValue)
     );
   }

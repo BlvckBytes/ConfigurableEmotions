@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileCommand implements SubCommand {
@@ -34,17 +35,17 @@ public class ProfileCommand implements SubCommand {
       return CommandFailure.PLAYER_ONLY;
 
     var profile = profileStore.getProfile(player);
+    var flagValues = new ArrayList<ProfileFlagValue>();
+
+    for (var flag : PlayerProfileFlag.values())
+      flagValues.add(new ProfileFlagValue(flag, profile.getFlagOrDefault(flag)));
 
     config.rootSection.playerMessages.playerProfileScreen.sendMessage(
       player,
       new InterpretationEnvironment()
         .withVariable("holder_name", player.getName())
-        .withVariable("holder_display_name", player.getDisplayName())
-        .withVariable("title_value", profile.getFlagOrDefault(PlayerProfileFlag.TITLE_ENABLED))
-        .withVariable("action_bar_value", profile.getFlagOrDefault(PlayerProfileFlag.ACTION_BAR_ENABLED))
-        .withVariable("chat_value", profile.getFlagOrDefault(PlayerProfileFlag.CHAT_ENABLED))
-        .withVariable("sound_value", profile.getFlagOrDefault(PlayerProfileFlag.SOUND_ENABLED))
-        .withVariable("effect_value", profile.getFlagOrDefault(PlayerProfileFlag.PARTICLE_EFFECT_ENABLED))
+        .withVariable("holder_display_name", player.displayName())
+        .withVariable("flag_values", flagValues)
     );
 
     return null;

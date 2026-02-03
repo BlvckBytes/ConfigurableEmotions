@@ -13,6 +13,7 @@ import me.blvckbytes.configurable_emotions.discord.DiscordApi;
 import me.blvckbytes.configurable_emotions.discord.DiscordApiManager;
 import me.blvckbytes.configurable_emotions.profile.PlayerProfileFlag;
 import me.blvckbytes.configurable_emotions.profile.PlayerProfileStore;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import net.kyori.adventure.title.TitlePart;
 import org.apache.commons.lang3.ArrayUtils;
@@ -514,12 +515,12 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
   private void playEmotionMany(Player sender, Collection<Player> receivers, EmotionSection emotion) {
     var receiverNames = new ArrayList<String>(receivers.size());
-    var receiverDisplayNames = new ArrayList<String>(receivers.size());
+    var receiverDisplayNames = new ArrayList<Component>(receivers.size());
     var messages = emotion.accessAtManyMessages();
 
     for (var receiver : receivers) {
       receiverNames.add(receiver.getName());
-      receiverDisplayNames.add(receiver.getDisplayName());
+      receiverDisplayNames.add(receiver.displayName());
     }
 
     var messageEnvironment = makeMessageEnvironment(sender)

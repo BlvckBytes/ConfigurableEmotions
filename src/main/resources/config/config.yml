@@ -37,111 +37,83 @@ playerProfiles:
   flags:
     titleEnabled:
       defaultValue: SELF_AND_OTHERS
-      # - value: String
-      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für &aBildschirmtexte&7: " & lut["flagValue"][value]'
     actionBarEnabled:
       defaultValue: SELF_AND_OTHERS
-      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für &aHotbartexte&7: " & lut["flagValue"][value]'
     chatEnabled:
       defaultValue: SELF_AND_OTHERS
-      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für &aChatausgaben&7: " & lut["flagValue"][value]'
     soundEnabled:
       defaultValue: SELF_AND_OTHERS
-      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für &aGeräusche&7: " & lut["flagValue"][value]'
     effectEnabled:
       defaultValue: SELF_AND_OTHERS
-      toggleMessage$: 'lut["prefix"] & "&7Neuer Anzeigemodus für &aPartikeleffekte&7: " & lut["flagValue"][value]'
 
 playerMessages:
-  noUsageMessage$: 'lut["prefix"] & "&cDeine Eingabe konnte mit keinem existierenden oder dir zugänglichem Befehl korrespondiert werden!"'
-  # - usage: String
-  singleUsageMessage$: 'lut["prefix"] & "&cBenutzung: " & usage'
-  # - usages: List<String>
-  multiUsageScreen$: |
-    flatten(
-      "&8&m                       &8[&5Emotionen&8]&8&m                       ",
-      map(usages, (it) => "&8> &e" & it),
-      "&8&m                       &8[&5Emotionen&8]&8&m                       "
-    )
-  # - title_value: boolean
-  # - action_bar_value: boolean
-  # - chat_value: boolean
-  # - sound_value: boolean
-  # - effect_value: boolean
-  # - holder_name: String
-  # - holder_display_name: String
-  playerProfileScreen$: |
-    flatten(
-      "&8&m                       &8[&5Emotionen&8]&8&m                       ",
-      "&7- Einstellungsprofil von &d" & holder_display_name,
-      "&8> &7Bildschirmtext: " & lut["flagValue"][title_value],
-      "&8> &7Hotbartext: " & lut["flagValue"][action_bar_value],
-      "&8> &7Chatausgabe: " & lut["flagValue"][chat_value],
-      "&8> &7Geräusche: " & lut["flagValue"][sound_value],
-      "&8> &7Partikeleffekte: " & lut["flagValue"][effect_value],
-      "&8&m                       &8[&5Emotionen&8]&8&m                       "
-    )
-  actionReloadConfigSuccess$: 'lut["prefix"] & "&7Die Konfiguration des Plugins wurde &aerfolgreich neu geladen&7!"'
-  actionReloadConfigFailure$: 'lut["prefix"] & "&cWährend des Neuladeprozesses der Konfiguration trat ein Fehler auf; bitte überprüfe die Konsole!"'
-  # - label: String
-  # - all_sentinel: String
-  # - emotions: List<HelpScreenEntry> where HelpScreenEntry: { identifier: String, description: String, aliases: List<String>, supports_others: Boolean, supports_all: Boolean }
-  # - current_page: Integer
-  # - page_size: Integer
-  # - number_of_pages: Integer
-  commandEmotionHelpScreen$: |
-    flatten(
-      "&8&m                       &8[&5Emotionen&8]&8&m                       ",
-      "&7Seite &d" & current_page & "&7/&d" & number_of_pages & " &7- Nutze /" & label & " <Seite>",
-      " ",
-      flatten(map(
-        emotions,
-        (emotion) => list(
-          "&8> &7/" & label & " &d" & emotion.identifier & "&7" & (
-            if emotion.supports_others then (
-              if emotion.supports_all then (
-                if emotion.supports_self then " [&dSpieler&7/&d" & all_sentinel & "&7]" else " <&dSpieler&7/&d" & all_sentinel & "&7>"
-              ) else (
-                if emotion.supports_self then " [&dSpieler&7]" else " <&dSpieler&7>"
-              )
-            ) else ""
-          ) & " - " & emotion.description,
-          "&8> &7Aliase: " & iter_cat(emotion.aliases, (alias) => "&d" & alias, "&7, ", "&cKeine Aliase verfügbar"),
-          " "
-        ),
-        "&cNoch keine Emotionen konfiguriert"
-      )),
-      "&8&m                       &8[&5Emotionen&8]&8&m                       "
-    )
-  receiverCannotBeSelf$: 'lut["prefix"] & "&cDu kannst dir selbst keine Emotion senden!"'
-  # - target_player: String
-  receivingPlayerNotOnline$: 'lut["prefix"] & "&cDer Spieler &4" & target_player & " &cbefindet sich nicht auf dem Server!"'
-  # - target_player: String
-  receivingPlayerDuplicate$: 'lut["prefix"] & "&cDer Spieler &4" & target_player & " &ckommt in der Empfängerliste mehrfach vor!"'
-  # - emotion_identifier: String
-  # - maximum_count: Integer
-  maximumNumberOfTargetsExceeded$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt maximal &4" & maximum_count & " Empfänger&c!"'
-  # - all_sentinel: String
-  cannotCombineAllSentinelWithNames$: 'lut["prefix"] & "&cDer &4" & all_sentinel & "-Platzhalter &ckann nicht mit Spielernamen kombiniert werden!"'
-  # - emotion_identifier: String
-  noReceivingPlayersOnline$: 'lut["prefix"] & "&cEs befindet sich kein Spieler auf dem Server, der deine Emotion &4" & emotion_identifier & " &cempfangen könnte!"'
-  # - emotion_identifier: String
-  unsupportedPlayingOnSelf$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &ckann nicht auf dir selbst ausgeführt werden!"'
-  # - emotion_identifier: String
-  unsupportedOtherTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an andere Spieler nicht!"'
-  # - emotion_identifier: String
-  unsupportedAllTarget$: 'lut["prefix"] & "&cDie Emotion &4" & emotion_identifier & " &cunterstützt das Versenden an alle Spieler nicht!"'
-  # - emotion_identifier: String
-  # - remaining_time: String
-  awaitRemainingCooldown$: 'lut["prefix"] & "&cBitte warte &4" & remaining_time & "&c, bevor du die Emotion &4" & emotion_identifier & " &cerneut ausführst!"'
-  # - emotion_identifier: String
-  missingEmotionPermission$: 'lut["prefix"] & "&cDir fehlt das Recht, die Emotion &4" & emotion_identifier & " &causzuführen!"'
-  noAccessToAnyEmotion$: 'lut["prefix"] & "&cEs besteht kein Zugriff auf mindestens eine der existierenden Emotionen!"'
-  # - input: String
-  unknownEmotionProvided$: 'lut["prefix"] & "&cDie Emotion &4" & input & " &cexistiert nicht!"'
-  playerOnlyCommand$: 'lut["prefix"] & "&cDieser Befehl ist nur Spielern zugänglich!"'
-  missingPermissionEmotionCommand$: 'lut["prefix"] & "&cDir fehlen die nötigen Rechte um diesen Befehl zu benutzen!"'
-  missingPermissionEmotionControlCommand$: 'lut["prefix"] & "&cDir fehlen die nötigen Rechte um diesen Befehl zu benutzen!"'
+  profileFlagToggled: '{lut.prefix} <&7>Neuer Anzeigemodus für <&a>{lut.flag_name[flag] ?? flag}<&7>: {lut.flag_value[value] ?? value}<&7>.'
+  noUsageMessage: '{lut.prefix} <&c>Deine Eingabe konnte mit keinem existierenden oder dir zugänglichem Befehl korrespondiert werden!'
+  singleUsageMessage: '{lut.prefix} <&c>Benutzung: {usage}'
+  multiUsageScreen: |
+    {lut.spacer}<br/>
+    <container *for-usage="usages">
+      <&8>> &e{usage}
+    </container>
+    {lut.spacer}
+  playerProfileScreen: |
+    {lut.spacer}<br/>
+    <&7>- Einstellungsprofil von <&d>{holder_display_name}<br/>
+    <container *for-flag_value="flag_values">
+      <&8>> <&7>{lut.flag_name[flag_value.flag] ?? flag_value.flag}: {lut.flag_value[flag_value.value] ?? flag_value.value}<br/>
+    </container>
+    {lut.spacer}
+  actionReloadConfigSuccess: '{lut.prefix} <&7>Die Konfiguration des Plugins wurde <&a>erfolgreich neu geladen<&7>!'
+  actionReloadConfigFailure: '{lut.prefix} <&c>Während des Neuladeprozesses der Konfiguration trat ein Fehler auf; bitte überprüfe die Konsole!'
+  commandEmotionHelpScreen: |
+    {lut.spacer}<br/>
+    <&7>Seite <&d>{current_page}<&7>/<&d>{number_of_pages} <&7>- Nutze /{label} \<Seite><br/>
+    <br/>
+    <container *for-emotion="emotions" *for-empty={<&c>Noch keine Emotionen konfiguriert<br/>}>
+      <&8>> <&7>/{label} <&d>{emotion.identifier}
+      <container *if="emotion.supports_others">
+        <space/>
+        <container *if="emotion.supports_all">
+           <container *if="emotion.supports_self">
+             <&7>[<&d>Spieler<&7>/<&d>{all_sentinel}<&7>]
+           </container>
+           <container *else>
+             <&7>\<<&d>Spieler<&7>/<&d>{all_sentinel}&7>
+           </container>
+        </container>
+        <container *else>
+          <container *if="emotion.supports_self">
+            <&7>[<&d>Spieler<&7>]
+          </container>
+          <container *else>
+            <&7>\<<&d>Spieler<&7>>
+          </container>
+        </container>
+      </container>
+      <&7> - {emotion.description}<br/>
+      <&8>> <&7>Aliase:<space/>
+      <container *for-alias="emotion.aliases" *for-separator={<&7>,<space/>} *for-empty={<&c>Keine Aliase verfügbar}>
+        <&d>{alias}
+      </container>
+      <br/>
+    </container>
+    {lut.spacer}
+  receiverCannotBeSelf: '{lut.prefix} <&c>Du kannst dir selbst keine Emotion senden!'
+  receivingPlayerNotOnline: '{lut.prefix} <&c>Der Spieler <&4>{target_player} <&c>befindet sich nicht auf dem Server!'
+  receivingPlayerDuplicate: '{lut.prefix} <&c>Der Spieler <&4>{target_player} <&c>kommt in der Empfängerliste mehrfach vor!'
+  maximumNumberOfTargetsExceeded: '{lut.prefix} <&c>Die Emotion <&4>{emotion_identifier} <&c>unterstützt maximal <&4>{maximum_count} Empfänger<&c>!'
+  cannotCombineAllSentinelWithNames: '{lut.prefix} <&c>Der <&4>{all_sentinel}-Platzhalter <&c>kann nicht mit Spielernamen kombiniert werden!'
+  noReceivingPlayersOnline: '{lut.prefix} <&c>Es befindet sich kein Spieler auf dem Server, der deine Emotion <&4>{emotion_identifier} <&c>empfangen könnte!'
+  unsupportedPlayingOnSelf: '{lut.prefix} <&c>Die Emotion <&4>{emotion_identifier} <&c>kann nicht auf dir selbst ausgeführt werden!'
+  unsupportedOtherTarget: '{lut.prefix} <&c>Die Emotion <&4>{emotion_identifier} <&c>unterstützt das Versenden an andere Spieler nicht!'
+  unsupportedAllTarget: '{lut.prefix} <&c>Die Emotion <&4>{emotion_identifier} <&c>unterstützt das Versenden an alle Spieler nicht!'
+  awaitRemainingCooldown: '{lut.prefix} <&c>Bitte warte <&4><container *let-value="remaining_time" &lut.duration_display /><&c>, bevor du die Emotion <&4>{emotion_identifier} <&c>erneut ausführst!'
+  missingEmotionPermission: '{lut.prefix} <&c>Dir fehlt das Recht, die Emotion <&4>{emotion_identifier} <&c>auszuführen!'
+  noAccessToAnyEmotion: '{lut.prefix} <&c>Du hast auf keine der existierenden Emotionen Zugriff!'
+  unknownEmotionProvided: '{lut.prefix} <&c>Die Emotion <&4>{input} <&c>existiert nicht!'
+  playerOnlyCommand: '{lut.prefix} <&c>Dieser Befehl ist nur Spielern zugänglich!'
+  missingPermissionEmotionCommand: '{lut.prefix} <&c>Dir fehlen die nötigen Rechte um diesen Befehl zu benutzen!'
+  missingPermissionEmotionControlCommand: '{lut.prefix} <&c>Dir fehlen die nötigen Rechte um diesen Befehl zu benutzen!'
 
 # Environment for all emotion-messages:
 # - receiver_name: String
@@ -150,10 +122,19 @@ playerMessages:
 # - sender_display_name: String
 emotions:
 
-# File-global lookup table
-lut:
-  prefix: '&8[&5Emotionen&8] '
-  flagValue:
-    ONLY_SELF: '&6Nur persönliche'
-    SELF_AND_OTHERS: '&aAlle'
-    HIDE_ALL: '&cKeine'
+cLut:
+  prefix: '<&8>[<&5>Emotionen<&8>]'
+  spacer: '<&8><&m>                       <&8>[<&5>Emotionen<&8>]<&8><&m>                       '
+  duration_display: '<duration &value units="hms" unit-renderer={<number &value format="0.#" locale="en_US" />{unit}} />'
+  flag_value:
+    ONLY_SELF: '<&6>Nur persönliche'
+    SELF_AND_OTHERS: '<&a>Alle'
+    HIDE_ALL: '<&c>Keine'
+  flag_name:
+    TITLE_ENABLED: 'Bildschirmtext'
+    ACTION_BAR_ENABLED: 'Hotbartext'
+    CHAT_ENABLED: 'Chatausgabe'
+    SOUND_ENABLED: 'Geräusche'
+    PARTICLE_EFFECT_ENABLED: 'Partikeleffekte'
+
+sLut:
