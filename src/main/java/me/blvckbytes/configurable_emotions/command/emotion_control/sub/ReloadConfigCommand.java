@@ -1,6 +1,6 @@
 package me.blvckbytes.configurable_emotions.command.emotion_control.sub;
 
-import me.blvckbytes.bukkitevaluable.ConfigKeeper;
+import at.blvckbytes.cm_mapper.ConfigKeeper;
 import me.blvckbytes.configurable_emotions.command.CommandFailure;
 import me.blvckbytes.configurable_emotions.command.SubCommand;
 import me.blvckbytes.configurable_emotions.command.emotion_control.ControlAction;
@@ -34,11 +34,11 @@ public class ReloadConfigCommand implements SubCommand {
     try {
       this.config.reload();
 
-      config.rootSection.playerMessages.actionReloadConfigSuccess.sendMessage(sender, config.rootSection.builtBaseEnvironment);
+      config.rootSection.playerMessages.actionReloadConfigSuccess.sendMessage(sender);
     } catch (Exception e) {
       logger.log(Level.SEVERE, "An error occurred while trying to reload the config", e);
 
-      config.rootSection.playerMessages.actionReloadConfigFailure.sendMessage(sender, config.rootSection.builtBaseEnvironment);
+      config.rootSection.playerMessages.actionReloadConfigFailure.sendMessage(sender);
     }
 
     return null;

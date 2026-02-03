@@ -1,6 +1,7 @@
 package me.blvckbytes.configurable_emotions.command.emotion_control.sub;
 
-import me.blvckbytes.bukkitevaluable.ConfigKeeper;
+import at.blvckbytes.cm_mapper.ConfigKeeper;
+import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
 import me.blvckbytes.configurable_emotions.command.CommandFailure;
 import me.blvckbytes.configurable_emotions.command.SubCommand;
 import me.blvckbytes.configurable_emotions.command.emotion_control.ControlAction;
@@ -36,15 +37,14 @@ public class ProfileCommand implements SubCommand {
 
     config.rootSection.playerMessages.playerProfileScreen.sendMessage(
       player,
-      config.rootSection.getBaseEnvironment()
-        .withStaticVariable("holder_name", player.getName())
-        .withStaticVariable("holder_display_name", player.getDisplayName())
-        .withStaticVariable("title_value", profile.getFlagOrDefault(PlayerProfileFlag.TITLE_ENABLED))
-        .withStaticVariable("action_bar_value", profile.getFlagOrDefault(PlayerProfileFlag.ACTION_BAR_ENABLED))
-        .withStaticVariable("chat_value", profile.getFlagOrDefault(PlayerProfileFlag.CHAT_ENABLED))
-        .withStaticVariable("sound_value", profile.getFlagOrDefault(PlayerProfileFlag.SOUND_ENABLED))
-        .withStaticVariable("effect_value", profile.getFlagOrDefault(PlayerProfileFlag.PARTICLE_EFFECT_ENABLED))
-        .build()
+      new InterpretationEnvironment()
+        .withVariable("holder_name", player.getName())
+        .withVariable("holder_display_name", player.getDisplayName())
+        .withVariable("title_value", profile.getFlagOrDefault(PlayerProfileFlag.TITLE_ENABLED))
+        .withVariable("action_bar_value", profile.getFlagOrDefault(PlayerProfileFlag.ACTION_BAR_ENABLED))
+        .withVariable("chat_value", profile.getFlagOrDefault(PlayerProfileFlag.CHAT_ENABLED))
+        .withVariable("sound_value", profile.getFlagOrDefault(PlayerProfileFlag.SOUND_ENABLED))
+        .withVariable("effect_value", profile.getFlagOrDefault(PlayerProfileFlag.PARTICLE_EFFECT_ENABLED))
     );
 
     return null;

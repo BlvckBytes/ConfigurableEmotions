@@ -1,6 +1,6 @@
 package me.blvckbytes.configurable_emotions.discord;
 
-import me.blvckbytes.bukkitevaluable.ConfigKeeper;
+import at.blvckbytes.cm_mapper.ConfigKeeper;
 import me.blvckbytes.configurable_emotions.config.MainSection;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;

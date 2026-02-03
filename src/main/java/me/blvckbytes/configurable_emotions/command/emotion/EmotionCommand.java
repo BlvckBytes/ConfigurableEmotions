@@ -1,7 +1,8 @@
 package me.blvckbytes.configurable_emotions.command.emotion;
 
-import me.blvckbytes.bbconfigmapper.ScalarType;
-import me.blvckbytes.bukkitevaluable.ConfigKeeper;
+import at.blvckbytes.cm_mapper.ConfigKeeper;
+import at.blvckbytes.component_markup.constructor.SlotType;
+import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
 import me.blvckbytes.configurable_emotions.EffectPlayer;
 import me.blvckbytes.configurable_emotions.UidScopedNamedStampStore;
 import me.blvckbytes.configurable_emotions.command.CommandPermission;
@@ -12,10 +13,10 @@ import me.blvckbytes.configurable_emotions.discord.DiscordApi;
 import me.blvckbytes.configurable_emotions.discord.DiscordApiManager;
 import me.blvckbytes.configurable_emotions.profile.PlayerProfileFlag;
 import me.blvckbytes.configurable_emotions.profile.PlayerProfileStore;
-import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
-import me.blvckbytes.gpeee.interpreter.IEvaluationEnvironment;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import net.kyori.adventure.title.Title;
+import net.kyori.adventure.title.TitlePart;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,6 +26,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Duration;
 import java.util.*;
 
 public class EmotionCommand implements CommandExecutor, TabCompleter {
@@ -56,12 +58,12 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
     if (!(sender instanceof Player player)) {
-      config.rootSection.playerMessages.playerOnlyCommand.sendMessage(sender, config.rootSection.builtBaseEnvironment);
+      config.rootSection.playerMessages.playerOnlyCommand.sendMessage(sender);
       return true;
     }
 
     if (!CommandPermission.COMMAND_EMOTION.hasPermission(player)) {
-      config.rootSection.playerMessages.missingPermissionEmotionCommand.sendMessage(player, config.rootSection.builtBaseEnvironment);
+      config.rootSection.playerMessages.missingPermissionEmotionCommand.sendMessage(player);
       return true;
     }
 
@@ -86,9 +88,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (emotion == null) {
       config.rootSection.playerMessages.unknownEmotionProvided.sendMessage(
         player,
-        config.rootSection.getBaseEnvironment()
-          .withStaticVariable("input", identifier)
-          .build()
+        new InterpretationEnvironment()
+          .withVariable("input", identifier)
       );
       return true;
     }
@@ -96,9 +97,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (!CommandPermission.hasEmotionPermission(player, identifierLower)) {
       config.rootSection.playerMessages.missingEmotionPermission.sendMessage(
         player,
-        config.rootSection.getBaseEnvironment()
-          .withStaticVariable("emotion_identifier", identifier)
-          .build()
+        new InterpretationEnvironment()
+          .withVariable("emotion_identifier", identifier)
       );
       return true;
     }
@@ -112,10 +112,9 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         if (remainingSeconds > 0) {
           config.rootSection.playerMessages.awaitRemainingCooldown.sendMessage(
             player,
-            config.rootSection.getBaseEnvironment()
-              .withStaticVariable("remaining_time", formatSecondsToTimeString(remainingSeconds))
-              .withStaticVariable("emotion_identifier", identifier)
-              .build()
+            new InterpretationEnvironment()
+              .withVariable("remaining_time", formatSecondsToTimeString(remainingSeconds))
+              .withVariable("emotion_identifier", identifier)
           );
           return true;
         }
@@ -131,9 +130,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         if (!emotion.supportsAll) {
           config.rootSection.playerMessages.unsupportedAllTarget.sendMessage(
             player,
-            config.rootSection.getBaseEnvironment()
-              .withStaticVariable("emotion_identifier", identifier)
-              .build()
+            new InterpretationEnvironment()
+              .withVariable("emotion_identifier", identifier)
           );
           return true;
         }
@@ -141,9 +139,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         if (args.length > 2) {
           config.rootSection.playerMessages.cannotCombineAllSentinelWithNames.sendMessage(
             player,
-            config.rootSection.getBaseEnvironment()
-              .withStaticVariable("all_sentinel", config.rootSection.commands.emotion.allSentinel)
-              .build()
+            new InterpretationEnvironment()
+              .withVariable("all_sentinel", config.rootSection.commands.emotion.allSentinel)
           );
           return true;
         }
@@ -151,9 +148,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         if (!playEmotionAll(player, emotion)) {
           config.rootSection.playerMessages.noReceivingPlayersOnline.sendMessage(
             player,
-            config.rootSection.getBaseEnvironment()
-              .withStaticVariable("emotion_identifier", identifier)
-              .build()
+            new InterpretationEnvironment()
+              .withVariable("emotion_identifier", identifier)
           );
           return true;
         }
@@ -167,9 +163,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       if (!emotion.supportsOthers) {
         config.rootSection.playerMessages.unsupportedOtherTarget.sendMessage(
           player,
-          config.rootSection.getBaseEnvironment()
-            .withStaticVariable("emotion_identifier", identifier)
-            .build()
+          new InterpretationEnvironment()
+            .withVariable("emotion_identifier", identifier)
         );
         return true;
       }
@@ -182,9 +177,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         if (config.rootSection.commands.emotion.allSentinel.equalsIgnoreCase(targetName)) {
           config.rootSection.playerMessages.cannotCombineAllSentinelWithNames.sendMessage(
             player,
-            config.rootSection.getBaseEnvironment()
-              .withStaticVariable("all_sentinel", config.rootSection.commands.emotion.allSentinel)
-              .build()
+            new InterpretationEnvironment()
+              .withVariable("all_sentinel", config.rootSection.commands.emotion.allSentinel)
           );
           return true;
         }
@@ -194,24 +188,22 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         if (targetPlayer == null || !targetPlayer.isOnline()) {
           config.rootSection.playerMessages.receivingPlayerNotOnline.sendMessage(
             player,
-            config.rootSection.getBaseEnvironment()
-              .withStaticVariable("target_player", targetName)
-              .build()
+            new InterpretationEnvironment()
+              .withVariable("target_player", targetName)
           );
           return true;
         }
 
         if (targetPlayer.equals(player)) {
-          config.rootSection.playerMessages.receiverCannotBeSelf.sendMessage(player, config.rootSection.builtBaseEnvironment);
+          config.rootSection.playerMessages.receiverCannotBeSelf.sendMessage(player);
           return true;
         }
 
         if (!targetPlayers.add(targetPlayer)) {
           config.rootSection.playerMessages.receivingPlayerDuplicate.sendMessage(
             player,
-            config.rootSection.getBaseEnvironment()
-              .withStaticVariable("target_player", targetName)
-              .build()
+            new InterpretationEnvironment()
+              .withVariable("target_player", targetName)
           );
           return true;
         }
@@ -229,10 +221,9 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       if (targetPlayers.size() > emotion.maximumNumberOfTargets) {
         config.rootSection.playerMessages.maximumNumberOfTargetsExceeded.sendMessage(
           player,
-          config.rootSection.getBaseEnvironment()
-            .withStaticVariable("emotion_identifier", identifier)
-            .withStaticVariable("maximum_count", emotion.maximumNumberOfTargets)
-            .build()
+          new InterpretationEnvironment()
+            .withVariable("emotion_identifier", identifier)
+            .withVariable("maximum_count", emotion.maximumNumberOfTargets)
         );
         return true;
       }
@@ -248,9 +239,8 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     if (!emotion.supportsSelf) {
       config.rootSection.playerMessages.unsupportedPlayingOnSelf.sendMessage(
         player,
-        config.rootSection.getBaseEnvironment()
-          .withStaticVariable("emotion_identifier", args[0])
-          .build()
+        new InterpretationEnvironment()
+          .withVariable("emotion_identifier", args[0])
       );
       return true;
     }
@@ -347,14 +337,14 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     String identifierLower,
     @NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args
   ) {
-    return onCommand(sender, command, label, (String[]) ArrayUtils.add(args, 0, identifierLower));
+    return onCommand(sender, command, label, ArrayUtils.add(args, identifierLower));
   }
 
   public List<String> onDirectTabComplete(
     String identifierLower,
     @NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args
   ) {
-    return onTabComplete(sender, command, label, (String[]) ArrayUtils.add(args, 0, identifierLower));
+    return onTabComplete(sender, command, label, ArrayUtils.add(args, identifierLower));
   }
 
   // ================================================================================
@@ -381,7 +371,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
       helpScreenEntries.add(new HelpScreenEntry(
         emotionIdentifier,
-        emotion.description.asScalar(ScalarType.STRING, config.rootSection.builtBaseEnvironment),
+        emotion.description.interpret(SlotType.SINGLE_LINE_CHAT, null).get(0),
         aliases,
         emotion.supportsSelf,
         emotion.supportsOthers,
@@ -390,7 +380,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     }
 
     if (mismatchedPermission && helpScreenEntries.isEmpty()) {
-      config.rootSection.playerMessages.noAccessToAnyEmotion.sendMessage(player, config.rootSection.builtBaseEnvironment);
+      config.rootSection.playerMessages.noAccessToAnyEmotion.sendMessage(player);
       return;
     }
 
@@ -411,14 +401,13 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     config.rootSection.playerMessages.commandEmotionHelpScreen.sendMessage(
       player,
-      config.rootSection.getBaseEnvironment()
-        .withStaticVariable("number_of_pages", numberOfPages)
-        .withStaticVariable("current_page", page)
-        .withStaticVariable("page_size", pageSize)
-        .withStaticVariable("label", commandLabel)
-        .withStaticVariable("all_sentinel", config.rootSection.commands.emotion.allSentinel)
-        .withStaticVariable("emotions", helpScreenEntries)
-        .build()
+      new InterpretationEnvironment()
+        .withVariable("number_of_pages", numberOfPages)
+        .withVariable("current_page", page)
+        .withVariable("page_size", pageSize)
+        .withVariable("label", commandLabel)
+        .withVariable("all_sentinel", config.rootSection.commands.emotion.allSentinel)
+        .withVariable("emotions", helpScreenEntries)
     );
   }
 
@@ -479,7 +468,6 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     var receivers = new ArrayList<Player>();
     var messageEnvironment = makeMessageEnvironment(sender);
-    var builtMessageEnvironment = messageEnvironment.build();
     var messages = emotion.accessAtAllMessages();
 
     for (var receiver : Bukkit.getOnlinePlayers()) {
@@ -487,10 +475,10 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
       var isSender = receiver.equals(sender);
 
-      var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
+      addReceiverVariables(receiver, messageEnvironment);
 
       if (messages.asBroadcast != null)
-        displayMessages(receiver, isSender, builtMessageEnvironment, messages.asBroadcast);
+        displayMessages(receiver, isSender, messageEnvironment, messages.asBroadcast);
 
       if (isSender)
         continue;
@@ -500,11 +488,11 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       playEmotionSound(emotion, true, receiver);
 
       if (messages.toReceiver != null)
-        displayMessages(receiver, false, receiverEnvironment, messages.toReceiver);
+        displayMessages(receiver, false, messageEnvironment, messages.toReceiver);
     }
 
     if (messages.asBroadcast != null)
-      possiblyBroadcastToConsole(emotion, messages.asBroadcast, builtMessageEnvironment);
+      possiblyBroadcastToConsole(emotion, messages.asBroadcast, messageEnvironment);
 
     for (var effect : emotion.effects) {
       effectPlayer.playEffect(effect, false, List.of(sender));
@@ -514,12 +502,12 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     playEmotionSound(emotion, false, sender);
 
     if (messages.toSender != null)
-      displayMessages(sender, true, builtMessageEnvironment, messages.toSender);
+      displayMessages(sender, true, messageEnvironment, messages.toSender);
 
     DiscordApi discordApi;
 
     if (messages.toDiscord != null && (discordApi = discordApiManager.getApi()) != null)
-      discordApi.sendMessage(messages.toDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
+      discordApi.sendMessage(messages.toDiscord.asPlainString(messageEnvironment));
 
     return true;
   }
@@ -535,25 +523,23 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     }
 
     var messageEnvironment = makeMessageEnvironment(sender)
-      .withStaticVariable("receivers_names", receiverNames)
-      .withStaticVariable("receivers_display_names", receiverDisplayNames);
-
-    var builtMessageEnvironment = messageEnvironment.build();
+      .withVariable("receivers_names", receiverNames)
+      .withVariable("receivers_display_names", receiverDisplayNames);
 
     if (messages.asBroadcast != null) {
       for (var broadcastReceiver : Bukkit.getOnlinePlayers())
-        displayMessages(broadcastReceiver, sender.equals(broadcastReceiver) || receivers.contains(broadcastReceiver), builtMessageEnvironment, messages.asBroadcast);
+        displayMessages(broadcastReceiver, sender.equals(broadcastReceiver) || receivers.contains(broadcastReceiver), messageEnvironment, messages.asBroadcast);
 
-      possiblyBroadcastToConsole(emotion, messages.asBroadcast, builtMessageEnvironment);
+      possiblyBroadcastToConsole(emotion, messages.asBroadcast, messageEnvironment);
     }
 
     for (var receiver : receivers) {
-      var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
+      addReceiverVariables(receiver, messageEnvironment);
 
       playEmotionSound(emotion, false, receiver);
 
       if (messages.toReceiver != null)
-        displayMessages(receiver, true, receiverEnvironment, messages.toReceiver);
+        displayMessages(receiver, true, messageEnvironment, messages.toReceiver);
     }
 
     for (var effect : emotion.effects) {
@@ -564,52 +550,55 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     playEmotionSound(emotion, false, sender);
 
     if (messages.toSender != null)
-      displayMessages(sender, true, builtMessageEnvironment, messages.toSender);
+      displayMessages(sender, true, messageEnvironment, messages.toSender);
 
     DiscordApi discordApi;
 
     if (messages.toDiscord != null && (discordApi = discordApiManager.getApi()) != null)
-      discordApi.sendMessage(messages.toDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
+      discordApi.sendMessage(messages.toDiscord.asPlainString(messageEnvironment));
   }
 
-  private IEvaluationEnvironment addReceiverVariablesAndBuild(Player receiver, EvaluationEnvironmentBuilder environment) {
-    return environment
-      .withStaticVariable("receiver_name", receiver.getName())
-      .withStaticVariable("receiver_display_name", receiver.getDisplayName())
-      .build();
+  private void addReceiverVariables(Player receiver, InterpretationEnvironment environment) {
+    environment
+      .withVariable("receiver_name", receiver.getName())
+      .withVariable("receiver_display_name", receiver.displayName());
   }
 
-  private EvaluationEnvironmentBuilder makeMessageEnvironment(Player sender) {
-    return config.rootSection.getBaseEnvironment()
-      .withStaticVariable("sender_name", sender.getName())
-      .withStaticVariable("sender_display_name", sender.getDisplayName());
+  private InterpretationEnvironment makeMessageEnvironment(Player sender) {
+    return new InterpretationEnvironment()
+      .withVariable("sender_name", sender.getName())
+      .withVariable("sender_display_name", sender.displayName());
   }
 
   private void displayMessages(
     Player receiver,
     boolean isTargetedByEmotion,
-    IEvaluationEnvironment messageEnvironment,
+    InterpretationEnvironment messageEnvironment,
     DisplayedMessages messages
   ) {
     var profile = profileStore.getProfile(receiver);
 
     if (messages.actionBarMessage != null && profile.getFlagOrDefault(PlayerProfileFlag.ACTION_BAR_ENABLED).doesShow(isTargetedByEmotion))
-      messages.actionBarMessage.sendActionBarMessage(receiver, messageEnvironment);
+      messages.actionBarMessage.sendActionBar(receiver, messageEnvironment);
 
     if (messages.chatMessage != null && profile.getFlagOrDefault(PlayerProfileFlag.CHAT_ENABLED).doesShow(isTargetedByEmotion))
       messages.chatMessage.sendMessage(receiver, messageEnvironment);
 
     if (profile.getFlagOrDefault(PlayerProfileFlag.TITLE_ENABLED).doesShow(isTargetedByEmotion)) {
       if (messages.titleMessage != null || messages.subTitleMessage != null) {
-        var applicator = (messages.titleMessage == null ? messages.subTitleMessage : messages.titleMessage).applicator;
+        if (messages.titleMessage != null)
+          receiver.sendTitlePart(TitlePart.TITLE, messages.titleMessage.interpret(SlotType.SINGLE_LINE_CHAT, messageEnvironment).get(0));
 
-        applicator.sendTitles(
-          receiver,
-          messages.titleMessage, messageEnvironment,
-          messages.subTitleMessage, messageEnvironment,
-          messages.titleFadeIn,
-          messages.titleStay,
-          messages.titleFadeOut
+        if (messages.subTitleMessage != null)
+          receiver.sendTitlePart(TitlePart.SUBTITLE, messages.subTitleMessage.interpret(SlotType.SINGLE_LINE_CHAT, messageEnvironment).get(0));
+
+        receiver.sendTitlePart(
+          TitlePart.TIMES,
+          Title.Times.times(
+            Duration.ofMillis(messages.titleFadeIn * 50L),
+            Duration.ofMillis(messages.titleStay * 50L),
+            Duration.ofMillis(messages.titleFadeOut * 50L)
+          )
         );
       }
     }
@@ -626,20 +615,20 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
   private void playEmotionOther(Player sender, Player receiver, EmotionSection emotion) {
     var messageEnvironment = makeMessageEnvironment(sender);
-    var receiverEnvironment = addReceiverVariablesAndBuild(receiver, messageEnvironment);
+    addReceiverVariables(receiver, messageEnvironment);
     var messages = emotion.accessAtOneMessages();
 
     if (messages.asBroadcast != null) {
       for (var messageReceiver : Bukkit.getOnlinePlayers())
-        displayMessages(messageReceiver, messageReceiver.equals(receiver) || messageReceiver.equals(sender), receiverEnvironment, messages.asBroadcast);
+        displayMessages(messageReceiver, messageReceiver.equals(receiver) || messageReceiver.equals(sender), messageEnvironment, messages.asBroadcast);
 
-      possiblyBroadcastToConsole(emotion, messages.asBroadcast, receiverEnvironment);
+      possiblyBroadcastToConsole(emotion, messages.asBroadcast, messageEnvironment);
     }
 
     playEmotionSound(emotion, false, receiver);
 
     if (messages.toReceiver != null)
-      displayMessages(receiver, true, receiverEnvironment, messages.toReceiver);
+      displayMessages(receiver, true, messageEnvironment, messages.toReceiver);
 
     for (var effect : emotion.effects) {
       effectPlayer.playEffect(effect, false, List.of(sender));
@@ -648,19 +637,17 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
 
     playEmotionSound(emotion, false, sender);
 
-    var builtMessageEnvironment = messageEnvironment.build();
-
     if (messages.toSender != null)
-      displayMessages(sender, true, builtMessageEnvironment, messages.toSender);
+      displayMessages(sender, true, messageEnvironment, messages.toSender);
 
     DiscordApi discordApi;
 
     if (messages.toDiscord != null && (discordApi = discordApiManager.getApi()) != null)
-      discordApi.sendMessage(messages.toDiscord.asScalar(ScalarType.STRING, builtMessageEnvironment));
+      discordApi.sendMessage(messages.toDiscord.asPlainString(messageEnvironment));
   }
 
   private void playEmotionSelf(Player sender, EmotionSection emotion) {
-    var messageEnvironment = makeMessageEnvironment(sender).build();
+    var messageEnvironment = makeMessageEnvironment(sender);
     var messages = emotion.accessAtSelfMessages();
 
     if (messages.asBroadcast != null) {
@@ -681,13 +668,13 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
     DiscordApi discordApi;
 
     if (messages.toDiscord != null && (discordApi = discordApiManager.getApi()) != null)
-      discordApi.sendMessage(messages.toDiscord.asScalar(ScalarType.STRING, messageEnvironment));
+      discordApi.sendMessage(messages.toDiscord.asPlainString(messageEnvironment));
   }
 
   private void possiblyBroadcastToConsole(
     EmotionSection emotion,
     @Nullable DisplayedMessages broadcastMessages,
-    IEvaluationEnvironment messageEnvironment
+    InterpretationEnvironment messageEnvironment
   ) {
     if (broadcastMessages == null || !emotion.broadcastToConsole)
       return;

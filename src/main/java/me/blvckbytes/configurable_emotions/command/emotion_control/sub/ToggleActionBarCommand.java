@@ -1,6 +1,6 @@
 package me.blvckbytes.configurable_emotions.command.emotion_control.sub;
 
-import me.blvckbytes.bukkitevaluable.ConfigKeeper;
+import at.blvckbytes.cm_mapper.ConfigKeeper;
 import me.blvckbytes.configurable_emotions.command.CommandFailure;
 import me.blvckbytes.configurable_emotions.command.emotion_control.ControlAction;
 import me.blvckbytes.configurable_emotions.config.MainSection;

@@ -1,23 +1,24 @@
 package me.blvckbytes.configurable_emotions.config;
 
-import me.blvckbytes.bbconfigmapper.sections.AConfigSection;
-import me.blvckbytes.bukkitevaluable.BukkitEvaluable;
-import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
+import at.blvckbytes.cm_mapper.cm.ComponentMarkup;
+import at.blvckbytes.cm_mapper.mapper.section.ConfigSection;
+import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
+import at.blvckbytes.component_markup.util.logging.InterpreterLogger;
 import org.jetbrains.annotations.Nullable;
 
-public class DisplayedMessages extends AConfigSection {
+public class DisplayedMessages extends ConfigSection {
 
-  public @Nullable BukkitEvaluable chatMessage;
-  public @Nullable BukkitEvaluable actionBarMessage;
-  public @Nullable BukkitEvaluable titleMessage;
-  public @Nullable BukkitEvaluable subTitleMessage;
+  public @Nullable ComponentMarkup chatMessage;
+  public @Nullable ComponentMarkup actionBarMessage;
+  public @Nullable ComponentMarkup titleMessage;
+  public @Nullable ComponentMarkup subTitleMessage;
 
   public int titleFadeIn;
   public int titleStay;
   public int titleFadeOut;
 
-  public DisplayedMessages(EvaluationEnvironmentBuilder baseEnvironment) {
-    super(baseEnvironment);
+  public DisplayedMessages(InterpretationEnvironment baseEnvironment, InterpreterLogger interpreterLogger) {
+    super(baseEnvironment, interpreterLogger);
 
     this.titleFadeIn = 5;
     this.titleStay = 35;

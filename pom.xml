@@ -27,9 +27,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.21.10-R0.1-SNAPSHOT</version>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.21.11-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -38,9 +38,9 @@
             <version>24.1.0</version>
         </dependency>
         <dependency>
-            <groupId>me.blvckbytes</groupId>
-            <artifactId>BukkitEvaluable</artifactId>
-            <version>0.1</version>
+            <groupId>at.blvckbytes</groupId>
+            <artifactId>CMMapper</artifactId>
+            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>me.blvckbytes</groupId>
@@ -92,36 +92,33 @@
                 <configuration>
                     <artifactSet>
                         <includes>
-                            <!-- Include all libs for shading -->
-                            <include>me.blvckbytes:BBConfigMapper</include>
-                            <include>me.blvckbytes:BukkitEvaluable</include>
-                            <include>me.blvckbytes:GPEEE</include>
+                            <include>at.blvckbytes:CMMapper</include>
+                            <include>at.blvckbytes:ComponentMarkup</include>
                             <include>me.blvckbytes:SyllablesMatcher</include>
-                            <!-- [1] Shouldn't be necessary anymore on newer versions of bukkit, but I prefer backwards-compatibility over file-size. -->
-                            <include>org.yaml:snakeyaml</include>
                             <include>com.github.cryptomorin:XSeries</include>
                             <include>org.jetbrains:annotations</include>
                         </includes>
                     </artifactSet>
 
                     <relocations>
-                        <!-- Relocate all libs into the root package -->
                         <relocation>
-                            <pattern>me/blvckbytes/(bbconfigmapper|bukkitevaluable|gpeee|syllables_matcher)/(.*)</pattern>
-                            <shadedPattern>me/blvckbytes/configurable_emotions/$1/$2</shadedPattern>
-                            <rawString>true</rawString>
+                            <pattern>me.blvckbytes.syllables_matcher</pattern>
+                            <shadedPattern>me.blvckbytes.configurable_emotions.syllables_matcher</shadedPattern>
                         </relocation>
 
-                        <!-- See [1] -->
                         <relocation>
-                            <pattern>org/yaml/snakeyaml/(.*)</pattern>
-                            <shadedPattern>me/blvckbytes/configurable_emotions/org/yaml/snakeyaml/$1</shadedPattern>
-                            <rawString>true</rawString>
+                            <pattern>at.blvckbytes.cm_mapper</pattern>
+                            <shadedPattern>me.blvckbytes.configurable_emotions.cm_mapper</shadedPattern>
                         </relocation>
+
                         <relocation>
-                            <pattern>com/cryptomorin/xseries/(.*)</pattern>
-                            <shadedPattern>me/blvckbytes/configurable_emotions/com/cryptomorin/xseries/$1</shadedPattern>
-                            <rawString>true</rawString>
+                            <pattern>at.blvckbytes.component_markup</pattern>
+                            <shadedPattern>me.blvckbytes.configurable_emotions.component_markup</shadedPattern>
+                        </relocation>
+
+                        <relocation>
+                            <pattern>com.cryptomorin.xseries</pattern>
+                            <shadedPattern>me.blvckbytes.configurable_emotions.com.cryptomorin.xseries</shadedPattern>
                         </relocation>
 
                         <relocation>

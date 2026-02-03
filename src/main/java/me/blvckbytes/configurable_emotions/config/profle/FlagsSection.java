@@ -1,11 +1,12 @@
 package me.blvckbytes.configurable_emotions.config.profle;
 
-import me.blvckbytes.bbconfigmapper.sections.AConfigSection;
-import me.blvckbytes.bbconfigmapper.sections.CSAlways;
-import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
+import at.blvckbytes.cm_mapper.mapper.section.CSAlways;
+import at.blvckbytes.cm_mapper.mapper.section.ConfigSection;
+import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
+import at.blvckbytes.component_markup.util.logging.InterpreterLogger;
 
 @CSAlways
-public class FlagsSection extends AConfigSection {
+public class FlagsSection extends ConfigSection {
 
   public FlagSection titleEnabled;
   public FlagSection actionBarEnabled;
@@ -13,7 +14,7 @@ public class FlagsSection extends AConfigSection {
   public FlagSection soundEnabled;
   public FlagSection effectEnabled;
 
-  public FlagsSection(EvaluationEnvironmentBuilder baseEnvironment) {
-    super(baseEnvironment);
+  public FlagsSection(InterpretationEnvironment baseEnvironment, InterpreterLogger interpreterLogger) {
+    super(baseEnvironment, interpreterLogger);
   }
 }

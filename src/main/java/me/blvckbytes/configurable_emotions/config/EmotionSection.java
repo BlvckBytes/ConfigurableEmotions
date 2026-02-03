@@ -1,13 +1,14 @@
 package me.blvckbytes.configurable_emotions.config;
 
+import at.blvckbytes.cm_mapper.cm.ComponentExpression;
+import at.blvckbytes.cm_mapper.cm.ComponentMarkup;
+import at.blvckbytes.cm_mapper.mapper.MappingError;
+import at.blvckbytes.cm_mapper.mapper.section.CSAlways;
+import at.blvckbytes.cm_mapper.mapper.section.CSIgnore;
+import at.blvckbytes.cm_mapper.mapper.section.ConfigSection;
+import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
+import at.blvckbytes.component_markup.util.logging.InterpreterLogger;
 import com.cryptomorin.xseries.XSound;
-import me.blvckbytes.bbconfigmapper.MappingError;
-import me.blvckbytes.bbconfigmapper.ScalarType;
-import me.blvckbytes.bbconfigmapper.sections.AConfigSection;
-import me.blvckbytes.bbconfigmapper.sections.CSAlways;
-import me.blvckbytes.bbconfigmapper.sections.CSIgnore;
-import me.blvckbytes.bukkitevaluable.BukkitEvaluable;
-import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
@@ -16,11 +17,11 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @CSAlways
-public class EmotionSection extends AConfigSection {
+public class EmotionSection extends ConfigSection {
 
   public boolean tryRegisterDirectly;
   public List<String> directAliases;
-  public BukkitEvaluable description;
+  public ComponentMarkup description;
   public boolean doesNoTargetEqualsAll;
 
   public long cooldownSeconds;
@@ -30,9 +31,9 @@ public class EmotionSection extends AConfigSection {
   public int maximumNumberOfTargets;
   public boolean broadcastToConsole;
 
-  private @Nullable BukkitEvaluable sound;
-  private @Nullable BukkitEvaluable soundPitch;
-  private @Nullable BukkitEvaluable soundVolume;
+  private @Nullable ComponentMarkup sound;
+  private @Nullable ComponentExpression soundPitch;
+  private @Nullable ComponentExpression soundVolume;
 
   @CSIgnore
   public @Nullable XSound _sound;
@@ -57,8 +58,8 @@ public class EmotionSection extends AConfigSection {
   private MultiDirectedMessages atAllMessages;
   private @Nullable List<MultiDirectedMessages> additionalAtAllMessages;
 
-  public EmotionSection(EvaluationEnvironmentBuilder baseEnvironment) {
-    super(baseEnvironment);
+  public EmotionSection(InterpretationEnvironment baseEnvironment, InterpreterLogger interpreterLogger) {
+    super(baseEnvironment, interpreterLogger);
 
     this.effects = new ArrayList<>();
     this.directAliases = new ArrayList<>();
@@ -81,15 +82,20 @@ public class EmotionSection extends AConfigSection {
       throw new MappingError("Property \"description\" was absent, but is required");
 
     if (sound != null) {
-      if ((_sound = sound.asXSound(builtBaseEnvironment)) == null)
-        throw new MappingError("Property \"sound\" could not be corresponded to any valid sound");
+      var soundString = sound.asPlainString(null);
+      var xSound = XSound.of(soundString);
+
+      if (xSound.isEmpty())
+        throw new MappingError("Property \"sound\" of value \"" + soundString + "\" could not be corresponded to an XSound");
+
+      _sound = xSound.get();
     }
 
     if (soundPitch != null)
-      _soundPitch = soundPitch.asScalar(ScalarType.DOUBLE, builtBaseEnvironment).floatValue();
+      _soundPitch = (float) ComponentExpression.asDouble(soundPitch, null);
 
     if (soundVolume != null)
-      _soundVolume = soundVolume.asScalar(ScalarType.DOUBLE, builtBaseEnvironment).floatValue();
+      _soundVolume = (float) ComponentExpression.asDouble(soundVolume, null);
   }
 
   public MultiDirectedMessages accessAtSelfMessages() {

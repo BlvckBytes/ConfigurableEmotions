@@ -1,17 +1,18 @@
 package me.blvckbytes.configurable_emotions.config.profle;
 
-import me.blvckbytes.bbconfigmapper.sections.AConfigSection;
-import me.blvckbytes.bukkitevaluable.BukkitEvaluable;
+import at.blvckbytes.cm_mapper.cm.ComponentMarkup;
+import at.blvckbytes.cm_mapper.mapper.section.ConfigSection;
+import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
+import at.blvckbytes.component_markup.util.logging.InterpreterLogger;
 import me.blvckbytes.configurable_emotions.profile.FlagValue;
-import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
 
-public class FlagSection extends AConfigSection {
+public class FlagSection extends ConfigSection {
 
   public FlagValue defaultValue = FlagValue.SELF_AND_OTHERS;
 
-  public BukkitEvaluable toggleMessage;
+  public ComponentMarkup toggleMessage;
 
-  public FlagSection(EvaluationEnvironmentBuilder baseEnvironment) {
-    super(baseEnvironment);
+  public FlagSection(InterpretationEnvironment baseEnvironment, InterpreterLogger interpreterLogger) {
+    super(baseEnvironment, interpreterLogger);
   }
 }

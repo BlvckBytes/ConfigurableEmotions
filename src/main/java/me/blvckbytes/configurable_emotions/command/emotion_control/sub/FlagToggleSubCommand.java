@@ -1,6 +1,7 @@
 package me.blvckbytes.configurable_emotions.command.emotion_control.sub;
 
-import me.blvckbytes.bukkitevaluable.ConfigKeeper;
+import at.blvckbytes.cm_mapper.ConfigKeeper;
+import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
 import me.blvckbytes.configurable_emotions.command.SubCommand;
 import me.blvckbytes.configurable_emotions.config.MainSection;
 import me.blvckbytes.configurable_emotions.profile.PlayerProfileFlag;
@@ -29,9 +30,8 @@ public abstract class FlagToggleSubCommand implements SubCommand {
 
     flagSection.toggleMessage.sendMessage(
       player,
-      config.rootSection.getBaseEnvironment()
-        .withStaticVariable("value", newValue)
-        .build()
+      new InterpretationEnvironment()
+        .withVariable("value", newValue)
     );
   }
 }

@@ -1,11 +1,12 @@
 package me.blvckbytes.configurable_emotions.config;
 
-import me.blvckbytes.bbconfigmapper.MappingError;
-import me.blvckbytes.bbconfigmapper.sections.AConfigSection;
-import me.blvckbytes.bbconfigmapper.sections.CSAlways;
-import me.blvckbytes.bbconfigmapper.sections.CSIgnore;
+import at.blvckbytes.cm_mapper.mapper.MappingError;
+import at.blvckbytes.cm_mapper.mapper.section.CSAlways;
+import at.blvckbytes.cm_mapper.mapper.section.CSIgnore;
+import at.blvckbytes.cm_mapper.mapper.section.ConfigSection;
+import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
+import at.blvckbytes.component_markup.util.logging.InterpreterLogger;
 import me.blvckbytes.configurable_emotions.config.profle.PlayerProfilesSection;
-import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @CSAlways
-public class MainSection extends AConfigSection {
+public class MainSection extends ConfigSection {
 
   public CommandsSection commands;
   public PlayerMessagesSection playerMessages;
@@ -25,8 +26,8 @@ public class MainSection extends AConfigSection {
   @CSIgnore
   public Map<String, EmotionSection> emotionByIdentifierLower;
 
-  public MainSection(EvaluationEnvironmentBuilder baseEnvironment) {
-    super(baseEnvironment);
+  public MainSection(InterpretationEnvironment baseEnvironment, InterpreterLogger interpreterLogger) {
+    super(baseEnvironment, interpreterLogger);
 
     this.emotions = new HashMap<>();
     this.emotionByIdentifierLower = new HashMap<>();

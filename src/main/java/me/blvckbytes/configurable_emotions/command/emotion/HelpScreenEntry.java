@@ -1,11 +1,13 @@
 package me.blvckbytes.configurable_emotions.command.emotion;
 
+import net.kyori.adventure.text.Component;
+
 import java.util.List;
 
 public class HelpScreenEntry {
 
   public final String identifier;
-  public final String description;
+  public final Component description;
   public final List<String> aliases;
   public final boolean supports_self;
   public final boolean supports_others;
@@ -13,7 +15,7 @@ public class HelpScreenEntry {
 
   public HelpScreenEntry(
     String identifier,
-    String description,
+    Component description,
     List<String> aliases,
     boolean supportsSelf,
     boolean supportsOthers,

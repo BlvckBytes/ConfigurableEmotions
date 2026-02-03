@@ -1,24 +1,24 @@
 package me.blvckbytes.configurable_emotions.config;
 
-import me.blvckbytes.bbconfigmapper.ScalarType;
-import me.blvckbytes.bukkitevaluable.BukkitEvaluable;
-import me.blvckbytes.bukkitevaluable.section.ACommandSection;
+import at.blvckbytes.cm_mapper.cm.ComponentMarkup;
+import at.blvckbytes.cm_mapper.section.command.CommandSection;
+import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
+import at.blvckbytes.component_markup.util.logging.InterpreterLogger;
 import me.blvckbytes.configurable_emotions.command.emotion_control.ControlAction;
-import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EmotionControlCommandSection extends ACommandSection {
+public class EmotionControlCommandSection extends CommandSection {
 
   public static final String INITIAL_NAME = "emotionctl";
 
-  public Map<ControlAction, BukkitEvaluable> actionNames;
+  public Map<ControlAction, ComponentMarkup> actionNames;
 
-  public EmotionControlCommandSection(EvaluationEnvironmentBuilder baseEnvironment) {
-    super(INITIAL_NAME, baseEnvironment);
+  public EmotionControlCommandSection(InterpretationEnvironment baseEnvironment, InterpreterLogger interpreterLogger) {
+    super(INITIAL_NAME, baseEnvironment, interpreterLogger);
 
     this.actionNames = new HashMap<>();
   }
@@ -36,7 +36,7 @@ public class EmotionControlCommandSection extends ACommandSection {
         continue;
       }
 
-      normalizedConstant.setName(name.asScalar(ScalarType.STRING, builtBaseEnvironment));
+      normalizedConstant.setName(name.asPlainString(null));
     }
   }
 }

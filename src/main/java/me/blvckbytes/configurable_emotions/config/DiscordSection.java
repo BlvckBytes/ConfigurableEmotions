@@ -1,15 +1,16 @@
 package me.blvckbytes.configurable_emotions.config;
 
-import me.blvckbytes.bbconfigmapper.sections.AConfigSection;
-import me.blvckbytes.bbconfigmapper.sections.CSAlways;
-import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
+import at.blvckbytes.cm_mapper.mapper.section.CSAlways;
+import at.blvckbytes.cm_mapper.mapper.section.ConfigSection;
+import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
+import at.blvckbytes.component_markup.util.logging.InterpreterLogger;
 
 @CSAlways
-public class DiscordSection extends AConfigSection {
+public class DiscordSection extends ConfigSection {
 
   public EssentialsDiscordSection essentialsDiscord;
 
-  public DiscordSection(EvaluationEnvironmentBuilder baseEnvironment) {
-    super(baseEnvironment);
+  public DiscordSection(InterpretationEnvironment baseEnvironment, InterpreterLogger interpreterLogger) {
+    super(baseEnvironment, interpreterLogger);
   }
 }

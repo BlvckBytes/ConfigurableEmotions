@@ -1,6 +1,7 @@
 package me.blvckbytes.configurable_emotions.command.emotion_control;
 
-import me.blvckbytes.bukkitevaluable.ConfigKeeper;
+import at.blvckbytes.cm_mapper.ConfigKeeper;
+import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
 import me.blvckbytes.configurable_emotions.command.CommandFailure;
 import me.blvckbytes.configurable_emotions.command.CommandPermission;
 import me.blvckbytes.configurable_emotions.command.SubCommand;
@@ -44,7 +45,7 @@ public class EmotionControlCommand implements CommandExecutor, TabCompleter {
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
     if (!CommandPermission.COMMAND_EMOTION_CONTROL.hasPermission(sender)) {
-      config.rootSection.playerMessages.missingPermissionEmotionControlCommand.sendMessage(sender, config.rootSection.builtBaseEnvironment);
+      config.rootSection.playerMessages.missingPermissionEmotionControlCommand.sendMessage(sender);
       return true;
     }
 
@@ -54,20 +55,19 @@ public class EmotionControlCommand implements CommandExecutor, TabCompleter {
       if (args.length == 0) {
         config.rootSection.playerMessages.multiUsageScreen.sendMessage(
           sender,
-          config.rootSection.getBaseEnvironment()
-            .withStaticVariable(
+          new InterpretationEnvironment()
+            .withVariable(
               "usages",
               subCommands.values()
                 .stream()
                 .map(it -> "/" + label + " " + it.getPartialUsage(sender))
                 .toList()
             )
-            .build()
         );
         return true;
       }
 
-      config.rootSection.playerMessages.noUsageMessage.sendMessage(sender, config.rootSection.builtBaseEnvironment);
+      config.rootSection.playerMessages.noUsageMessage.sendMessage(sender);
       return true;
     }
 
@@ -79,15 +79,14 @@ public class EmotionControlCommand implements CommandExecutor, TabCompleter {
     if (result == CommandFailure.INVALID_USAGE) {
       config.rootSection.playerMessages.singleUsageMessage.sendMessage(
         sender,
-        config.rootSection.getBaseEnvironment()
-          .withStaticVariable("usage", subCommand.getPartialUsage(sender))
-          .build()
+        new InterpretationEnvironment()
+          .withVariable("usage", subCommand.getPartialUsage(sender))
       );
       return true;
     }
 
     if (result == CommandFailure.PLAYER_ONLY) {
-      config.rootSection.playerMessages.playerOnlyCommand.sendMessage(sender, config.rootSection.builtBaseEnvironment);
+      config.rootSection.playerMessages.playerOnlyCommand.sendMessage(sender);
       return true;
     }
 

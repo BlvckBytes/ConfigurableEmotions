@@ -1,9 +1,9 @@
 package me.blvckbytes.configurable_emotions;
 
+import at.blvckbytes.cm_mapper.ConfigHandler;
+import at.blvckbytes.cm_mapper.ConfigKeeper;
+import at.blvckbytes.cm_mapper.section.command.CommandUpdater;
 import com.cryptomorin.xseries.XMaterial;
-import me.blvckbytes.bukkitevaluable.CommandUpdater;
-import me.blvckbytes.bukkitevaluable.ConfigKeeper;
-import me.blvckbytes.bukkitevaluable.ConfigManager;
 import me.blvckbytes.configurable_emotions.command.CommandPermission;
 import me.blvckbytes.configurable_emotions.command.emotion.EmotionCommand;
 import me.blvckbytes.configurable_emotions.command.emotion_control.EmotionControlCommand;
@@ -41,8 +41,8 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       // First invocation is quite heavy - warm up cache
       XMaterial.matchXMaterial(Material.AIR);
 
-      var configManager = new ConfigManager(this, "config");
-      var config = new ConfigKeeper<>(configManager, "config.yml", MainSection.class);
+      var configHandler = new ConfigHandler(this, "config");
+      var config = new ConfigKeeper<>(configHandler, "config.yml", MainSection.class);
       commandUpdater = new CommandUpdater(this);
 
       stampStore = new UidScopedNamedStampStore(this, logger);

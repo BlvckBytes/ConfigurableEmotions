@@ -1,6 +1,6 @@
 package me.blvckbytes.configurable_emotions.listener;
 
-import me.blvckbytes.bukkitevaluable.ConfigKeeper;
+import at.blvckbytes.cm_mapper.ConfigKeeper;
 import me.blvckbytes.configurable_emotions.command.CommandPermission;
 import me.blvckbytes.configurable_emotions.config.MainSection;
 import org.bukkit.command.Command;

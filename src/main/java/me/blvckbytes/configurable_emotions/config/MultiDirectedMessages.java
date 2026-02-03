@@ -1,18 +1,19 @@
 package me.blvckbytes.configurable_emotions.config;
 
-import me.blvckbytes.bbconfigmapper.sections.AConfigSection;
-import me.blvckbytes.bukkitevaluable.BukkitEvaluable;
-import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
+import at.blvckbytes.cm_mapper.cm.ComponentMarkup;
+import at.blvckbytes.cm_mapper.mapper.section.ConfigSection;
+import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
+import at.blvckbytes.component_markup.util.logging.InterpreterLogger;
 import org.jetbrains.annotations.Nullable;
 
-public class MultiDirectedMessages extends AConfigSection {
+public class MultiDirectedMessages extends ConfigSection {
 
   public @Nullable DisplayedMessages toSender;
   public @Nullable DisplayedMessages toReceiver;
   public @Nullable DisplayedMessages asBroadcast;
-  public @Nullable BukkitEvaluable toDiscord;
+  public @Nullable ComponentMarkup toDiscord;
 
-  public MultiDirectedMessages(EvaluationEnvironmentBuilder baseEnvironment) {
-    super(baseEnvironment);
+  public MultiDirectedMessages(InterpretationEnvironment baseEnvironment, InterpreterLogger interpreterLogger) {
+    super(baseEnvironment, interpreterLogger);
   }
 }

@@ -1,9 +1,9 @@
 package me.blvckbytes.configurable_emotions.profile;
 
+import at.blvckbytes.cm_mapper.ConfigKeeper;
 import com.google.common.base.Charsets;
 import com.google.gson.*;
 import com.google.gson.stream.JsonWriter;
-import me.blvckbytes.bukkitevaluable.ConfigKeeper;
 import me.blvckbytes.configurable_emotions.config.MainSection;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
