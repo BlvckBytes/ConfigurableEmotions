@@ -51,22 +51,22 @@ playerMessages:
   noUsageMessage: '{lut.prefix} <&c>Deine Eingabe konnte mit keinem existierenden oder dir zugänglichem Befehl korrespondiert werden!'
   singleUsageMessage: '{lut.prefix} <&c>Benutzung: {usage}'
   multiUsageScreen: |
-    {lut.spacer}<br/>
+    {lut.fence}<br/>
     <container *for-usage="usages">
       <&8>> &e{usage}
     </container>
-    {lut.spacer}
+    {lut.fence}
   playerProfileScreen: |
-    {lut.spacer}<br/>
+    {lut.fence}<br/>
     <&7>- Einstellungsprofil von <&d>{holder_display_name}<br/>
     <container *for-flag_value="flag_values">
       <&8>> <&7>{lut.flag_name[flag_value.flag] ?? flag_value.flag}: {lut.flag_value[flag_value.value] ?? flag_value.value}<br/>
     </container>
-    {lut.spacer}
+    {lut.fence}
   actionReloadConfigSuccess: '{lut.prefix} <&7>Die Konfiguration des Plugins wurde <&a>erfolgreich neu geladen<&7>!'
   actionReloadConfigFailure: '{lut.prefix} <&c>Während des Neuladeprozesses der Konfiguration trat ein Fehler auf; bitte überprüfe die Konsole!'
   commandEmotionHelpScreen: |
-    {lut.spacer}<br/>
+    {lut.fence}<br/>
     <&7>Seite <&d>{current_page}<&7>/<&d>{number_of_pages} <&7>- Nutze /{label} \<Seite><br/>
     <br/>
     <container *for-emotion="emotions" *for-empty={<&c>Noch keine Emotionen konfiguriert<br/>}>
@@ -97,7 +97,7 @@ playerMessages:
       </container>
       <br/>
     </container>
-    {lut.spacer}
+    {lut.fence}
   receiverCannotBeSelf: '{lut.prefix} <&c>Du kannst dir selbst keine Emotion senden!'
   receivingPlayerNotOnline: '{lut.prefix} <&c>Der Spieler <&4>{target_player} <&c>befindet sich nicht auf dem Server!'
   receivingPlayerDuplicate: '{lut.prefix} <&c>Der Spieler <&4>{target_player} <&c>kommt in der Empfängerliste mehrfach vor!'
@@ -107,7 +107,7 @@ playerMessages:
   unsupportedPlayingOnSelf: '{lut.prefix} <&c>Die Emotion <&4>{emotion_identifier} <&c>kann nicht auf dir selbst ausgeführt werden!'
   unsupportedOtherTarget: '{lut.prefix} <&c>Die Emotion <&4>{emotion_identifier} <&c>unterstützt das Versenden an andere Spieler nicht!'
   unsupportedAllTarget: '{lut.prefix} <&c>Die Emotion <&4>{emotion_identifier} <&c>unterstützt das Versenden an alle Spieler nicht!'
-  awaitRemainingCooldown: '{lut.prefix} <&c>Bitte warte <&4><container *let-value="remaining_time" &lut.duration_display /><&c>, bevor du die Emotion <&4>{emotion_identifier} <&c>erneut ausführst!'
+  awaitRemainingCooldown: '{lut.prefix} <&c>Bitte warte <&4><container *let-value="remaining_time" [lut.duration_display] /><&c>, bevor du die Emotion <&4>{emotion_identifier} <&c>erneut ausführst!'
   missingEmotionPermission: '{lut.prefix} <&c>Dir fehlt das Recht, die Emotion <&4>{emotion_identifier} <&c>auszuführen!'
   noAccessToAnyEmotion: '{lut.prefix} <&c>Du hast auf keine der existierenden Emotionen Zugriff!'
   unknownEmotionProvided: '{lut.prefix} <&c>Die Emotion <&4>{input} <&c>existiert nicht!'
@@ -124,8 +124,8 @@ emotions:
 
 cLut:
   prefix: '<&8>[<&5>Emotionen<&8>]'
-  spacer: '<&8><&m>                       <&8>[<&5>Emotionen<&8>]<&8><&m>                       '
-  duration_display: '<duration &value units="hms" unit-renderer={<number &value format="0.#" locale="en_US" />{unit}} />'
+  fence: '<&8><&m>                       <&8>[<&5>Emotionen<&8>]<&8><&m>                       '
+  duration_display: '<duration [value] units="hms" unit-renderer={<number [value] format="0.#" locale="de_DE" />{unit}} />'
   flag_value:
     ONLY_SELF: '<&6>Nur persönliche'
     SELF_AND_OTHERS: '<&a>Alle'
