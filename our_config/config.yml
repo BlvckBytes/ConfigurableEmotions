@@ -126,7 +126,7 @@ emotions:
   Umarmen:
     tryRegisterDirectly: true
     directAliases:
-    - hug
+      - hug
     description: Umarme jemanden
     cooldownSeconds: 60
     supportsSelf: true
@@ -136,13 +136,13 @@ emotions:
     broadcastToConsole: true
     sound: CAT_PURR
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: HEART
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: HEART
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "🫂 Umarmung 🫂"
@@ -180,12 +180,12 @@ emotions:
       toDiscord$: '"🫂  " & sender_display_name & " umarmt Alle Spieler!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7umarmt " & lut["highlightColor"] & "Alle Spieler&7!"'
-  
+
   Händeschütteln:
     tryRegisterDirectly: true
     doesNoTargetEqualsAll: true
     directAliases:
-    - handshake
+      - handshake
     description: Hand zur Begrüßung schütteln
     cooldownSeconds: 60
     supportsSelf: false
@@ -195,13 +195,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_VILLAGER_TRADE
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 40
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: HAPPY_VILLAGER
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 40
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: HAPPY_VILLAGER
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "✌ Händeschütteln ✌"
@@ -232,11 +232,11 @@ emotions:
       toDiscord$: '"✌ " & sender_display_name & " schüttelt die Hand von Allen Spielern!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7schüttelt die Hand von " & lut["highlightColor"] & "Allen Spielern&7!"'
-  
+
   Schlagen:
     tryRegisterDirectly: true
     directAliases:
-    - punch
+      - punch
     description: Schlage jemanden
     cooldownSeconds: 60
     supportsSelf: true
@@ -246,13 +246,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_PLAYER_HURT
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: ANGRY_VILLAGER
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: ANGRY_VILLAGER
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "☠ Schlagen ☠"
@@ -290,12 +290,12 @@ emotions:
       toDiscord$: '"☠ " & sender_display_name & " schlägt Alle Spieler!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7schlägt " & lut["highlightColor"] & "Alle Spieler&7!"'
-  
+
   Küssen:
     tryRegisterDirectly: true
     doesNoTargetEqualsAll: true
     directAliases:
-    - kiss
+      - kiss
     description: Küsse jemanden
     cooldownSeconds: 60
     supportsSelf: false
@@ -305,20 +305,20 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_CAT_PURREOW
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: HEART
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: SMALL_FLAME
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: HEART
+      - displayType: CLOUD
+        cloudRadius: 1.3
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: SMALL_FLAME
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "❤ Kuss ❤"
@@ -349,11 +349,11 @@ emotions:
       toDiscord$: '"❤ " & sender_display_name & " küsst Alle Spieler!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7küsst " & lut["highlightColor"] & "Alle Spieler&7!"'
-  
+
   Popcorn:
     tryRegisterDirectly: true
     directAliases:
-    - pop
+      - pop
     description: Wirf Popcorn auf jemanden
     cooldownSeconds: 60
     supportsSelf: true
@@ -363,13 +363,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_CHICKEN_EGG
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: VILLAGER_ANGRY
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: VILLAGER_ANGRY
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "☄ Wirft Popcorn ☄"
@@ -407,12 +407,10 @@ emotions:
       toDiscord$: '"☄ " & sender_display_name & " wirft Popcorn auf Alle Spieler!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7wirft Popcorn auf " & lut["highlightColor"] & "Alle Spieler&7!"'
-  
-  Hochzeitsantrag:
+
+  marryme:
     tryRegisterDirectly: true
-    directAliases:
-    - marry
-    - marryme
+    directAliases: []
     description: Stelle jemandem einen Hochzeitsantrag
     cooldownSeconds: 120
     supportsSelf: false
@@ -421,13 +419,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_FIREWORK_ROCKET_BLAST
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: HEART
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: HEART
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "✉ Hochzeitsantrag ✉"
@@ -438,11 +436,11 @@ emotions:
       toDiscord$: '"✉ " & sender_display_name & " stellt " & receiver_display_name & " einen Hochzeitsantrag!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7stellt " & lut["highlightColor"] & receiver_display_name & " &7einen Hochzeitsantrag!"'
-  
+
   Traurig:
     tryRegisterDirectly: true
     directAliases:
-    - sad
+      - sad
     description: Sei Traurig
     cooldownSeconds: 60
     supportsSelf: true
@@ -451,13 +449,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_BAT_HURT
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 40
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: DRIPPING_WATER
+      - displayType: CLOUD
+        cloudRadius: 1.3
+        cloudParticleCount: 40
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: DRIPPING_WATER
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "☹ Traurig ☹"
@@ -467,11 +465,11 @@ emotions:
         titleMessage$: lut["mainColor"] & "☹ Traurig ☹"
         subTitleMessage$: lut["highlightColor"] & sender_display_name & " ist traurig"
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7verkündet seine/ihre Trauer!"'
-  
+
   Glücklich:
     tryRegisterDirectly: true
     directAliases:
-    - happy
+      - happy
     description: Sei Glücklich
     cooldownSeconds: 60
     supportsSelf: true
@@ -480,30 +478,30 @@ emotions:
     broadcastToConsole: true
     sound: BLOCK_NOTE_BLOCK_CHIME
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: REDSTONE
-      particleColor: 255 8 0
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: REDSTONE
-      particleColor: 255 164 0
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: REDSTONE
-      particleColor: 250 255 0
+      - displayType: CLOUD
+        cloudRadius: 1.3
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: REDSTONE
+        particleColor: 255 8 0
+      - displayType: CLOUD
+        cloudRadius: 1.3
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: REDSTONE
+        particleColor: 255 164 0
+      - displayType: CLOUD
+        cloudRadius: 1.3
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: REDSTONE
+        particleColor: 250 255 0
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "☺ Glücklich ☺"
@@ -513,12 +511,12 @@ emotions:
         titleMessage$: lut["mainColor"] & "☺ Glücklich ☺"
         subTitleMessage$: lut["highlightColor"] & sender_display_name & " ist glücklich"
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7verkündet seine/ihre Glücklichkeit!"'
-  
+
   GuteNacht:
     tryRegisterDirectly: true
     directAliases:
-    - goodnight
-    - guna
+      - goodnight
+      - guna
     description: Wünsche jemandem eine gute Nacht
     cooldownSeconds: 60
     supportsSelf: false
@@ -528,24 +526,24 @@ emotions:
     broadcastToConsole: true
     sound: BLOCK_AMETHYST_BLOCK_CHIME
     effects:
-    - displayType: HELIX
-      yOffset: 0.1
-      helixHeight: 2
-      helixRadius: 0.8
-      helixWindings: 3
-      numberOfHelixCurves: 1
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: REDSTONE
-      particleColor: 77 60 245
-      particleSize: 1
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 35
-      yOffset: 1.6
-      frequencyTicks: 7
-      numberOfExecutions: 4
-      particle: BUBBLE_POP
+      - displayType: HELIX
+        yOffset: 0.1
+        helixHeight: 2
+        helixRadius: 0.8
+        helixWindings: 3
+        numberOfHelixCurves: 1
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: REDSTONE
+        particleColor: 77 60 245
+        particleSize: 1
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 35
+        yOffset: 1.6
+        frequencyTicks: 7
+        numberOfExecutions: 4
+        particle: BUBBLE_POP
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "☯ Gute Nacht ☯"
@@ -576,13 +574,13 @@ emotions:
       toDiscord$: '"☯ " & sender_display_name & " wünscht Allen Spielern eine gute Nacht!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7wünscht " & lut["highlightColor"] & "Allen Spielern &7eine gute Nacht!"'
-  
+
   Bedanken:
     tryRegisterDirectly: true
     directAliases:
-    - danke
-    - thanks
-    - thx
+      - danke
+      - thanks
+      - thx
     description: Bedanke dich bei jemandem
     cooldownSeconds: 60
     supportsSelf: false
@@ -592,20 +590,20 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_VILLAGER_YES
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.3
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 25
-      numberOfExecutions: 1
-      particle: HAPPY_VILLAGER
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: HEART
+      - displayType: CLOUD
+        cloudRadius: 1.3
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 25
+        numberOfExecutions: 1
+        particle: HAPPY_VILLAGER
+      - displayType: CLOUD
+        cloudRadius: 1.2
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: HEART
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "✿ Bedanken ✿"
@@ -636,11 +634,11 @@ emotions:
       toDiscord$: '"✿ " & sender_display_name & " bedankt sich bei Allen Spielern!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7bedankt sich bei " & lut["highlightColor"] & "Allen Spielern&7!"'
-  
+
   Lachen:
     tryRegisterDirectly: true
     directAliases:
-    - laugh
+      - laugh
     description: Verkünde dein Lachen
     cooldownSeconds: 60
     supportsSelf: true
@@ -649,13 +647,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_WITCH_CELEBRATE
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 40
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: NOTE
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 40
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: NOTE
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "😂 Lachen 😂"
@@ -665,11 +663,11 @@ emotions:
         titleMessage$: lut["mainColor"] & "😂 Lachen 😂"
         subTitleMessage$: lut["highlightColor"] & sender_display_name & " lacht"
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7lacht!"'
-  
+
   Jubeln:
     tryRegisterDirectly: true
     directAliases:
-    - yay
+      - yay
     description: Jemandem zujubeln
     cooldownSeconds: 60
     supportsSelf: false
@@ -679,13 +677,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_VINDICATOR_CELEBRATE
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: FIREWORK
+      - displayType: CLOUD
+        cloudRadius: 1.2
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: FIREWORK
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "👊 Jubeln 👊"
@@ -716,12 +714,12 @@ emotions:
       toDiscord$: '"👊 " & sender_display_name & " jubelt mit Allen Spielern!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7jubelt mit " & lut["highlightColor"] & "Allen Spielern&7!"'
-  
+
   Glückwunsch:
     tryRegisterDirectly: true
     directAliases:
-    - gw
-    - congratz
+      - gw
+      - congratz
     description: Jemanden beglückwünschen
     cooldownSeconds: 60
     supportsSelf: false
@@ -731,13 +729,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_FIREWORK_ROCKET_LAUNCH
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: CHERRY_LEAVES
+      - displayType: CLOUD
+        cloudRadius: 1.2
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: CHERRY_LEAVES
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "🌺 Glückwunsch 🌺"
@@ -768,12 +766,12 @@ emotions:
       toDiscord$: '"🌺 " & sender_display_name & " beglückwünscht Alle Spieler!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7beglückwünscht " & lut["highlightColor"] & "Alle Spieler&7!"'
-  
+
   Hilfe:
     tryRegisterDirectly: true
     directAliases:
-    - helpme
-    - hilfmir
+      - helpme
+      - hilfmir
     description: Um Hilfe bitten
     cooldownSeconds: 120
     supportsSelf: true
@@ -783,13 +781,13 @@ emotions:
     broadcastToConsole: true
     sound: BLOCK_BELL_USE
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: DAMAGE_INDICATOR
+      - displayType: CLOUD
+        cloudRadius: 1.2
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: DAMAGE_INDICATOR
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "❔ Hilfe ❔"
@@ -829,11 +827,11 @@ emotions:
       toDiscord$: '"❔ " & sender_display_name & " bittet Alle Spieler um Hilfe!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7bittet " & lut["highlightColor"] & "Alle Spieler &7um Hilfe!"'
-  
+
   Keks:
     tryRegisterDirectly: true
     directAliases:
-    - cookie
+      - cookie
     description: Einen Keks verschenken
     cooldownSeconds: 60
     supportsSelf: true
@@ -843,13 +841,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_PLAYER_BURP
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: COMPOSTER
+      - displayType: CLOUD
+        cloudRadius: 1.2
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: COMPOSTER
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "🍪 Keks 🍪"
@@ -889,11 +887,11 @@ emotions:
       toDiscord$: '"🍪 " & sender_display_name & " gibt Allen Spielern einen Keks!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7gibt " & lut["highlightColor"] & "Allen Spielern &7einen Keks!"'
-  
+
   Rüsten:
     tryRegisterDirectly: true
     directAliases:
-    - ready
+      - ready
     description: Mitteilen, dass man für den Kampf gerüstet ist
     cooldownSeconds: 60
     supportsSelf: true
@@ -902,13 +900,13 @@ emotions:
     broadcastToConsole: true
     sound: ITEM_ARMOR_EQUIP_NETHERITE
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 40
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: DUST_PLUME
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 40
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: DUST_PLUME
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "🪖 Gerüstet 🪖"
@@ -918,11 +916,11 @@ emotions:
         titleMessage$: lut["mainColor"] & "🪖 Gerüstet 🪖"
         subTitleMessage$: lut["highlightColor"] & sender_display_name & " &7ist für den Kampf gerüstet!"
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7ist für den Kampf gerüstet!"'
-  
+
   Nase-Anstupsen:
     tryRegisterDirectly: true
     directAliases:
-    - boop
+      - boop
     description: Stupse jemandes Nase an
     cooldownSeconds: 60
     supportsSelf: false
@@ -932,13 +930,13 @@ emotions:
     broadcastToConsole: true
     sound: ENCHANT_THORNS_HIT
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: ELECTRIC_SPARK
+      - displayType: CLOUD
+        cloudRadius: 1.2
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: ELECTRIC_SPARK
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "👆 Boop 👆"
@@ -959,12 +957,12 @@ emotions:
       toDiscord$: '"👆 " & sender_display_name & " stupst die Nasen von " & iter_cat(receivers_display_names, (name) => name, ", ") & " an!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7stupst die Nasen von " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ") & " &7an!"'
-  
+
   HighFive:
     tryRegisterDirectly: true
     directAliases:
-    - high5
-    - abklatschen
+      - high5
+      - abklatschen
     description: Jemandem ein High-Five geben
     cooldownSeconds: 60
     supportsSelf: false
@@ -974,13 +972,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_PLAYER_BIG_FALL
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: TOTEM_OF_UNDYING
+      - displayType: CLOUD
+        cloudRadius: 1.2
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: TOTEM_OF_UNDYING
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "🖐 High-Five 🖐"
@@ -1011,12 +1009,12 @@ emotions:
       toDiscord$: '"🖐 " & sender_display_name & " gibt Allen Spielern ein High-Five!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7gibt " & lut["highlightColor"] & "Allen Spielern &7ein High-Five!"'
-  
+
   Enttäuscht:
     tryRegisterDirectly: true
     directAliases:
-    - entsetzt
-    - facepalm
+      - entsetzt
+      - facepalm
     description: Enttäuschung ausdrücken
     cooldownSeconds: 60
     supportsSelf: true
@@ -1026,13 +1024,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_PLAYER_DEATH
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: RAID_OMEN
+      - displayType: CLOUD
+        cloudRadius: 1.2
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: RAID_OMEN
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "🤦 Enttäuscht 🤦"
@@ -1072,11 +1070,11 @@ emotions:
       toDiscord$: '"🤦 " & sender_display_name & " ist von Allen Spielern enttäuscht!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7ist von " & lut["highlightColor"] & "Allen Spielern &7enttäuscht!"'
-  
+
   Winken:
     tryRegisterDirectly: true
     directAliases:
-    - wave
+      - wave
     description: Winke jemandem zu
     cooldownSeconds: 60
     supportsSelf: false
@@ -1086,13 +1084,13 @@ emotions:
     broadcastToConsole: true
     sound: BLOCK_NOTE_BLOCK_BELL
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 40
-      yOffset: 1.6
-      frequencyTicks: 10
-      numberOfExecutions: 3
-      particle: BUBBLE_COLUMN_UP
+      - displayType: CLOUD
+        cloudRadius: 1.2
+        cloudParticleCount: 40
+        yOffset: 1.6
+        frequencyTicks: 10
+        numberOfExecutions: 3
+        particle: BUBBLE_COLUMN_UP
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "👋 Winken 👋"
@@ -1123,12 +1121,12 @@ emotions:
       toDiscord$: '"👋 " & sender_display_name & " winkt Allen Spielern zu!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7winkt " & lut["highlightColor"] & "Allen Spielern &7zu!"'
-  
+
   BaumUmarmen:
     tryRegisterDirectly: true
     directAliases:
-    - treehug
-    - baumhug
+      - treehug
+      - baumhug
     description: Umarme einen Baum
     cooldownSeconds: 60
     supportsSelf: true
@@ -1137,14 +1135,14 @@ emotions:
     broadcastToConsole: true
     sound: BLOCK_AZALEA_STEP
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 40
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: BLOCK_CRACK
-      particleMaterial: OAK_LEAVES
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 40
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: BLOCK_CRACK
+        particleMaterial: OAK_LEAVES
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "🌳 Baum Umarmen 🌳"
@@ -1154,11 +1152,10 @@ emotions:
         titleMessage$: lut["mainColor"] & "🌳 Baum Umarmen 🌳"
         subTitleMessage$: lut["highlightColor"] & sender_display_name & " &7umarmt einen Baum"
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7umarmt einen Baum!"'
-  
-  JaIchWill:
+
+  marryyes:
     tryRegisterDirectly: true
-    directAliases:
-    - marryyes
+    directAliases: []
     description: Nimm einen Hochzeitsantrag an
     cooldownSeconds: 120
     supportsSelf: false
@@ -1167,13 +1164,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_VILLAGER_YES
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: EGG_CRACK
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: EGG_CRACK
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "💍✔ Ja, ich will 💍✔"
@@ -1184,11 +1181,10 @@ emotions:
       toDiscord$: '"💍✅ " & sender_display_name & " nimmt den Hochzeitsantrag von " & receiver_display_name & " an!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7nimmt den Hochzeitsantrag von " & lut["highlightColor"] & receiver_display_name & " &7an!"'
-  
-  NeinIchWillNicht:
+
+  marryno:
     tryRegisterDirectly: true
-    directAliases:
-    - marryno
+    directAliases: []
     description: Lehne einen Hochzeitsantrag ab
     cooldownSeconds: 120
     supportsSelf: false
@@ -1197,13 +1193,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_VILLAGER_NO
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: ENCHANTED_HIT
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: ENCHANTED_HIT
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "💍❌ Nein, ich will nicht 💍❌"
@@ -1214,12 +1210,12 @@ emotions:
       toDiscord$: '"💍❌ " & sender_display_name & " lehnt den Hochzeitsantrag von " & receiver_display_name & " ab!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7lehnt den Hochzeitsantrag von " & lut["highlightColor"] & receiver_display_name & " &7ab!"'
-  
+
   WillkommenZurück:
     tryRegisterDirectly: true
     directAliases:
-    - welcomeback
-    - weba
+      - welcomeback
+      - weba
     description: Heiße jemanden willkommen zurück
     cooldownSeconds: 60
     supportsSelf: false
@@ -1229,13 +1225,13 @@ emotions:
     broadcastToConsole: true
     sound: BLOCK_NOTE_BLOCK_CHIME
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 35
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: NOTE
+      - displayType: CLOUD
+        cloudRadius: 1.2
+        cloudParticleCount: 35
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: NOTE
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "✌ Willkommen Zurück ✌"
@@ -1256,11 +1252,11 @@ emotions:
       toDiscord$: '"✌️ " & sender_display_name & " heißt " & iter_cat(receivers_display_names, (name) => name, ", ") & " willkommen zurück!"'
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7heißt " & lut["highlightColor"] & iter_cat(receivers_display_names, (name) => lut["highlightColor"] & name, "&7, ") & " &7willkommen zurück!"'
-  
+
   Seufzer:
     tryRegisterDirectly: true
     directAliases:
-    - sigh
+      - sigh
     description: Stoße einen Seufzer aus
     cooldownSeconds: 60
     supportsSelf: true
@@ -1269,13 +1265,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_PILLAGER_DEATH
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.2
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: DAMAGE_INDICATOR
+      - displayType: CLOUD
+        cloudRadius: 1.2
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: DAMAGE_INDICATOR
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "😪 Seufzer 😪"
@@ -1286,15 +1282,15 @@ emotions:
         subTitleMessage$: lut["highlightColor"] & sender_display_name & " &7stößt einen Seufzer aus!"
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7stößt einen Seufzer aus!"'
     additionalAtSelfMessages:
-    -
-      toSender:
-        titleMessage$: lut["mainColor"] & "😪 Seufzer 😪"
-        subTitleMessage$: '"&7Du seufzst!"'
-      toDiscord$: '"😪 " & sender_display_name & " seufzt!"'
-      asBroadcast:
-        titleMessage$: lut["mainColor"] & "😪 Seufzer 😪"
-        subTitleMessage$: lut["highlightColor"] & sender_display_name & " &7seufzt!"
-        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7seufzt!"'
+      -
+        toSender:
+          titleMessage$: lut["mainColor"] & "😪 Seufzer 😪"
+          subTitleMessage$: '"&7Du seufzst!"'
+        toDiscord$: '"😪 " & sender_display_name & " seufzt!"'
+        asBroadcast:
+          titleMessage$: lut["mainColor"] & "😪 Seufzer 😪"
+          subTitleMessage$: lut["highlightColor"] & sender_display_name & " &7seufzt!"
+          chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7seufzt!"'
 
   Snickers:
     tryRegisterDirectly: true
@@ -1307,13 +1303,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_TURTLE_EGG_CRACK
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: ANGRY_VILLAGER
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: ANGRY_VILLAGER
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "🍫 Snickers 🍫"
@@ -1336,13 +1332,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_VILLAGER_YES
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: DRIPPING_WATER
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 30
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: DRIPPING_WATER
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
@@ -1351,13 +1347,13 @@ emotions:
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7bekennt " & lut["highlightColor"] & "seine/ihre &7Unschuld!"'
     additionalAtSelfMessages:
-    -
-      toSender:
-        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
-        subTitleMessage$: '"&7An " & lut["highlightColor"] & "dich selbst"'
-      toDiscord$: '"😅 " & sender_display_name & " war es nicht!"'
-      asBroadcast:
-        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7war es nicht!"'
+      -
+        toSender:
+          titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+          subTitleMessage$: '"&7An " & lut["highlightColor"] & "dich selbst"'
+        toDiscord$: '"😅 " & sender_display_name & " war es nicht!"'
+        asBroadcast:
+          chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7war es nicht!"'
     atOneMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
@@ -1369,32 +1365,32 @@ emotions:
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7bekennt die Unschuld von " & lut["highlightColor"] & receiver_display_name & "&7!"'
     additionalAtOneMessages:
-    -
-      toSender:
-        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
-        subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
-      toReceiver:
-        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
-        subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
-      toDiscord$: '"😅 " & sender_display_name & " bekennt " & receiver_display_name & "''s Unschuld!"'
-      asBroadcast:
-        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7bekennt " & lut["highlightColor"] & receiver_display_name & "''s &7Unschuld!"'
-    -
-      toSender:
-        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
-        subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
-      toReceiver:
-        titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
-        subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
-      toDiscord$: '"😅 " & sender_display_name & " sagt, dass " & receiver_display_name & " es nicht war!"'
-      asBroadcast:
-        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7sagt, dass " & lut["highlightColor"] & receiver_display_name & " &7es nicht war!"'
+      -
+        toSender:
+          titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+          subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+        toReceiver:
+          titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+          subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+        toDiscord$: '"😅 " & sender_display_name & " bekennt " & receiver_display_name & "''s Unschuld!"'
+        asBroadcast:
+          chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7bekennt " & lut["highlightColor"] & receiver_display_name & "''s &7Unschuld!"'
+      -
+        toSender:
+          titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+          subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
+        toReceiver:
+          titleMessage$: lut["mainColor"] & "😅 Unschuldig 😅"
+          subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
+        toDiscord$: '"😅 " & sender_display_name & " sagt, dass " & receiver_display_name & " es nicht war!"'
+        asBroadcast:
+          chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7sagt, dass " & lut["highlightColor"] & receiver_display_name & " &7es nicht war!"'
 
   Überrascht:
     tryRegisterDirectly: true
     directAliases:
-    - surprised
-    - ueberrascht
+      - surprised
+      - ueberrascht
     description: Teile mit, dass du überrascht bist.
     cooldownSeconds: 60
     supportsSelf: true
@@ -1404,13 +1400,13 @@ emotions:
     broadcastToConsole: true
     sound: ENTITY_VILLAGER_TRADE
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 5
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: EXPLOSION_LARGE
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 5
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: EXPLOSION_LARGE
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "😱 Überrascht 😱"
@@ -1431,7 +1427,7 @@ emotions:
 
   GrasAnfassen:
     directAliases:
-    - touchgrass
+      - touchgrass
     tryRegisterDirectly: true
     description: Jemand sollte mal Gras anfassen? Sag's Ihm/Ihr!
     cooldownSeconds: 60
@@ -1442,13 +1438,13 @@ emotions:
     broadcastToConsole: true
     sound: BLOCK_GRASS_BREAK
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 35
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: SNEEZE
+      - displayType: CLOUD
+        cloudRadius: 1.5
+        cloudParticleCount: 35
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: SNEEZE
     atSelfMessages:
       toSender:
         titleMessage$: lut["mainColor"] & "⸙ Gras anfassen ⸙"
@@ -1467,72 +1463,34 @@ emotions:
       asBroadcast:
         chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7denkt, dass " & lut["highlightColor"] & receiver_display_name & "&7 mal Gras anfassen gehen sollte!"'
 
-  Patricked:
+  Müde:
     tryRegisterDirectly: true
-    description: Patricke jemanden und ernenne die Person für 24h als „dumm“.
-    cooldownSeconds: 60
-    supportsSelf: false
-    supportsOthers: true
-    maximumNumberOfTargets: 1
-    supportsAll: false
-    broadcastToConsole: true
-    sound: ENTITY_VILLAGER_NO
-    effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: ANGRY_VILLAGER
-    atOneMessages:
-      toSender:
-        titleMessage$: lut["mainColor"] & "⭐ Patricked ⭐"
-        subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
-      toReceiver:
-        titleMessage$: lut["mainColor"] & "⭐ Patricked ⭐"
-        subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
-      toDiscord$: '"⭐ " & sender_display_name & " hat " & receiver_display_name & " ge-patricked; " & receiver_display_name & " ist jetzt für 24h dumm."'
-      asBroadcast:
-        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7hat " & lut["highlightColor"] & receiver_display_name & "&7 ge-patricked; " & lut["highlightColor"] & receiver_display_name & " &7ist jetzt für 24h dumm."'
-
-  UwU:
-    tryRegisterDirectly: true
-    description: UwU!
+    directAliases:
+      - tired
+    description: Sei Müde
     cooldownSeconds: 60
     supportsSelf: true
-    supportsOthers: true
-    maximumNumberOfTargets: 1
+    supportsOthers: false
     supportsAll: false
     broadcastToConsole: true
-    sound: ENTITY_CAT_BEG_FOR_FOOD
-    soundPitch: .88
-    soundVolume: 1.40
+    sound: ENTITY_FOX_SLEEP
     effects:
-    - displayType: CLOUD
-      cloudRadius: 1.5
-      cloudParticleCount: 30
-      yOffset: 1.6
-      frequencyTicks: 15
-      numberOfExecutions: 2
-      particle: HEART
+      - displayType: CLOUD
+        cloudRadius: 1.3
+        cloudParticleCount: 40
+        yOffset: 1.6
+        frequencyTicks: 15
+        numberOfExecutions: 2
+        particle: DRIPPING_WATER
     atSelfMessages:
       toSender:
-        titleMessage$: lut["mainColor"] & "👉👈 UwU 👉👈"
-        subTitleMessage$: '"&7An " & lut["highlightColor"] & "dich selbst"'
-      toDiscord$: '"👉👈 " & sender_display_name & " ."'
+        titleMessage$: lut["mainColor"] & "😴 Müde 😴"
+        subTitleMessage$: lut["highlightColor"] & "Du bist müde"
+      toDiscord$: '"😴 " & sender_display_name & " ist müde!"'
       asBroadcast:
-        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7sagt UwU."'
-    atOneMessages:
-      toSender:
-        titleMessage$: lut["mainColor"] & "👉👈 UwU 👉👈"
-        subTitleMessage$: '"&7An " & lut["highlightColor"] & receiver_display_name'
-      toReceiver:
-        titleMessage$: lut["mainColor"] & "👉👈 UwU 👉👈"
-        subTitleMessage$: '"&7Von " & lut["highlightColor"] & sender_display_name'
-      toDiscord$: '"👉👈 " & sender_display_name & " sagt UwU zu " & receiver_display_name'
-      asBroadcast:
-        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7sagt UwU zu " & lut["highlightColor"] & receiver_display_name'
+        titleMessage$: lut["mainColor"] & "😴 Müde 😴"
+        subTitleMessage$: lut["highlightColor"] & sender_display_name & " ist müde"
+        chatMessage$: '"&7* " & lut["highlightColor"] & sender_display_name & " &7ist müde!"'
 
 cLut:
   prefix: '<&8>[<color [lut.main]>Emotionen<&8>]'
