@@ -429,7 +429,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       if (!sender.canSee(target) && !sender.hasPermission("configurableemotions.bypass-hidden"))
         continue;
 
-      if (target.getName().equals(input) || sanitize(target.getDisplayName()).equals(input))
+      if (target.getName().equalsIgnoreCase(input) || sanitize(target.getDisplayName()).equalsIgnoreCase(input))
         return target;
     }
 
