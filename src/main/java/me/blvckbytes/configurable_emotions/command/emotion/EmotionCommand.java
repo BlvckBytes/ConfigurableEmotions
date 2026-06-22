@@ -3,6 +3,7 @@ package me.blvckbytes.configurable_emotions.command.emotion;
 import at.blvckbytes.cm_mapper.ConfigKeeper;
 import at.blvckbytes.component_markup.constructor.SlotType;
 import at.blvckbytes.component_markup.expression.interpreter.InterpretationEnvironment;
+import me.blvckbytes.configurable_emotions.ComponentUtil;
 import me.blvckbytes.configurable_emotions.EffectPlayer;
 import me.blvckbytes.configurable_emotions.UidScopedNamedStampStore;
 import me.blvckbytes.configurable_emotions.command.CommandPermission;
@@ -301,7 +302,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
         continue;
 
       var name = target.getName();
-      var displayName = sanitize(target.getDisplayName());
+      var displayName = sanitize(ComponentUtil.componentToText(target.displayName()));
 
       if (!name.equals(displayName)) {
         if (!StringUtils.containsIgnoreCase(displayName, lastArg))
@@ -429,7 +430,7 @@ public class EmotionCommand implements CommandExecutor, TabCompleter {
       if (!sender.canSee(target) && !sender.hasPermission("configurableemotions.bypass-hidden"))
         continue;
 
-      if (target.getName().equalsIgnoreCase(input) || sanitize(target.getDisplayName()).equalsIgnoreCase(input))
+      if (target.getName().equalsIgnoreCase(input) || sanitize(ComponentUtil.componentToText(target.displayName())).equalsIgnoreCase(input))
         return target;
     }
 
