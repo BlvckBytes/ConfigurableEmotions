@@ -2,6 +2,7 @@ package me.blvckbytes.configurable_emotions;
 
 import at.blvckbytes.cm_mapper.ConfigHandler;
 import at.blvckbytes.cm_mapper.ConfigKeeper;
+import at.blvckbytes.cm_mapper.ConfigKeeperReloadEvent;
 import at.blvckbytes.cm_mapper.section.command.CommandUpdater;
 import com.cryptomorin.xseries.XMaterial;
 import me.blvckbytes.configurable_emotions.command.CommandPermission;
@@ -15,8 +16,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,14 +28,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 
-public class ConfigurableEmotionsPlugin extends JavaPlugin {
+public class ConfigurableEmotionsPlugin extends JavaPlugin implements Listener {
 
   private final List<Command> currentlyRegisteredDirectCommands = new ArrayList<>();
 
-  private UidScopedNamedStampStore stampStore;
-  private CommandUpdater commandUpdater;
-  private CommandSendListener commandSendListener;
-  private PlayerProfileStore profileStore;
+  private @Nullable UidScopedNamedStampStore stampStore;
+  private @Nullable CommandUpdater commandUpdater;
+  private @Nullable CommandSendListener commandSendListener;
+  private @Nullable PlayerProfileStore profileStore;
+  private @Nullable ConfigKeeper<MainSection> config;
+  private Runnable configReloadRunnable;
 
   @Override
   public void onEnable() {
@@ -42,7 +48,7 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       XMaterial.matchXMaterial(Material.AIR);
 
       var configHandler = new ConfigHandler(this, "config");
-      var config = new ConfigKeeper<>(configHandler, "config.yml", MainSection.class);
+      config = new ConfigKeeper<>(configHandler, "config.yml", MainSection.class);
       commandUpdater = new CommandUpdater(this);
 
       stampStore = new UidScopedNamedStampStore(this, logger);
@@ -50,7 +56,10 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
 
       var effectPlayer = new EffectPlayer(profileStore, this, logger);
       var emotionCommand = Objects.requireNonNull(getCommand(EmotionCommandSection.INITIAL_NAME));
+
       var discordApiManager = new DiscordApiManager(this, logger, config);
+      getServer().getPluginManager().registerEvents(discordApiManager, this);
+
       var emotionCommandHandler = new EmotionCommand(effectPlayer, stampStore, profileStore, discordApiManager, config);
       emotionCommand.setExecutor(emotionCommandHandler);
 
@@ -101,27 +110,50 @@ public class ConfigurableEmotionsPlugin extends JavaPlugin {
       };
 
       updateCommands.run();
-      config.registerReloadListener(updateCommands);
 
       Runnable emotionCountLogger = () -> logger.info("Loaded " + config.rootSection.emotions.size() + " configured emotions!");
 
       emotionCountLogger.run();
-      config.registerReloadListener(emotionCountLogger);
+
+      configReloadRunnable = () -> {
+        updateCommands.run();
+        emotionCountLogger.run();
+      };
+
+      getServer().getPluginManager().registerEvents(this, this);
     } catch (Exception e) {
       logger.log(Level.SEVERE, "Could not initialize plugin", e);
       Bukkit.getPluginManager().disablePlugin(this);
     }
   }
 
+  @EventHandler
+  public void onConfigReload(ConfigKeeperReloadEvent event) {
+    if (event.configKeeper == config && configReloadRunnable != null)
+      configReloadRunnable.run();
+  }
+
   @Override
   public void onDisable() {
-    if (stampStore != null)
-      stampStore.onDisable();
+    if (stampStore != null) {
+      catchAll(stampStore::onDisable);
+      stampStore = null;
+    }
 
-    if (profileStore != null)
-      profileStore.onDisable();
+    if (profileStore != null) {
+      catchAll(profileStore::onDisable);
+      profileStore = null;
+    }
 
     unregisterCurrentlyRegisteredDirectCommands();
+  }
+
+  private void catchAll(Runnable runnable) {
+    try {
+      runnable.run();
+    } catch (Throwable e) {
+      getLogger().log(Level.SEVERE, "An error occurred while trying to shut down", e);
+    }
   }
 
   private void unregisterCurrentlyRegisteredDirectCommands() {

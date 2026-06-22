@@ -1,14 +1,17 @@
 package me.blvckbytes.configurable_emotions.discord;
 
 import at.blvckbytes.cm_mapper.ConfigKeeper;
+import at.blvckbytes.cm_mapper.ConfigKeeperReloadEvent;
 import me.blvckbytes.configurable_emotions.config.MainSection;
 import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.logging.Logger;
 
-public class DiscordApiManager {
+public class DiscordApiManager implements Listener {
 
   private final Plugin plugin;
   private final Logger logger;
@@ -27,7 +30,12 @@ public class DiscordApiManager {
     this.config = config;
 
     determineDiscordApi();
-    this.config.registerReloadListener(this::determineDiscordApi);
+  }
+
+  @EventHandler
+  public void onConfigReload(ConfigKeeperReloadEvent event) {
+    if (event.configKeeper == config)
+      determineDiscordApi();
   }
 
   public @Nullable DiscordApi getApi() {
